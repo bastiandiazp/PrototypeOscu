@@ -8,7 +8,7 @@
         >
             <v-col>
                 <div class="container">
-                    <v-btn @click="$router.push('/')" color="secondary" fab block plain>
+                    <v-btn @click="$router.push('/')" color="#2596BE" dark fab block plain>
                         <div>
                         <v-icon class="icon">mdi-heart</v-icon>
                         <p class="text">Inicio</p>
@@ -18,12 +18,21 @@
             </v-col>
             <v-col>
                 <div class="container">
-                    <v-btn @click="$router.push('/Buscar')" color="secondary" fab block plain>
-                        <div>
-                        <v-icon class="icon">mdi-heart</v-icon>
-                        <p class="text">Inicio</p>
-                        </div>
-                    </v-btn>
+                  <v-btn
+                    @click="handleButtonClick"
+                    color="#2596BE"
+                    :active-class="activeClass"
+                    :inactive-class="inactiveClass"
+                    fab block plain
+                  >
+                    <div>
+                      <!-- Aquí usamos una variable para cambiar el icono -->
+                      <v-icon :style="{ color: isClicked ? '#2596BE' : '' }" class="icon">
+                        {{ isClicked ? 'mdi-hand-heart' : 'mdi-heart' }}
+                      </v-icon>
+                      <p :style="{ color: isClicked ? '#2596BE' : '' }" class="text">Inicio</p>
+                    </div>
+                  </v-btn>
                 </div>
             </v-col>
             <v-col>
@@ -38,12 +47,12 @@
             </v-col>
             <v-col class="container">
                 <div class="container">
-                    <v-btn @click="$router.push('/Perfil')" color="secondary" fab block plain>
-                        <div>
-                        <v-icon class="icon">mdi-heart</v-icon>
-                        <p class="text">Inicio</p>
-                        </div>
-                    </v-btn>
+                  <button @click="handleButtonClick" class="my-custom-button">
+                    <div>
+                      <v-icon class="icon">mdi-heart</v-icon>
+                      <p class="text">Inicio</p>
+                    </div>
+                  </button>
                 </div>
             </v-col>
         </v-row>
@@ -55,12 +64,27 @@
 <script>
   export default {
     data: () => ({
+      isClicked: false,
       alignments: [
         'start',
         'center',
         'end',
       ],
     }),
+    computed: {
+      activeClass() {
+        return this.isClicked ? 'custom-active-class' : '';
+      },
+      inactiveClass() {
+        return this.isClicked ? '' : 'custom-inactive-class';
+      },
+    },
+    methods: {
+      handleButtonClick() {
+      // Agrega aquí el código para manejar el evento de clic del botón
+      this.$router.push('/Perfil');
+    },
+  },
   }
 </script>
 
@@ -94,5 +118,16 @@
   margin-top: 1px; /* Espacio entre el icono y el texto */
   font-size: 16px; /* Tamaño del texto, ajusta según tus necesidades */
   font-family: 'Roboto', sans-serif;
+  color: black;
+}
+
+.custom-active-class {
+  /* Estilos personalizados para cuando el botón está seleccionado */
+  background-color: #ff0000; /* Por ejemplo, color rojo cuando está seleccionado */
+}
+
+.custom-inactive-class {
+  /* Estilos personalizados para cuando el botón no está seleccionado */
+  background-color: #00ff00; /* Por ejemplo, color verde cuando no está seleccionado */
 }
 </style>
