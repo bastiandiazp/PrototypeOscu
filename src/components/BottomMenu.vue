@@ -10,7 +10,7 @@
                 <div class="container">
                     <v-btn @click="$router.push('/')" color="#2596BE" dark fab block plain>
                         <div>
-                        <v-icon class="icon">mdi-heart</v-icon>
+                        <v-icon x-large class="icon">home</v-icon>
                         <p class="text">Inicio</p>
                         </div>
                     </v-btn>
@@ -18,42 +18,33 @@
             </v-col>
             <v-col>
                 <div class="container">
-                  <v-btn
-                    @click="handleButtonClick"
-                    color="#2596BE"
-                    :active-class="activeClass"
-                    :inactive-class="inactiveClass"
-                    fab block plain
-                  >
-                    <div>
-                      <!-- Aquí usamos una variable para cambiar el icono -->
-                      <v-icon :style="{ color: isClicked ? '#2596BE' : '' }" class="icon">
-                        {{ isClicked ? 'mdi-hand-heart' : 'mdi-heart' }}
-                      </v-icon>
-                      <p :style="{ color: isClicked ? '#2596BE' : '' }" class="text">Inicio</p>
-                    </div>
-                  </v-btn>
-                </div>
-            </v-col>
-            <v-col>
-                <div class="container">
-                    <v-btn @click="$router.push('/Favoritos')" color="secondary" fab block plain>
+                  <v-btn @click="$router.push('/Buscar')" color="#2596BE" dark fab block plain>
                         <div>
-                        <v-icon class="icon">mdi-heart</v-icon>
+                        <v-icon x-large class="icon">search</v-icon>
                         <p class="text">Inicio</p>
                         </div>
                     </v-btn>
                 </div>
+            </v-col>
+            <v-col>
+              <div class="container">
+                <v-btn @click="$router.push('/Buscar')" color="#2596BE" dark fab block plain>
+                      <div>
+                      <v-icon x-large class="icon">mdi-heart</v-icon>
+                      <p class="text">Inicio</p>
+                      </div>
+                  </v-btn>
+              </div>
             </v-col>
             <v-col class="container">
-                <div class="container">
-                  <button @click="handleButtonClick" class="my-custom-button">
-                    <div>
-                      <v-icon class="icon">mdi-heart</v-icon>
+              <div class="container">
+                <v-btn @click="$router.push('/Buscar')" color="#2596BE" dark fab block plain>
+                      <div>
+                      <v-icon x-large class="icon">person</v-icon>
                       <p class="text">Inicio</p>
-                    </div>
-                  </button>
-                </div>
+                      </div>
+                  </v-btn>
+              </div>
             </v-col>
         </v-row>
         </v-container>
@@ -104,14 +95,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 40px; /* Ajusta la altura según tus necesidades */
+  height: 35px; /* Ajusta la altura según tus necesidades */
 }
 .container2 {
   justify-content: center;
 }
 
 .icon {
-  font-size: 48px; /* Tamaño del icono, ajusta según tus necesidades */
+  font-size: 190px; /* Tamaño del icono, ajusta según tus necesidades */
 }
 
 .text {
@@ -119,6 +110,8 @@
   font-size: 16px; /* Tamaño del texto, ajusta según tus necesidades */
   font-family: 'Roboto', sans-serif;
   color: black;
+  margin-top: 8px;
+  text-transform: none;
 }
 
 .custom-active-class {
