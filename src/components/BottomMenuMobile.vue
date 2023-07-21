@@ -21,27 +21,27 @@
                   <v-btn @click="$router.push('/Buscar')" color="#2596BE" dark fab block plain>
                         <div>
                         <v-icon x-large class="icon">search</v-icon>
-                        <p class="text">Inicio</p>
+                        <p class="text">Buscar</p>
                         </div>
                     </v-btn>
                 </div>
             </v-col>
             <v-col>
               <div class="container">
-                <v-btn @click="$router.push('/Buscar')" color="#2596BE" dark fab block plain>
+                <v-btn @click="$router.push('/Favoritos')" color="#2596BE" dark fab block plain>
                       <div>
                       <v-icon x-large class="icon">mdi-heart</v-icon>
-                      <p class="text">Inicio</p>
+                      <p class="text">Favoritos</p>
                       </div>
                   </v-btn>
               </div>
             </v-col>
             <v-col class="container">
               <div class="container">
-                <v-btn @click="$router.push('/Buscar')" color="#2596BE" dark fab block plain>
+                <v-btn @click="$router.push('/Perfil')" color="#2596BE" dark fab block plain>
                       <div>
                       <v-icon x-large class="icon">person</v-icon>
-                      <p class="text">Inicio</p>
+                      <p class="text">Perfil</p>
                       </div>
                   </v-btn>
               </div>
@@ -85,7 +85,7 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  background-color: #f0f0f0; /* Color de fondo, ajusta según tus necesidades */
+  background-color: #ffffff; /* Color de fondo, ajusta según tus necesidades */
 
   text-align: center;
   height: 60px;

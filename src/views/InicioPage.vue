@@ -21,7 +21,6 @@ export default {
         // Puedes agregar más ubicaciones aquí
       ],
       barHeight: 64, // Altura de la barra en píxeles
-      barWidth: 64,
     };
   },
 
@@ -30,7 +29,6 @@ export default {
     mapStyle() {
       return {
         height: `calc(100vh - ${this.barHeight}px)`,
-        marginLeft: `${this.barWidth}px`, // Centra el mapa a la izquierda agregando el margen
 
         //width: `calc(100vh - ${this.barWidth}px)`,
       };
@@ -81,11 +79,9 @@ export default {
       this.isMobile = window.innerWidth < 600
       if (! this.isMobile) {
         this.barHeight = 0
-        this.barWidth = 64
       }
       if (this.isMobile) {
         this.barHeight = 64
-        this.barWidth = 0
       }
     },
 
