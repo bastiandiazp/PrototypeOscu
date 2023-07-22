@@ -1,5 +1,6 @@
 <template>
-  <v-card class="mx-auto" max-width="500">
+  <div>
+  <v-card class="mx-auto" max-width="700">
     <v-toolbar color="pink" dark>
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
       <v-toolbar-title>Inbox</v-toolbar-title>
@@ -28,6 +29,7 @@
       </v-list-item-group>
     </v-list>
   </v-card>
+</div>
 </template>
 
 <script>

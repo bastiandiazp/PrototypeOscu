@@ -1,6 +1,9 @@
 <template>
   <div id="app" >
-    <router-view :style="routerStyle"/>
+    <div >
+      <router-view  class="router-container" :style="routerStyle"/>
+    </div>
+    <Inicio />
     <div v-show="isMobile" style="position: fixed; bottom: 0; left: 0; width: 100%; height: 64px; background-color: #ffffff;">
       <BottomMenu />
     </div>
@@ -13,17 +16,21 @@
 <script>
 import BottomMenu from "./components/BottomMenuMobile.vue";
 import BottomMenu2 from "./components/BottomMenuDesktop.vue";
+import Inicio from './views/InicioPage.vue';
 
 export default {
   components: {
     BottomMenu,
-    BottomMenu2
+    BottomMenu2,
+    Inicio,
   },
   name: 'App',
 
   data: () => ({
     isMobile: false,
-    barWidth: 64,
+    marginLeft: 64,
+    marginRight: 800,
+    marginBottom: 64,
   }),
 
   beforeDestroy() {
@@ -34,9 +41,10 @@ export default {
   computed: {
     routerStyle() {
       return {
-        marginLeft: `${this.barWidth}px`, // Centra el mapa a la izquierda agregando el margen
-
-        //width: `calc(100vh - ${this.barWidth}px)`,
+        left: `${this.marginLeft}px`, // Centra el mapa a la izquierda agregando el margen
+        right: `${this.marginRight}px`, // Centra el mapa a la izquierda agregando el margen
+        bottom: `${this.marginBottom}px`, // Centra el mapa a la izquierda agregando el margen
+        //width: `calc(100vh - ${this.marginLeft}px)`,
       };
     },
   },
@@ -49,10 +57,14 @@ export default {
     onResize() {
       this.isMobile = window.innerWidth < 600
       if (! this.isMobile) {
-        this.barWidth = 64
+        this.marginLeft = 64
+        this.marginRight = window.innerWidth-600
+        this.marginBottom = 0
       }
       if (this.isMobile) {
-        this.barWidth = 0
+        this.marginLeft = 0
+        this.marginRight = 0
+        this.marginBottom = 64
       }
     },
   },
@@ -71,4 +83,16 @@ html, body, #app {
   margin: 0;
   overflow: hidden;
 }
+.router-container {
+    position: absolute;
+    top: 0;
+    bottom: 64px;
+    z-index: 9999;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    /* Agrega aquí otras propiedades de estilo según tus necesidades */
+
+
+    /*margin-left: 64px; /* Establece el margen a la izquierda */
+  }
 </style>
