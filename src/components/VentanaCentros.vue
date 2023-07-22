@@ -1,30 +1,24 @@
 <template>
     <div class="fondo-oscuro">
       <div class="ventana-centros">
-        <v-col :align="align" no-gutters style="height: 30px;">
-            <div class="container">
-                <v-btn icon @click="closeWindow" class="cerrar">
-                    <div> 
-                        <v-icon x-large color= "#2596BE" class="icon">mdi-close</v-icon>
-                    </div>
-                </v-btn>
-            </div>
-        </v-col>
-        
+        <div class="ventana-header">
+          <v-list-item no-gutters>
+            <v-list-item-content class="text">{{ location.name }}</v-list-item-content>
+            <v-list-item-action>
+              <v-btn icon @click="closeWindow" class="cerrar">
+                <img src="@/assets/svg/close.svg" alt="close1" />
+              </v-btn>
+            </v-list-item-action>
+          </v-list-item>
+        </div>
         <div class="ventana-body">
-          <v-list>
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title>{{ location.name }}</v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-  
-            <v-list-item>
-              <v-list-item-action>
-                <iconify-icon icon="mdi:map-marker" class="icon" color="black"/>
-              </v-list-item-action>
-              <v-list-item-content>{{ location.address }}</v-list-item-content>
-            </v-list-item>
+            <v-list>
+          <v-list-item>
+            <v-list-item-action>
+                <img src="@/assets/svg/locationOn.svg" alt="location1" />
+            </v-list-item-action>
+            <v-list-item-content class="text2">{{ location.address }}</v-list-item-content>
+          </v-list-item>
   
             <v-list-item>
               <v-list-item-action>
@@ -96,88 +90,107 @@
     </div>
   </template>
   
-  <script>
-  export default {
-    name: 'VentanaCentros',
-    props: ['location'],
-    methods: {
-      closeWindow() {
-        this.$emit('close');
-      },
-      redirectToCategorizacion() {
-        // Agrega aquí la lógica para redireccionar a la vista de categorización Triage
-        console.log('Redirigir a la vista de categorización Triage');
-      },
-      redirectToFavorite() {
-        // Agrega aquí la lógica para redireccionar a la vista de favoritos
-        console.log('Redirigir a la vista de favoritos');
-      },
-      redirectToRating() {
-        // Agrega aquí la lógica para redireccionar a la vista de valoración de atención
-        console.log('Redirigir a la vista de valoración de atención');
-      },
+  
+<script>
+
+
+
+export default {
+  name: 'VentanaCentros',
+  props: ['location'],
+  methods: {
+    closeWindow() {
+      this.$emit('close');
     },
-  };
-  </script>
-  
-  <style scoped>
-  .ventana-centros {
-    position: absolute;
-    z-index: 1000;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 400px;
-    height: 690px;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .fondo-oscuro {
-    position: absolute;
-    z-index: 999;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); /* Ajusta la opacidad para el fondo oscuro */
-    backdrop-filter: blur(8px); /* Agrega un efecto de desenfoque al fondo */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .ventana-body {
-    padding: 16px;
-  }
-  
-  .icon {
-    margin-right: 8px;
-  }
-  
-  .categoria {
-    font-weight: bold;
-    margin-right: 8px;
-  }
-  
-  .botones {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 16px;
-  }
-  
-    .cerrar {
-        position: absolute;
-        top: 16px;
-        right: 16px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 29.18px;
-        height: 29.18px;
-        border-radius: 50%;
-        background-color: #ffff;
-    }
-  </style>
+    redirectToCategorizacion() {
+      console.log('Redirigir a la vista de categorización Triage');
+    },
+    redirectToFavorite() {
+      console.log('Redirigir a la vista de favoritos');
+    },
+    redirectToRating() {
+      console.log('Redirigir a la vista de valoración de atención');
+    },
+  },
+};
+</script>
+
+<style scoped>
+.ventana-centros {
+  position: absolute;
+  z-index: 1000;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 690px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.fondo-oscuro {
+  position: absolute;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ventana-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+}
+
+.cerrar {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 29.18px;
+  height: 29.18px;
+  border-radius: 50%;
+  background-color: #ffff;
+}
+
+.text {
+  font-size: 22px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  color: black;
+  margin-top: 4px;
+  text-transform: none;
+}
+
+.text2 {
+  font-size: 12px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  color: #2596BE;
+  margin-top: 4px;
+  text-transform: none;
+  text-decoration: underline;
+}
+
+
+.icon {
+  margin-right: 8px;
+}
+
+.botones {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 16px;
+}
+</style>
   
