@@ -2,15 +2,13 @@
     <div class="fondo-oscuro">
       <div class="ventana-centros">
         <v-col :align="align" no-gutters style="height: 30px;">
-            <v-raw>
-                <div class="container">
-                    <v-btn icon  dark fab block plain @click="closeWindow">
-                        <div> 
-                            <v-icon x-large color= "#2596BE" class="icon">close-fill</v-icon>
-                        </div>
-                    </v-btn>
-                </div>
-            </v-raw>
+            <div class="container">
+                <v-btn icon @click="closeWindow" class="cerrar">
+                    <div> 
+                        <v-icon x-large color= "#2596BE" class="icon">mdi-close</v-icon>
+                    </div>
+                </v-btn>
+            </div>
         </v-col>
         
         <div class="ventana-body">
@@ -171,16 +169,15 @@
   
     .cerrar {
         position: absolute;
-  top: 16px;
-  right: 16px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 29.18px;
-  height: 29.18px;
-  border-radius: 50%;
-  background-color: #2596BE;
-  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.1);
+        top: 16px;
+        right: 16px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 29.18px;
+        height: 29.18px;
+        border-radius: 50%;
+        background-color: #ffff;
     }
   </style>
   
