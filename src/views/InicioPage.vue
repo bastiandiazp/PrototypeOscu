@@ -1,12 +1,15 @@
 <template>
   <div>
     <div id="map" :style="mapStyle"></div>
+    <VentanaCentros v-if="showVentana" :location="selectedLocation" @close="closeVentana" />
   </div>
 </template>
 
 <script>
 import L from 'leaflet';
 import { LMap, LTileLayer, LMarker, LPopup } from 'vue2-leaflet';
+//import VentanaCentros from './VentanaCentros.vue';
+import VentanaCentros from '../components/VentanaCentros.vue';
 
 export default {
   name: 'InicioPage',
@@ -16,25 +19,27 @@ export default {
       map: null,
       center: [-33.4500664, -70.686449], // Coordenadas de la Universidad de Santiago de Chile Diinf
       locations: [
-        { name: 'Arquitectura', coordinates: [-33.4515456, -70.6863792] },
-        { name: 'Perreras', coordinates: [-33.4506137, -70.6803435] },
+        { name: 'Arquitectura', coordinates: [-33.4515456, -70.6863792], address: 'Dirección 1', aforo: 20, aforoC1: 5, aforoC2: 10, aforoC3: 2, aforoC4: 3, aforoC5: 0, tiempoC3: 15, tiempoC4: 25, tiempoC5: 0 },
+        { name: 'Perreras', coordinates: [-33.4506137, -70.6803435], address: 'Dirección 2', aforo: 15, aforoC1: 3, aforoC2: 6, aforoC3: 1, aforoC4: 2, aforoC5: 3, tiempoC3: 20, tiempoC4: 30, tiempoC5: 5 },
         // Puedes agregar más ubicaciones aquí
       ],
       barHeight: 64, // Altura de la barra en píxeles
+      barWidth: 64,
+      showVentana: false,
+      selectedLocation: null,
     };
   },
 
-  
   computed: {
     mapStyle() {
       return {
         height: `calc(100vh - ${this.barHeight}px)`,
+        marginLeft: `${this.barWidth}px`, // Centra el mapa a la izquierda agregando el margen
 
         //width: `calc(100vh - ${this.barWidth}px)`,
       };
     },
   },
-
 
   mounted() {
     this.initializeMap();
@@ -55,20 +60,28 @@ export default {
 
       // Agregar capa de mapa base (OpenStreetMap)
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
+
+      // Agregar evento para abrir la ventana emergente al hacer clic en el marcador
+      this.map.on('click', this.closeVentana);
     },
 
     addMarkers() {
       this.locations.forEach(location => {
         const marker = L.marker(location.coordinates).addTo(this.map);
 
+        // Agregar evento al hacer clic en el marcador para mostrar la ventana emergente
+        marker.on('click', () => {
+          this.showVentana = true;
+          this.selectedLocation = location;
+        });
+
         // Agregar un popup a cada marcador con el nombre de la ubicación
         marker.bindPopup(location.name).openPopup();
-
-        // Agregar evento al hacer clic en el marcador para ejecutar una función o acción
-        marker.on('click', () => {
-          this.navigateToLocation(location); // Define esta función según lo que desees hacer al hacer clic en el marcador
-        });
       });
+    },
+
+    closeVentana() {
+      this.showVentana = false;
     },
 
     navigateToLocation(location) {
@@ -79,9 +92,11 @@ export default {
       this.isMobile = window.innerWidth < 600
       if (! this.isMobile) {
         this.barHeight = 0
+        this.barWidth = 64
       }
       if (this.isMobile) {
         this.barHeight = 64
+        this.barWidth = 0
       }
     },
 
@@ -98,6 +113,7 @@ export default {
     LTileLayer,
     LMarker,
     LPopup,
+    VentanaCentros,
   },
 };
 </script>

@@ -1,0 +1,186 @@
+<template>
+    <div class="fondo-oscuro">
+      <div class="ventana-centros">
+        <v-col :align="align" no-gutters style="height: 30px;">
+            <v-raw>
+                <div class="container">
+                    <v-btn icon  dark fab block plain @click="closeWindow">
+                        <div> 
+                            <v-icon x-large color= "#2596BE" class="icon">close-fill</v-icon>
+                        </div>
+                    </v-btn>
+                </div>
+            </v-raw>
+        </v-col>
+        
+        <div class="ventana-body">
+          <v-list>
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>{{ location.name }}</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+  
+            <v-list-item>
+              <v-list-item-action>
+                <iconify-icon icon="mdi:map-marker" class="icon" color="black"/>
+              </v-list-item-action>
+              <v-list-item-content>{{ location.address }}</v-list-item-content>
+            </v-list-item>
+  
+            <v-list-item>
+              <v-list-item-action>
+                <iconify-icon icon="mdi:account-multiple" class="icon" />
+              </v-list-item-action>
+              <v-list-item-content>{{ location.aforo }} Personas en total esperando</v-list-item-content>
+            </v-list-item>
+  
+            <v-list-item>
+              <v-list-item-content>
+                <div class="categoria">C1</div>
+              </v-list-item-content>
+              <v-list-item-content>{{ location.aforoC1 }} Personas en total esperando</v-list-item-content>
+              <v-list-item-content>Atención inmediata</v-list-item-content>
+            </v-list-item>
+  
+            <v-list-item>
+              <v-list-item-content>
+                <div class="categoria">C2</div>
+              </v-list-item-content>
+              <v-list-item-content>{{ location.aforoC2 }} Personas en total esperando</v-list-item-content>
+              <v-list-item-content>Atención inmediata</v-list-item-content>
+            </v-list-item>
+  
+            <v-list-item>
+              <v-list-item-content>
+                <div class="categoria">C3</div>
+              </v-list-item-content>
+              <v-list-item-content>{{ location.aforoC3 }} Personas en total esperando</v-list-item-content>
+              <v-list-item-content>{{ location.tiempoC3 }} Min de tiempo de espera estimado</v-list-item-content>
+            </v-list-item>
+  
+            <v-list-item>
+              <v-list-item-content>
+                <div class="categoria">C4</div>
+              </v-list-item-content>
+              <v-list-item-content>{{ location.aforoC4 }} Personas en total esperando</v-list-item-content>
+              <v-list-item-content>{{ location.tiempoC4 }} Min de tiempo de espera estimado</v-list-item-content>
+            </v-list-item>
+  
+            <v-list-item>
+              <v-list-item-content>
+                <div class="categoria">C5</div>
+              </v-list-item-content>
+              <v-list-item-content>{{ location.aforoC5 }} Personas en total esperando</v-list-item-content>
+              <v-list-item-content>{{ location.tiempoC5 }} Min de tiempo de espera estimado</v-list-item-content>
+            </v-list-item>
+  
+            <v-list-item>
+              <v-list-item-action>
+                <iconify-icon icon="mdi:information-outline" class="icon" />
+              </v-list-item-action>
+              <v-list-item-content @click="redirectToCategorizacion">¿Qué es la categorización Triage?</v-list-item-content>
+            </v-list-item>
+          </v-list>
+  
+          <div class="botones">
+            <v-btn color="primary" class="rounded" @click="redirectToFavorite">
+              <iconify-icon icon="mdi:heart" class="icon" />
+              Favorito
+            </v-btn>
+            <v-btn color="primary" class="rounded" @click="redirectToRating">
+              <iconify-icon icon="mdi:star" class="icon" />
+              Valorar Atención
+            </v-btn>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+  
+  <script>
+  export default {
+    name: 'VentanaCentros',
+    props: ['location'],
+    methods: {
+      closeWindow() {
+        this.$emit('close');
+      },
+      redirectToCategorizacion() {
+        // Agrega aquí la lógica para redireccionar a la vista de categorización Triage
+        console.log('Redirigir a la vista de categorización Triage');
+      },
+      redirectToFavorite() {
+        // Agrega aquí la lógica para redireccionar a la vista de favoritos
+        console.log('Redirigir a la vista de favoritos');
+      },
+      redirectToRating() {
+        // Agrega aquí la lógica para redireccionar a la vista de valoración de atención
+        console.log('Redirigir a la vista de valoración de atención');
+      },
+    },
+  };
+  </script>
+  
+  <style scoped>
+  .ventana-centros {
+    position: absolute;
+    z-index: 1000;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 400px;
+    height: 690px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .fondo-oscuro {
+    position: absolute;
+    z-index: 999;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Ajusta la opacidad para el fondo oscuro */
+    backdrop-filter: blur(8px); /* Agrega un efecto de desenfoque al fondo */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .ventana-body {
+    padding: 16px;
+  }
+  
+  .icon {
+    margin-right: 8px;
+  }
+  
+  .categoria {
+    font-weight: bold;
+    margin-right: 8px;
+  }
+  
+  .botones {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+  }
+  
+    .cerrar {
+        position: absolute;
+  top: 16px;
+  right: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 29.18px;
+  height: 29.18px;
+  border-radius: 50%;
+  background-color: #2596BE;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+  
