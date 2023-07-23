@@ -87,7 +87,7 @@ html, body, #app {
     position: absolute;
     top: 0;
     bottom: 64px;
-    z-index: 9999;
+    z-index: 1200;
     background-color: #ffffff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     /* Agrega aquí otras propiedades de estilo según tus necesidades */
