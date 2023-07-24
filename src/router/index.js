@@ -5,8 +5,6 @@ import Inicio from '../views/InicioPage.vue';
 import Buscar from '../views/BuscarPage.vue';
 import Favoritos from '../views/FavoritosPage.vue';
 import Perfil from '../views/PerfilPage.vue';
-import Opcion1 from '../views/Opcion1Page.vue';
-import Opcion2 from '../views/Opcion2Page.vue';
 
 Vue.use(VueRouter)
 

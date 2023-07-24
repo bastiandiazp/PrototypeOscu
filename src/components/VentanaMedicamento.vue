@@ -1,5 +1,5 @@
 <template>
-      <div class="ventana-centros">
+      <div class="ventana-medicamento">
 
       </div>
   </template>
@@ -21,7 +21,7 @@ export default {
 </script>
 
 <style scoped>
-.ventana-centros {
+.ventana-medicamento {
   position: absolute;
   z-index: 1000;
   width: 90%;
