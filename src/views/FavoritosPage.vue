@@ -31,7 +31,7 @@
       <div class="container5" :style="contenedorListaStyle">
         <ul class="medicamentos-list">
           <li v-for="(item, index) in getSelectedList" :key="item.title" v-if="item.favorito === true ">
-            <div class="medicamento-item">
+            <div class="medicamento-item" @click="itemClicked">
               <div class="medicamento-nombre">{{ item.medicamento }}</div>
               <div class="medicamento-info">
                 <div class="medicamento-desde">desde &nbsp;</div>
@@ -99,6 +99,11 @@
         // Utilizando la función 'agregarElemento' que recibimos como prop del componente padre
         this.$emit('agregar-elemento', {title: this.nuevoElemento});
       },
+      itemClicked() {
+      // Aquí colocas la lógica para manejar el clic en el item
+      console.log('Item clicado:');
+      // Puedes redirigir al usuario a otra página, mostrar detalles del medicamento, etc.
+    }
 
     },
   };
@@ -133,6 +138,7 @@
   background-color: #d0f0fc;
   width: 90%;
   margin: auto; /* Centra horizontalmente el switch-container */
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
 }
 
 .switch-option {

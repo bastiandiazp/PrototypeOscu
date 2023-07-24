@@ -8,7 +8,8 @@
     <div class="container5" :style="contenedorListaStyle">
       <ul class="medicamentos-list">
         <li v-for="item in filteredItems" :key="item.title">
-          <div class="medicamento-item">
+          <div class="medicamento-item" @click="itemClicked">
+ 
             <div class="medicamento-nombre">{{ item.medicamento }}</div>
             <div class="medicamento-info">
               <div class="medicamento-desde">desde &nbsp;</div>
@@ -40,6 +41,13 @@ export default {
       searchQuery: '',
     };
   },
+  methods: {
+      itemClicked() {
+      // Aquí colocas la lógica para manejar el clic en el item
+      console.log('Item clicado:');
+      // Puedes redirigir al usuario a otra página, mostrar detalles del medicamento, etc.
+    }
+    },
   computed: {
     contenedorListaStyle() {
       return {
@@ -60,9 +68,6 @@ export default {
           );
         });
       }
-    },
-    methods: {
-
     },
   },
 };
@@ -112,6 +117,7 @@ export default {
 .medicamento-item {
   padding: 10px;
   border-bottom: 1px solid #2596BE;
+  cursor: pointer;
 }
 
 .medicamento-nombre {
