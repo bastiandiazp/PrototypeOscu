@@ -1,7 +1,13 @@
 <template>
   <div id="app" >
     <div >
-      <router-view  class="router-container" :style="routerStyle" :itemsMedicamentos="itemsMedicamentos" :datosProbando="datosProbando" @agregar-elemento="agregarElemento"/>
+      <router-view  
+        class="router-container" 
+        :style="routerStyle" 
+        :itemsMedicamentos="itemsMedicamentos" 
+        :datosProbando="datosProbando" 
+        @agregar-elemento="agregarElemento"
+      />
     </div>
     <Inicio />
     <div v-show="isMobile" style="position: fixed; bottom: 0; left: 0; width: 100%; height: 64px; background-color: #ffffff;">

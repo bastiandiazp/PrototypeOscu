@@ -3,13 +3,17 @@
       <div class="perfil-title">
         Perfil
       </div>
-      <p>Perfil</p>
+      &nbsp;
+      <VentanaMedicamento/>
     </div>
   </template>
   
   <script>
+  import VentanaMedicamento from '../components/VentanaMedicamento.vue';
   export default {
-    // Código del componente
+    components: {
+      VentanaMedicamento,
+    },
   };
   </script>
 
