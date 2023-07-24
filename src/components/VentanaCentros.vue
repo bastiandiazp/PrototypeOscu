@@ -51,88 +51,69 @@
             <div class="categoria elemento-izquierdo">C3</div>
             <div class="elemento-central"> 
               <div class="barra-izquierda"></div>
-              <div class="text4">{{ location.aforoC2 }}</div>
+              <div class="text4">{{ location.aforoC3 }}</div>
               <div class="text5 margen-derecha">Personas en total esperando</div>
               <div class="barra-derecha"></div>
             </div>
-            <div class="elemento-derecho2">
+            <div class="popup-row4">
               <div class="text4">{{ location.tiempoC3 }}</div>
               <div class="text5">Min de tiempo de espera estimado</div>
             </div>
-            
+          </div>
+
+          <div class="popup-row3 colorC4">
+            <div class="categoria elemento-izquierdo">C4</div>
+            <div class="elemento-central"> 
+              <div class="barra-izquierda"></div>
+              <div class="text4">{{ location.aforoC4 }}</div>
+              <div class="text5 margen-derecha">Personas en total esperando</div>
+              <div class="barra-derecha"></div>
+            </div>
+            <div class="popup-row4">
+              <div class="text4">{{ location.tiempoC4 }}</div>
+              <div class="text5">Min de tiempo de espera estimado</div>
+            </div>
+          </div>
+
+          <div class="popup-row3 colorC5">
+            <div class="categoria elemento-izquierdo">C5</div>
+            <div class="elemento-central"> 
+              <div class="barra-izquierda"></div>
+              <div class="text4">{{ location.aforoC5 }}</div>
+              <div class="text5 margen-derecha">Personas en total esperando</div>
+              <div class="barra-derecha"></div>
+            </div>
+            <div class="popup-row4">
+              <div class="text4">{{ location.tiempoC5 }}</div>
+              <div class="text5">Min de tiempo de espera estimado</div>
+            </div>
           </div>
 
 
-
-
-
-
-
-        </div>
-
-
-
-        <div class="ventana-body">
-            <v-list>
-  
-            <v-list-item>
-              <v-list-item-content>
-                <div class="categoria">C1</div>
-              </v-list-item-content>
-              <v-list-item-content>{{ location.aforoC1 }} Personas en total esperando</v-list-item-content>
-              <v-list-item-content>Atención inmediata</v-list-item-content>
-            </v-list-item>
-  
-            <v-list-item>
-              <v-list-item-content>
-                <div class="categoria">C2</div>
-              </v-list-item-content>
-              <v-list-item-content>{{ location.aforoC2 }} Personas en total esperando</v-list-item-content>
-              <v-list-item-content>Atención inmediata</v-list-item-content>
-            </v-list-item>
-  
-            <v-list-item>
-              <v-list-item-content>
-                <div class="categoria">C3</div>
-              </v-list-item-content>
-              <v-list-item-content>{{ location.aforoC3 }} Personas en total esperando</v-list-item-content>
-              <v-list-item-content>{{ location.tiempoC3 }} Min de tiempo de espera estimado</v-list-item-content>
-            </v-list-item>
-  
-            <v-list-item>
-              <v-list-item-content>
-                <div class="categoria">C4</div>
-              </v-list-item-content>
-              <v-list-item-content>{{ location.aforoC4 }} Personas en total esperando</v-list-item-content>
-              <v-list-item-content>{{ location.tiempoC4 }} Min de tiempo de espera estimado</v-list-item-content>
-            </v-list-item>
-  
-            <v-list-item>
-              <v-list-item-content>
-                <div class="categoria">C5</div>
-              </v-list-item-content>
-              <v-list-item-content>{{ location.aforoC5 }} Personas en total esperando</v-list-item-content>
-              <v-list-item-content>{{ location.tiempoC5 }} Min de tiempo de espera estimado</v-list-item-content>
-            </v-list-item>
-  
-            <v-list-item>
-              <v-list-item-action>
-                <iconify-icon icon="mdi:information-outline" class="icon" />
-              </v-list-item-action>
-              <v-list-item-content @click="redirectToCategorizacion">¿Qué es la categorización Triage?</v-list-item-content>
-            </v-list-item>
-          </v-list>
-  
-          <div class="botones">
-            <v-btn color="primary" class="rounded" @click="redirectToFavorite">
-              <iconify-icon icon="mdi:heart" class="icon" />
-              Favorito
-            </v-btn>
-            <v-btn color="primary" class="rounded" @click="redirectToRating">
-              <iconify-icon icon="mdi:star" class="icon" />
-              Valorar Atención
-            </v-btn>
+          <div class="popup-row5">
+            <div><img src="@/assets/svg/info.svg" alt="location1" /></div>
+            <div class="text6" @click="redirectToCategorizacion">¿Qué es la categorización Triage?</div>
           </div>
+
+          <div class="popup-row6">
+            <button class="custom-button">
+              <img class="icon" src="@/assets/svg/favorito.svg" alt="location1" />
+              <span class="text-boton">Favorito</span>
+            </button>
+
+            <button class="custom-button">
+              <img class="icon" src="@/assets/svg/valorar.svg" alt="location1" />
+              <span class="text-boton">Valorar Atención</span>
+            </button>
+          </div>
+
+          
+
+
+
+
+
+
         </div>
       </div>
     </div>
@@ -272,6 +253,16 @@ export default {
   text-transform: none;
   margin: auto;
 }
+.text6 {
+  font-size: 12px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  color: #2596BE;
+  margin-top: 2px;
+  text-transform: none;
+  margin-left: 10px;
+  margin-bottom: 8px;
+}
 
 .margen-derecha{
   margin-right: 20px;
@@ -293,6 +284,12 @@ div {
   font-size: 12px; /* Tamaño del texto, ajusta según tus necesidades */
   font-family: 'Roboto', sans-serif;
   text-transform: none;
+}
+
+.botones {
+  display: flex;
+  align-items: center;
+  gap: 2px;
 }
 
 .popup-row1 {
@@ -342,6 +339,28 @@ div {
 }
 
 
+.popup-row4 {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Dividimos la fila en dos columnas iguales */
+  align-items: center; /* Centramos verticalmente el contenido en la fila */
+  margin-right: 20px;
+}
+
+.popup-row5 {
+  display: flex;
+  align-items: center;
+  margin-left: 40px;
+  margin-top: 10px;
+}
+
+.popup-row6 {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-left: 40px;
+  margin-top: 10px;
+}
+
 .colorC1{
   background-color: #EF4143;
 }
@@ -379,5 +398,24 @@ div {
 }
 
 
+.custom-button {
+  display: flex;
+  align-items: center;
+  border: none;
+  background-color: #D0F0FC;
+  padding: 4px 10px;
+  border-radius: 30px; /* Bordes ovalados */
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  outline: none;
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
+}
+
+.text-boton{
+  white-space: nowrap;
+  color: #2596BE;
+
+}
 </style>
   
