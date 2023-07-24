@@ -19,13 +19,19 @@
             <div class="text2">{{ location.address }}</div>
           </div>
 
+          <div v-if="!location.disponible" class="columna">
+            <div><img src="@/assets/svg/locationOff.svg" alt="location1" /></div>
+            <div class="text7">¡Cerrado por Emergencia!</div>
+          </div>
 
-          <div class="popup-row2">
+          <div v-if="location.disponible" class="popup-row2">
             <div class="text3 elemento-izquierdo">{{ location.aforo }}</div>
             <div class="text elemento-derecho">Personas en total esperando</div>
           </div>
 
-          <div class="popup-row3 colorC1">
+          
+
+          <div v-if="location.disponible" class="popup-row3 colorC1">
             <div class="categoria elemento-izquierdo">C1</div>
             <div class="elemento-central"> 
               <div class="barra-izquierda"></div>
@@ -36,7 +42,7 @@
             <div class="text5">Atención inmediata</div>
           </div>
 
-          <div class="popup-row3 colorC2">
+          <div v-if="location.disponible" class="popup-row3 colorC2">
             <div class="categoria elemento-izquierdo">C2</div>
             <div class="elemento-central"> 
               <div class="barra-izquierda"></div>
@@ -47,7 +53,7 @@
             <div class="text5">Atención inmediata</div>
           </div>
 
-          <div class="popup-row3 colorC3">
+          <div v-if="location.disponible" class="popup-row3 colorC3">
             <div class="categoria elemento-izquierdo">C3</div>
             <div class="elemento-central"> 
               <div class="barra-izquierda"></div>
@@ -61,7 +67,7 @@
             </div>
           </div>
 
-          <div class="popup-row3 colorC4">
+          <div v-if="location.disponible" class="popup-row3 colorC4">
             <div class="categoria elemento-izquierdo">C4</div>
             <div class="elemento-central"> 
               <div class="barra-izquierda"></div>
@@ -75,7 +81,7 @@
             </div>
           </div>
 
-          <div class="popup-row3 colorC5">
+          <div v-if="location.disponible" class="popup-row3 colorC5">
             <div class="categoria elemento-izquierdo">C5</div>
             <div class="elemento-central"> 
               <div class="barra-izquierda"></div>
@@ -268,6 +274,21 @@ export default {
   margin-bottom: 8px;
 }
 
+.text7 {
+  font-size: 36px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  color: black;
+  margin-top: 2px;
+  text-transform: none;
+  padding: 2px;
+  text-align: center;
+  
+
+}
+
+
+
 .margen-derecha{
   margin-right: 20px;
 }
@@ -420,6 +441,16 @@ div {
   white-space: nowrap;
   color: #2596BE;
 
+}
+
+
+.columna {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  margin-top: 50px;
 }
 </style>
   

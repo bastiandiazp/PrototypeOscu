@@ -15,6 +15,8 @@
 import L from 'leaflet';
 import { LMap, LTileLayer, LMarker, LPopup } from 'vue2-leaflet';
 import VentanaCentros from '../components/VentanaCentros.vue';
+import urgenciasIcon from '@/assets/svg/urgenciasOn.svg';
+import urgenciasIcon2 from '@/assets/svg/urgenciasOff.svg';
 
 export default {
   name: 'InicioPage',
@@ -32,6 +34,8 @@ export default {
       barWidth: 64,
       showVentana: false,
       selectedLocation: null,
+      iconDisponible: urgenciasIcon,
+      iconNoDisponible: urgenciasIcon2,
     };
   },
 
@@ -73,9 +77,10 @@ export default {
 
     addMarkers() {
       this.locations.forEach(location => {
-        // Crea un nuevo marcador y establece el ícono personalizado
-        const marker = L.marker(location.coordinates, { icon: L.icon({ iconUrl: location.icon }) }).addTo(this.map);
-        
+        // Crea un nuevo marcador y establece el ícono según el valor de 'disponible'
+        const iconUrl = location.disponible ? this.iconDisponible : this.iconNoDisponible;
+        const marker = L.marker(location.coordinates, { icon: L.icon({ iconUrl }) }).addTo(this.map);
+
         // Agregar evento al hacer clic en el marcador para mostrar la ventana emergente
         marker.on('click', () => {
           this.showVentana = true;
