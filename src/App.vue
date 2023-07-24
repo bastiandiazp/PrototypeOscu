@@ -61,6 +61,7 @@ export default {
         tiempoC5: 0,
         favorito: true, // Nuevo atributo favorito
         disponible: true, // Nuevo atributo disponible
+        tiempoTotal: 0,
       },
       {
         name: 'Perreras',
@@ -78,6 +79,7 @@ export default {
         tiempoC5: 5,
         favorito: true, // Nuevo atributo favorito
         disponible: false, // Nuevo atributo disponible
+        tiempoTotal: 0,
       },
     ],
     itemsMedicamentos: [
@@ -221,11 +223,20 @@ export default {
     },
   },
   mounted() {
+    // Llamar a updateLocationsData al inicio
+    this.updateLocationsData();
+
+    // Establecer el temporizador para llamar a updateLocationsData cada 10 segundos (10000 milisegundos)
+    setInterval(() => {
+      this.updateLocationsData();
+    }, 60000);
     this.onResize()
     window.addEventListener('resize', this.onResize, { passive: true })
   },
 
   methods: {
+    
+    
     agregarElemento(nuevoElemento) {
       this.datosProbando.push(nuevoElemento);
     },
@@ -245,12 +256,50 @@ export default {
       }
     },
     updateFavorito(locationName, newFavoritoValue) {
-    // Encuentra el marcador con el nombre proporcionado y actualiza su atributo 'favorito'
-    const locationIndex = this.locationsCentros.findIndex(location => location.name === locationName);
-    if (locationIndex !== -1) {
-      this.locationsCentros[locationIndex].favorito = newFavoritoValue;
-    }
-  },
+      // Encuentra el marcador con el nombre proporcionado y actualiza su atributo 'favorito'
+      const locationIndex = this.locationsCentros.findIndex(location => location.name === locationName);
+      if (locationIndex !== -1) {
+        this.locationsCentros[locationIndex].favorito = newFavoritoValue;
+      }
+    },
+    // Función para actualizar los valores de las locaciones
+    updateLocationsData() {
+      this.locationsCentros.forEach(location => {
+        
+        // Actualizar aforoC1 (incrementa o decrementa en 1)
+        location.aforoC1 += Math.random() < 0.5 ? -1 : 1;
+        location.aforoC1 = Math.max(0, Math.min(location.aforoC1, 2)); // Limitar entre 0 y 5
+
+        // Actualizar aforoC2 (incrementa o decrementa en 1)
+        location.aforoC2 += Math.random() < 0.5 ? -1 : 1;
+        location.aforoC2 = Math.max(0, Math.min(location.aforoC2, 3)); // Limitar entre 0 y 5
+
+        // Actualizar aforoC3 (incrementa o decrementa entre 1 y 2)
+        location.aforoC3 += Math.random() < 0.5 ? -1 : 1;
+        location.aforoC3 = Math.max(0, Math.min(location.aforoC3, 10)); // Limitar entre 0 y 10
+
+        // Actualizar aforoC4 (incrementa o decrementa entre 1 y 3)
+        location.aforoC4 += Math.random() < 0.5 ? -1 : 1;
+        location.aforoC4 = Math.max(0, Math.min(location.aforoC4, 15)); // Limitar entre 0 y 15
+
+        // Actualizar aforoC5 (incrementa o decrementa entre 1 y 3)
+        location.aforoC5 += Math.random() < 0.5 ? -1 : 1;
+        location.aforoC5 = Math.max(0, Math.min(location.aforoC5, 22)); // Limitar entre 0 y 22
+
+        // Actualizar tiempoC3, tiempoC4 y tiempoC5
+        location.tiempoC3 = Math.round(location.aforoC3 * 5.3);
+        location.tiempoC4 = Math.round(location.aforoC4 * 7.3);
+        location.tiempoC5 = Math.round(location.aforoC5 * 8.3);
+
+
+        // Actualizar el aforo como la suma de los aforos C1, C2, C3, C4 y C5
+        location.aforo = location.aforoC1 + location.aforoC2 + location.aforoC3 + location.aforoC4 + location.aforoC5;
+
+        // Actualizar tiempoTotal como el máximo entre tiempoC3, tiempoC4 y tiempoC5
+        location.tiempoTotal = Math.max(location.tiempoC3, location.tiempoC4, location.tiempoC5);
+  
+      });
+    },
     
   },
 
