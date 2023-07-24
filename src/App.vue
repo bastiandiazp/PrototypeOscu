@@ -7,6 +7,7 @@
         :itemsMedicamentos="itemsMedicamentos" 
         :datosProbando="datosProbando" 
         @agregar-elemento="agregarElemento"
+        :locations="locationsCentros"
       />
     </div>
     <Inicio 
@@ -248,9 +249,6 @@ export default {
     const locationIndex = this.locationsCentros.findIndex(location => location.name === locationName);
     if (locationIndex !== -1) {
       this.locationsCentros[locationIndex].favorito = newFavoritoValue;
-
-      // Emitir el evento 'update-favorito' con el nuevo valor de 'favorito'
-      this.$emit('update-favorito', locationName, newFavoritoValue);
     }
   },
     
