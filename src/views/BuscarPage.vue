@@ -29,133 +29,15 @@
 
 import svgIcon from "@/assets/svg/LogoOscu.svg";
 export default {
+  mounted() {
+    this.onResize()
+    window.addEventListener('resize', this.onResize, { passive: true })
+  },
+  props: ['itemsMedicamentos'],
   data() {
     return {
       barBottom :70,
       searchQuery: '',
-      items: [
-          {
-            medicamento: 'Paracetamol',
-            precio: '1000',
-            laboratorio: 'Farmalab',
-            title: '1',
-          },
-          {
-            medicamento: 'Ibuprofeno',
-            precio: '1500',
-            laboratorio: 'MediPharma',
-            title: '2',
-          },
-          {
-            medicamento: 'Omeprazol',
-            precio: '2000',
-            laboratorio: 'SaludPlus',
-            title: '3',
-          },
-          {
-            medicamento: 'Amoxicilina',
-            precio: '2500',
-            laboratorio: 'BioGen',
-            title: '4',
-          },
-          {
-            medicamento: 'Aspirina',
-            precio: '800',
-            laboratorio: 'PharmaCorp',
-            title: '5',
-          },
-          {
-            medicamento: 'Loratadina',
-            precio: '1200',
-            laboratorio: 'BioHealth',
-            title: '6',
-          },
-          {
-            medicamento: 'Vitamina C',
-            precio: '1800',
-            laboratorio: 'NutriVida',
-            title: '7',
-          },
-          {
-            medicamento: 'Clorfenamina',
-            precio: '900',
-            laboratorio: 'MediVit',
-            title: '8',
-          },
-          {
-            medicamento: 'Acetaminofén',
-            precio: '1200',
-            laboratorio: 'MediHealth',
-            title: '9',
-          },
-          {
-            medicamento: 'Diclofenaco',
-            precio: '1400',
-            laboratorio: 'Farmagen',
-            title: '10',
-          },
-          {
-            medicamento: 'Cetirizina',
-            precio: '1700',
-            laboratorio: 'BioPharma',
-            title: '11',
-          },
-          {
-            medicamento: 'Diazepam',
-            precio: '3000',
-            laboratorio: 'MediCare',
-            title: '12',
-          },
-          {
-            medicamento: 'Ciprofloxacina',
-            precio: '3200',
-            laboratorio: 'PharmaVida',
-            title: '13',
-          },
-          {
-            medicamento: 'Metformina',
-            precio: '1800',
-            laboratorio: 'SaludGen',
-            title: '14',
-          },
-          {
-            medicamento: 'Ondansetrón',
-            precio: '2800',
-            laboratorio: 'PharmaPlus',
-            title: '15',
-          },
-          {
-            medicamento: 'Paroxetina',
-            precio: '2500',
-            laboratorio: 'MediLab',
-            title: '16',
-          },
-          {
-            medicamento: 'Salbutamol',
-            precio: '1500',
-            laboratorio: 'BioSalud',
-            title: '17',
-          },
-          {
-            medicamento: 'Simvastatina',
-            precio: '3800',
-            laboratorio: 'HealthCare',
-            title: '18',
-          },
-          {
-            medicamento: 'Metronidazol',
-            precio: '1900',
-            laboratorio: 'PharmaMed',
-            title: '19',
-          },
-          {
-            medicamento: 'Dipirona',
-            precio: '900',
-            laboratorio: 'PharmaWell',
-            title: '20',
-          },
-          // Puedes agregar más medicamentos aquí
-        ],
     };
   },
   computed: {
@@ -170,7 +52,7 @@ export default {
         return [];
       } else {
         const query = this.searchQuery.trim().toLowerCase();
-        return this.items.filter((item) => {
+        return this.itemsMedicamentos.filter((item) => {
           return (
             item.medicamento.toLowerCase().includes(query) ||
             item.laboratorio.toLowerCase().includes(query) ||
@@ -180,15 +62,7 @@ export default {
       }
     },
     methods: {
-      onResize() {
-        this.isMobile = window.innerWidth < 600
-        if (! this.isMobile) {
-          this.barBottom = 0
-        }
-        if (this.isMobile) {
-          this.barBottom = 70
-        }
-      },
+
     },
   },
 };
@@ -237,7 +111,7 @@ export default {
 
 .medicamento-item {
   padding: 10px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #2596BE;
 }
 
 .medicamento-nombre {

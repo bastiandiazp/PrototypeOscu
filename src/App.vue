@@ -1,7 +1,7 @@
 <template>
   <div id="app" >
     <div >
-      <router-view  class="router-container" :style="routerStyle"/>
+      <router-view  class="router-container" :style="routerStyle" :itemsMedicamentos="itemsMedicamentos" :datosProbando="datosProbando" @agregar-elemento="agregarElemento"/>
     </div>
     <Inicio />
     <div v-show="isMobile" style="position: fixed; bottom: 0; left: 0; width: 100%; height: 64px; background-color: #ffffff;">
@@ -31,6 +31,130 @@ export default {
     marginLeft: 64,
     marginRight: 800,
     marginBottom: 64,
+    datosProbando: [{title: 'Elemento 1'}, {title: 'Elemento 2'}, {title: 'Elemento 3'}],
+    itemsMedicamentos: [
+          {
+            favorito: true, medicamento: 'Paracetamol',
+            precio: '1000',
+            laboratorio: 'Farmalab',
+            title: '1',
+          },
+          {
+            favorito: true, medicamento: 'Ibuprofeno',
+            precio: '1500',
+            laboratorio: 'MediPharma',
+            title: '2',
+          },
+          {
+            favorito: false, medicamento: 'Omeprazol',
+            precio: '2000',
+            laboratorio: 'SaludPlus',
+            title: '3',
+          },
+          {
+            favorito: false, medicamento: 'Amoxicilina',
+            precio: '2500',
+            laboratorio: 'BioGen',
+            title: '4',
+          },
+          {
+            favorito: false, medicamento: 'Aspirina',
+            precio: '800',
+            laboratorio: 'PharmaCorp',
+            title: '5',
+          },
+          {
+            favorito: false, medicamento: 'Loratadina',
+            precio: '1200',
+            laboratorio: 'BioHealth',
+            title: '6',
+          },
+          {
+            favorito: false, medicamento: 'Vitamina C',
+            precio: '1800',
+            laboratorio: 'NutriVida',
+            title: '7',
+          },
+          {
+            favorito: false, medicamento: 'Clorfenamina',
+            precio: '900',
+            laboratorio: 'MediVit',
+            title: '8',
+          },
+          {
+            favorito: false, medicamento: 'Acetaminofén',
+            precio: '1200',
+            laboratorio: 'MediHealth',
+            title: '9',
+          },
+          {
+            favorito: false, medicamento: 'Diclofenaco',
+            precio: '1400',
+            laboratorio: 'Farmagen',
+            title: '10',
+          },
+          {
+            favorito: false, medicamento: 'Cetirizina',
+            precio: '1700',
+            laboratorio: 'BioPharma',
+            title: '11',
+          },
+          {
+            favorito: false, medicamento: 'Diazepam',
+            precio: '3000',
+            laboratorio: 'MediCare',
+            title: '12',
+          },
+          {
+            favorito: false, medicamento: 'Ciprofloxacina',
+            precio: '3200',
+            laboratorio: 'PharmaVida',
+            title: '13',
+          },
+          {
+            favorito: false, medicamento: 'Metformina',
+            precio: '1800',
+            laboratorio: 'SaludGen',
+            title: '14',
+          },
+          {
+            favorito: false, medicamento: 'Ondansetrón',
+            precio: '2800',
+            laboratorio: 'PharmaPlus',
+            title: '15',
+          },
+          {
+            favorito: false, medicamento: 'Paroxetina',
+            precio: '2500',
+            laboratorio: 'MediLab',
+            title: '16',
+          },
+          {
+            favorito: false, medicamento: 'Salbutamol',
+            precio: '1500',
+            laboratorio: 'BioSalud',
+            title: '17',
+          },
+          {
+            favorito: false, medicamento: 'Simvastatina',
+            precio: '3800',
+            laboratorio: 'HealthCare',
+            title: '18',
+          },
+          {
+            favorito: false, medicamento: 'Metronidazol',
+            precio: '1900',
+            laboratorio: 'PharmaMed',
+            title: '19',
+          },
+          {
+            favorito: false, medicamento: 'Dipirona',
+            precio: '900',
+            laboratorio: 'PharmaWell',
+            title: '20',
+          },
+          // Puedes agregar más medicamentos aquí
+        ],
   }),
 
   beforeDestroy() {
@@ -54,8 +178,12 @@ export default {
   },
 
   methods: {
+    agregarElemento(nuevoElemento) {
+      this.datosProbando.push(nuevoElemento);
+    },
     onResize() {
       this.isMobile = window.innerWidth < 600
+      console.log(this.datosProbando)
       if (! this.isMobile) {
         this.marginLeft = 64
         this.marginRight = window.innerWidth-600
@@ -65,6 +193,7 @@ export default {
         this.marginLeft = 0
         this.marginRight = 0
         this.marginBottom = 64
+        
       }
     },
   },
