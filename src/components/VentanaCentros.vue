@@ -96,9 +96,9 @@
           </div>
 
 
-          <div class="popup-row5">
+          <div class="popup-row5 cursor"  @click="redirectToCategorizacion">
             <div><img src="@/assets/svg/info.svg" alt="location1" /></div>
-            <div class="text6" @click="redirectToCategorizacion">¿Qué es la categorización Triage?</div>
+            <div class="text6">¿Qué es la categorización Triage?</div>
           </div>
 
           <div class="popup-row6">
@@ -155,6 +155,10 @@ export default {
 </script>
 
 <style scoped>
+
+.cursor{
+  cursor:pointer;
+}
 .ventana-centros {
   position: absolute;
   z-index: 1000;
