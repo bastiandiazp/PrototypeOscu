@@ -96,9 +96,9 @@
           </div>
 
           <div class="popup-row6">
-            <button class="custom-button">
-              <img class="icon" src="@/assets/svg/favorito.svg" alt="location1" />
-              <span class="text-boton">Favorito</span>
+            <button class="custom-button" @click="toggleFavorito">
+              <img class="icon" :src="favorito ? require('@/assets/svg/favoritoOn.svg') : require('@/assets/svg/favorito.svg')" alt="location1" />
+              <div class="text-boton">Favoritos</div>
             </button>
 
             <button class="custom-button">
@@ -126,7 +126,7 @@
 
 export default {
   name: 'VentanaCentros',
-  props: ['location'],
+  props: ['location', 'favorito'], // Agregar la prop 'favorito'
   methods: {
     closeWindow() {
       this.$emit('close');
@@ -139,6 +139,10 @@ export default {
     },
     redirectToRating() {
       console.log('Redirigir a la vista de valoración de atención');
+    },
+    toggleFavorito() {
+      const newFavoritoValue = !this.favorito; // Invertir el estado de favorito
+      this.$emit('update-favorito', this.location.name, newFavoritoValue); // Emitir evento para actualizar 'favorito'
     },
   },
 };
@@ -155,7 +159,7 @@ export default {
   height: 70%;
   max-width: 400px;
   max-height: 700px;
-  min-height: 200px;
+  min-height: 540px;
   min-width: 300px;
   background-color: white;
   border-radius: 16px;

@@ -9,7 +9,10 @@
         @agregar-elemento="agregarElemento"
       />
     </div>
-    <Inicio />
+    <Inicio 
+        :locations="locationsCentros"
+        @update-favorito="updateFavorito"
+      />
     <div v-show="isMobile" style="position: fixed; bottom: 0; left: 0; width: 100%; height: 64px; background-color: #ffffff;">
       <BottomMenu />
     </div>
@@ -22,6 +25,8 @@
 <script>
 import BottomMenu from "./components/BottomMenuMobile.vue";
 import BottomMenu2 from "./components/BottomMenuDesktop.vue";
+import urgenciasIcon from '@/assets/svg/urgenciasOn.svg';
+import urgenciasIcon2 from '@/assets/svg/urgenciasOff.svg';
 import Inicio from './views/InicioPage.vue';
 
 export default {
@@ -38,6 +43,42 @@ export default {
     marginRight: 800,
     marginBottom: 64,
     datosProbando: [{title: 'Elemento 1'}, {title: 'Elemento 2'}, {title: 'Elemento 3'}],
+    locationsCentros:[
+      {
+        name: 'Arquitectura',
+        coordinates: [-33.4515456, -70.6863792],
+        icon: urgenciasIcon,
+        address: 'Dirección 1',
+        aforo: 20,
+        aforoC1: 5,
+        aforoC2: 10,
+        aforoC3: 2,
+        aforoC4: 3,
+        aforoC5: 0,
+        tiempoC3: 15,
+        tiempoC4: 25,
+        tiempoC5: 0,
+        favorito: true, // Nuevo atributo favorito
+        disponible: true, // Nuevo atributo disponible
+      },
+      {
+        name: 'Perreras',
+        coordinates: [-33.4506137, -70.6803435],
+        icon: urgenciasIcon2,
+        address: 'Dirección 2',
+        aforo: 15,
+        aforoC1: 3,
+        aforoC2: 6,
+        aforoC3: 1,
+        aforoC4: 2,
+        aforoC5: 3,
+        tiempoC3: 20,
+        tiempoC4: 30,
+        tiempoC5: 5,
+        favorito: true, // Nuevo atributo favorito
+        disponible: false, // Nuevo atributo disponible
+      },
+    ],
     itemsMedicamentos: [
           {
             favorito: true, medicamento: 'Paracetamol',
@@ -202,6 +243,17 @@ export default {
         
       }
     },
+    updateFavorito(locationName, newFavoritoValue) {
+    // Encuentra el marcador con el nombre proporcionado y actualiza su atributo 'favorito'
+    const locationIndex = this.locationsCentros.findIndex(location => location.name === locationName);
+    if (locationIndex !== -1) {
+      this.locationsCentros[locationIndex].favorito = newFavoritoValue;
+
+      // Emitir el evento 'update-favorito' con el nuevo valor de 'favorito'
+      this.$emit('update-favorito', locationName, newFavoritoValue);
+    }
+  },
+    
   },
 
   provide() {

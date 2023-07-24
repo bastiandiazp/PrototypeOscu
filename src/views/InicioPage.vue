@@ -1,7 +1,13 @@
 <template>
   <div>
     <div id="map" :style="mapStyle"></div>
-    <VentanaCentros v-if="showVentana" :location="selectedLocation" @close="closeVentana" />
+    <VentanaCentros
+      v-if="showVentana"
+      :location="selectedLocation"
+      :favorito="selectedLocation.favorito" 
+      @close="closeVentana"
+      @update-favorito="updateFavorito" 
+    />
   </div>
 </template>
 
@@ -9,22 +15,19 @@
 import L from 'leaflet';
 import { LMap, LTileLayer, LMarker, LPopup } from 'vue2-leaflet';
 import VentanaCentros from '../components/VentanaCentros.vue';
-import urgenciasIcon from '@/assets/svg/urgenciasOn.svg';
-import urgenciasIcon2 from '@/assets/svg/urgenciasOff.svg';
-//import otroIcono from '@/assets/svg/otroIcono.svg'; // Importa el archivo SVG del otro ícono que deseas usar
 
 export default {
   name: 'InicioPage',
-
+  props: {
+    locations: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
       map: null,
       center: [-33.4500664, -70.686449], // Coordenadas de la Universidad de Santiago de Chile Diinf
-      locations: [
-        { name: 'Arquitectura', coordinates: [-33.4515456, -70.6863792], icon: urgenciasIcon, address: 'Dirección 1', aforo: 20, aforoC1: 5, aforoC2: 10, aforoC3: 2, aforoC4: 3, aforoC5: 0, tiempoC3: 15, tiempoC4: 25, tiempoC5: 0 },
-        { name: 'Perreras', coordinates: [-33.4506137, -70.6803435], icon: urgenciasIcon2, address: 'Dirección 2', aforo: 15, aforoC1: 3, aforoC2: 6, aforoC3: 1, aforoC4: 2, aforoC5: 3, tiempoC3: 20, tiempoC4: 30, tiempoC5: 5 },
-        // Puedes agregar más ubicaciones aquí
-      ],
       barHeight: 64, // Altura de la barra en píxeles
       barWidth: 64,
       showVentana: false,
@@ -49,6 +52,7 @@ export default {
     this.onResize();
     window.addEventListener('resize', this.onResize, { passive: true });
   },
+  
 
   beforeDestroy() {
     if (typeof window === 'undefined') return;
@@ -71,17 +75,15 @@ export default {
       this.locations.forEach(location => {
         // Crea un nuevo marcador y establece el ícono personalizado
         const marker = L.marker(location.coordinates, { icon: L.icon({ iconUrl: location.icon }) }).addTo(this.map);
-
+        
         // Agregar evento al hacer clic en el marcador para mostrar la ventana emergente
         marker.on('click', () => {
           this.showVentana = true;
           this.selectedLocation = location;
         });
-
-        // Agregar un popup a cada marcador con el nombre de la ubicación
-        marker.bindPopup(location.name).openPopup();
       });
     },
+
 
     closeVentana() {
       this.showVentana = false;
@@ -100,6 +102,14 @@ export default {
       if (this.isMobile) {
         this.barHeight = 64;
         this.barWidth = 0;
+      }
+    },
+
+    updateFavorito(locationName, newFavoritoValue) {
+      // Actualizar el estado de 'favorito' en el marcador seleccionado
+      const locationIndex = this.locations.findIndex(location => location.name === locationName);
+      if (locationIndex !== -1) {
+        this.locations[locationIndex].favorito = newFavoritoValue;
       }
     },
   },
