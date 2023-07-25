@@ -9,6 +9,7 @@
       @close="closeVentana"
       @update-favorito="updateFavorito" 
     />
+    
   </div>
 </template>
 
