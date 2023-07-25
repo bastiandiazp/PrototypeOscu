@@ -3,120 +3,108 @@
     <div class="ventana-centros">
       <div class="ventana-header">
         <v-list-item no-gutters>
-          <div class="text">{{ location.name }}</div>
           <v-list-item-action>
-            <v-btn icon @click="closeWindow" class="cerrar">
+            <v-btn icon @click="mostrarTriageAca" class="cerrar">
               <img src="@/assets/svg/close.svg" alt="close1" />
             </v-btn>
           </v-list-item-action>
         </v-list-item>
       </div>
-
       <div class="ventana-body">
-        
-        <div class="popup-row1">
-          <div><img src="@/assets/svg/locationOn.svg" alt="location1" /></div>
-          <div class="text2">{{ location.address }}</div>
-        </div>
 
-        <div v-if="!location.disponible" class="columna">
-          <div><img src="@/assets/svg/locationOff.svg" alt="location1" /></div>
-          <div class="text7">¡Cerrado por Emergencia!</div>
-        </div>
+          <v-row justify="center">
+              <v-expansion-panels accordion>
+              <v-expansion-panel>
+                  <v-expansion-panel-header>Item</v-expansion-panel-header>
+                  <v-expansion-panel-content>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  </v-expansion-panel-content>
+              </v-expansion-panel>
 
-        <div v-if="location.disponible" class="popup-row2">
-          <div class="text3 elemento-izquierdo">{{ location.aforo }}</div>
-          <div class="text elemento-derecho">Personas en total esperando</div>
-        </div>
+              <v-expansion-panel>
+                  <v-expansion-panel-header>Item</v-expansion-panel-header>
+                  <v-expansion-panel-content>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  </v-expansion-panel-content>
+              </v-expansion-panel>
 
-        
+              <v-expansion-panel>
+                  <v-expansion-panel-header>Item</v-expansion-panel-header>
+                  <v-expansion-panel-content>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  </v-expansion-panel-content>
+              </v-expansion-panel>
+              </v-expansion-panels>
+          </v-row>
 
-        <div v-if="location.disponible" class="popup-row3 colorC1">
+
+
+
+
+
+        <div  class="popup-row3 colorC1">
           <div class="categoria elemento-izquierdo">C1</div>
           <div class="elemento-central"> 
             <div class="barra-izquierda"></div>
-            <div class="text4">{{ location.aforoC1 }}</div>
+            <div class="text4">aa</div>
             <div class="text5 margen-derecha">Personas en total esperando</div>
             <div class="barra-derecha"></div>
           </div>
           <div class="text5">Atención inmediata</div>
         </div>
 
-        <div v-if="location.disponible" class="popup-row3 colorC2">
+        <div  class="popup-row3 colorC2">
           <div class="categoria elemento-izquierdo">C2</div>
           <div class="elemento-central"> 
             <div class="barra-izquierda"></div>
-            <div class="text4">{{ location.aforoC2 }}</div>
+            <div class="text4">aa</div>
             <div class="text5 margen-derecha">Personas en total esperando</div>
             <div class="barra-derecha"></div>
           </div>
           <div class="text5">Atención inmediata</div>
         </div>
 
-        <div v-if="location.disponible" class="popup-row3 colorC3">
+        <div  class="popup-row3 colorC3">
           <div class="categoria elemento-izquierdo">C3</div>
           <div class="elemento-central"> 
             <div class="barra-izquierda"></div>
-            <div class="text4">{{ location.aforoC3 }}</div>
+            <div class="text4">aa</div>
             <div class="text5 margen-derecha">Personas en total esperando</div>
             <div class="barra-derecha"></div>
           </div>
           <div class="popup-row4">
-            <div class="text4">{{ location.tiempoC3 }}</div>
+            <div class="text4">bb</div>
             <div class="text5">Min de tiempo de espera estimado</div>
           </div>
         </div>
 
-        <div v-if="location.disponible" class="popup-row3 colorC4">
+        <div  class="popup-row3 colorC4">
           <div class="categoria elemento-izquierdo">C4</div>
           <div class="elemento-central"> 
             <div class="barra-izquierda"></div>
-            <div class="text4">{{ location.aforoC4 }}</div>
+            <div class="text4">aa</div>
             <div class="text5 margen-derecha">Personas en total esperando</div>
             <div class="barra-derecha"></div>
           </div>
           <div class="popup-row4">
-            <div class="text4">{{ location.tiempoC4 }}</div>
+            <div class="text4">bb</div>
             <div class="text5">Min de tiempo de espera estimado</div>
           </div>
         </div>
 
-        <div v-if="location.disponible" class="popup-row3 colorC5">
+        <div class="popup-row3 colorC5">
           <div class="categoria elemento-izquierdo">C5</div>
           <div class="elemento-central"> 
             <div class="barra-izquierda"></div>
-            <div class="text4">{{ location.aforoC5 }}</div>
+            <div class="text4">aa</div>
             <div class="text5 margen-derecha">Personas en total esperando</div>
             <div class="barra-derecha"></div>
           </div>
           <div class="popup-row4">
-            <div class="text4">{{ location.tiempoC5 }}</div>
+            <div class="text4">bb</div>
             <div class="text5">Min de tiempo de espera estimado</div>
           </div>
         </div>
-
-
-        <div class="popup-row5 cursor"  @click="redirectToCategorizacion">
-          <div><img src="@/assets/svg/info.svg" alt="location1" /></div>
-          <div class="text6">¿Qué es la categorización Triage?</div>
-        </div>
-
-        <div class="popup-row6">
-          <button class="custom-button" @click="toggleFavorito">
-            <img class="icon" :src="favorito ? require('@/assets/svg/favoritoOn.svg') : require('@/assets/svg/favorito.svg')" alt="location1" />
-            <div class="text-boton">Favoritos</div>
-          </button>
-
-          <button class="custom-button">
-            <img class="icon" src="@/assets/svg/valorar.svg" alt="location1" />
-            <span class="text-boton">Valorar Atención</span>
-          </button>
-        </div>
-
-        
-
-
-
 
 
 
@@ -131,26 +119,16 @@
 
 
 export default {
-name: 'VentanaCentros',
-props: ['location', 'favorito'], // Agregar la prop 'favorito'
-methods: {
-  closeWindow() {
-    this.$emit('close');
+  props: 'visibleTriage',
+  name: 'Triage',
+  methods: {
+      closeWindow() {
+      this.$emit('close'); // Emitir el evento 'close' para notificar a VentanaCentros.vue que se debe cerrar la ventana emergente
+      },
+      mostrarTriageAca() {
+          this.$emit('mostrar-triage');
+      },
   },
-  redirectToCategorizacion() {
-    console.log('Redirigir a la vista de categorización Triage');
-  },
-  redirectToFavorite() {
-    console.log('Redirigir a la vista de favoritos');
-  },
-  redirectToRating() {
-    console.log('Redirigir a la vista de valoración de atención');
-  },
-  toggleFavorito() {
-    const newFavoritoValue = !this.favorito; // Invertir el estado de favorito
-    this.$emit('update-favorito', this.location.name, newFavoritoValue); // Emitir evento para actualizar 'favorito'
-  },
-},
 };
 </script>
 
@@ -165,8 +143,8 @@ z-index: 1000;
 top: 50%;
 left: 50%;
 transform: translate(-50%, -50%);
-width: 90%;
-height: 70%;
+width: 100%;
+height: 100%;
 max-width: 400px;
 max-height: 700px;
 min-height: 540px;
@@ -178,7 +156,7 @@ box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
 
 .fondo-oscuro {
 position: absolute;
-z-index: 9999;
+z-index: 10000;
 top: 0;
 left: 0;
 width: 100%;
