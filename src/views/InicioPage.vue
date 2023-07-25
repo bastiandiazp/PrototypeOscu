@@ -1,6 +1,7 @@
 <template>
   <div>
     <div id="map" :style="mapStyle"></div>
+    <CuadroDeslizante class="cuadro"/>
     <VentanaCentros
       v-if="showVentana"
       :location="selectedLocation"
@@ -13,10 +14,12 @@
 
 <script>
 import L from 'leaflet';
-import { LMap, LTileLayer, LMarker, LPopup } from 'vue2-leaflet';
+import { LMap, LTileLayer, LMarker, LPopup, LControl} from 'vue2-leaflet';
 import VentanaCentros from '../components/VentanaCentros.vue';
+import CuadroDeslizante from '../components/CuadroDeslizante.vue';
 import urgenciasIcon from '@/assets/svg/urgenciasOn.svg';
 import urgenciasIcon2 from '@/assets/svg/urgenciasOff.svg';
+
 
 export default {
   name: 'InicioPage',
@@ -32,6 +35,7 @@ export default {
       center: [-33.4500664, -70.686449], // Coordenadas de la Universidad de Santiago de Chile Diinf
       barHeight: 64, // Altura de la barra en píxeles
       barWidth: 64,
+      widthMap:0,
       showVentana: false,
       selectedLocation: null,
       iconDisponible: urgenciasIcon,
@@ -44,7 +48,6 @@ export default {
       return {
         height: `calc(100vh - ${this.barHeight}px)`,
         marginLeft: `${this.barWidth}px`, // Centra el mapa a la izquierda agregando el margen
-
         //width: `calc(100vh - ${this.barWidth}px)`,
       };
     },
@@ -71,6 +74,8 @@ export default {
       // Agregar capa de mapa base (OpenStreetMap)
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
 
+      // Agregar control de zoom
+      L.control.zoom({position: 'topright'}).addTo(this.map);
       // Agregar evento para abrir la ventana emergente al hacer clic en el marcador
       this.map.on('click', this.closeVentana);
     },
@@ -103,10 +108,12 @@ export default {
       if (!this.isMobile) {
         this.barHeight = 0;
         this.barWidth = 64;
+        this.widthMap = window.innerWidth - 64;
       }
       if (this.isMobile) {
         this.barHeight = 64;
         this.barWidth = 0;
+        this.widthMap = window.innerWidth;
       }
     },
 
@@ -131,6 +138,8 @@ export default {
     LMarker,
     LPopup,
     VentanaCentros,
+    CuadroDeslizante,
+    LControl,
   },
 };
 </script>
@@ -138,5 +147,11 @@ export default {
 <style>
 #map {
   width: 100%;
+  z-index: 1;
+}
+
+.cuadro{
+  position:absolute;
+  z-index: 1;
 }
 </style>

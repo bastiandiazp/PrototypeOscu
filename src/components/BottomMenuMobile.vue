@@ -86,16 +86,16 @@
   left: 0;
   width: 100%;
   background-color: #ffffff; /* Color de fondo, ajusta según tus necesidades */
-
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
   text-align: center;
-  height: 60px;
+  height: 64px;
 }
 
 .container {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 35px; /* Ajusta la altura según tus necesidades */
+  height: 39px; /* Ajusta la altura según tus necesidades */
 }
 .container2 {
   justify-content: center;

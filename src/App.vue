@@ -14,8 +14,8 @@
         :locations="locationsCentros"
         @update-favorito="updateFavorito"
       />
-    <div v-show="isMobile" style="position: fixed; bottom: 0; left: 0; width: 100%; height: 64px; background-color: #ffffff;">
-      <BottomMenu />
+    <div v-show="isMobile" style="position: absolute; z-index: 1400; bottom: 0; left: 0; width: 100%; height: 64px; background-color: #ffffff;">
+      <BottomMenu/>
     </div>
     <div v-show="!isMobile" style="position: fixed; bottom: 0; left: 0; width: 100%; height: 64px; background-color: #ffffff;">
       <BottomMenu2 />
@@ -317,11 +317,13 @@ html, body, #app {
   margin: 0;
   overflow: hidden;
 }
+
+
 .router-container {
     position: absolute;
     top: 0;
     bottom: 64px;
-    z-index: 1200;
+    z-index: 1400;
     background-color: #ffffff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
     /* Agrega aquí otras propiedades de estilo según tus necesidades */
