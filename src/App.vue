@@ -8,17 +8,24 @@
         :datosProbando="datosProbando" 
         @agregar-elemento="agregarElemento"
         :locations="locationsCentros"
+        @mostrar-triage="mostrarTriage"
       />
     </div>
     <Inicio 
         :locations="locationsCentros"
         @update-favorito="updateFavorito"
+        @mostrar-triage="mostrarTriage"
       />
     <div v-show="isMobile" style="position: absolute; z-index: 1400; bottom: 0; left: 0; width: 100%; height: 64px; background-color: #ffffff;">
       <BottomMenu/>
     </div>
     <div v-show="!isMobile" style="position: fixed; bottom: 0; left: 0; width: 100%; height: 64px; background-color: #ffffff;">
       <BottomMenu2 />
+    </div>
+    <div v-show="visibleTriage">
+      <Triage 
+      @mostrar-triage="mostrarTriage"
+      />
     </div>
   </div>
 </template>
@@ -29,12 +36,14 @@ import BottomMenu2 from "./components/BottomMenuDesktop.vue";
 import urgenciasIcon from '@/assets/svg/urgenciasOn.svg';
 import urgenciasIcon2 from '@/assets/svg/urgenciasOff.svg';
 import Inicio from './views/InicioPage.vue';
+import Triage from './components/Triage.vue';
 
 export default {
   components: {
     BottomMenu,
     BottomMenu2,
     Inicio,
+    Triage,
   },
   name: 'App',
 
@@ -43,6 +52,7 @@ export default {
     marginLeft: 64,
     marginRight: 800,
     marginBottom: 64,
+    visibleTriage: false,
     datosProbando: [{title: 'Elemento 1'}, {title: 'Elemento 2'}, {title: 'Elemento 3'}],
     locationsCentros:[
       {
@@ -261,6 +271,10 @@ export default {
       if (locationIndex !== -1) {
         this.locationsCentros[locationIndex].favorito = newFavoritoValue;
       }
+    },
+    mostrarTriage(){
+      console.log('antes de cambiar: ' + this.visibleTriage);
+      this.visibleTriage = !this.visibleTriage;
     },
     // Función para actualizar los valores de las locaciones
     updateLocationsData() {

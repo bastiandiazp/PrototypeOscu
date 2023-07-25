@@ -8,6 +8,7 @@
       :favorito="selectedLocation.favorito" 
       @close="closeVentana"
       @update-favorito="updateFavorito" 
+      @mostrar-triage="mostrarTriage"
     />
     
   </div>
@@ -71,10 +72,10 @@ export default {
   methods: {
     initializeMap() {
       this.map = L.map('map', {
-    center: this.center,
-    zoom: 14,
-    zoomControl: false, // Agregar esta opción para desactivar el control de zoom
-  });
+        center: this.center,
+        zoom: 14,
+        zoomControl: false, // Agregar esta opción para desactivar el control de zoom
+      });
 
       // Agregar capa de mapa base (OpenStreetMap)
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
@@ -128,6 +129,10 @@ export default {
       if (locationIndex !== -1) {
         this.locations[locationIndex].favorito = newFavoritoValue;
       }
+    },
+    mostrarTriage() {
+      // Emitir el evento desde InicioPage.vue hacia App.vue
+      this.$emit('mostrar-triage');
     },
   },
 

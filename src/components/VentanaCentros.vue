@@ -96,12 +96,10 @@
           </div>
 
 
-          <div class="popup-row5 cursor" @click="openTriageWindow">
+          <div class="popup-row5 cursor"  @click="redirectToCategorizacion">
             <div><img src="@/assets/svg/info.svg" alt="location1" /></div>
             <div class="text6">¿Qué es la categorización Triage?</div>
           </div>
-
-          <Triage v-if="showTriage" @close="closeTriageWindow" />
 
           <div class="popup-row6">
             <button class="custom-button" @click="toggleFavorito">
@@ -129,25 +127,18 @@
   
   
 <script>
-import Triage from './Triage.vue';
 
 
 
 export default {
   name: 'VentanaCentros',
-  components: {
-    Triage, // Registrar el componente Triage.vue
-  },
-  data() {
-    return {
-      // ... otros datos existentes ...
-      showTriage: false, // Nuevo dato para controlar la ventana emergente de Triage.vue
-    };
-  },
   props: ['location', 'favorito'], // Agregar la prop 'favorito'
   methods: {
     closeWindow() {
       this.$emit('close');
+    },
+    redirectToCategorizacion() {
+      this.$emit('mostrar-triage');
     },
     redirectToFavorite() {
       console.log('Redirigir a la vista de favoritos');
@@ -158,13 +149,6 @@ export default {
     toggleFavorito() {
       const newFavoritoValue = !this.favorito; // Invertir el estado de favorito
       this.$emit('update-favorito', this.location.name, newFavoritoValue); // Emitir evento para actualizar 'favorito'
-    },
-    openTriageWindow() {
-      this.showTriage = true; // Mostrar la ventana emergente de Triage.vue
-    },
-
-    closeTriageWindow() {
-      this.showTriage = false; // Cerrar la ventana emergente de Triage.vue
     },
   },
 };

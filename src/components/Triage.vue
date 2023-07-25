@@ -5,7 +5,7 @@
           <v-list-item no-gutters>
             
             <v-list-item-action>
-              <v-btn icon @click="closeWindow" class="cerrar">
+              <v-btn icon @click="mostrarTriageAca" class="cerrar">
                 <img src="@/assets/svg/close.svg" alt="close1" />
               </v-btn>
             </v-list-item-action>
@@ -90,10 +90,14 @@
 
 
 export default {
+    props: 'visibleTriage',
     name: 'Triage',
     methods: {
         closeWindow() {
         this.$emit('close'); // Emitir el evento 'close' para notificar a VentanaCentros.vue que se debe cerrar la ventana emergente
+        },
+        mostrarTriageAca() {
+            this.$emit('mostrar-triage');
         },
     },
 };
@@ -110,8 +114,8 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 90%;
-  height: 70%;
+  width: 100%;
+  height: 100%;
   max-width: 400px;
   max-height: 700px;
   min-height: 540px;
@@ -123,7 +127,7 @@ export default {
 
 .fondo-oscuro {
   position: absolute;
-  z-index: 9999;
+  z-index: 10000;
   top: 0;
   left: 0;
   width: 100%;
