@@ -1,6 +1,10 @@
 <template>
   <div>
+    <div class="direccion-title">
+        Perfil
+      </div>
     <div id="map" :style="mapStyle"></div>
+
     <CuadroDeslizante class="cuadro"/>
     <VentanaCentros
       v-if="showVentana"
@@ -164,4 +168,29 @@ export default {
   position:absolute;
   z-index: 1;
 }
+
+.direccion-title {
+    height: 50px;
+    width: 200px;
+    position: absolute;
+    z-index: 99;
+    border-radius: 40px;
+    padding: 20px; /* Añade un espacio interno para separar el texto del borde */
+    margin: auto; /* Centra el input horizontalmente en el contenedor */
+    font-weight: bold;
+    font-size: 26px;
+    padding-left: 70px; /* Ajusta esto para separar el contenido del SVG */
+    background-image: url(~@/assets/svg/LogoOscu.svg); /* Ruta a la imagen SVG */
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    background-size: 48px 48px;
+    left:300px;
+    background-color: #ffff;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
+    /* Agrega aquí otros estilos según tus necesidades */
+  margin-top: 50px; /* Espacio superior para separar del borde superior */
+  text-align: center; /* Centra el texto horizontalmente */
+  }
 </style>
