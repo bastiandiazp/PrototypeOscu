@@ -69,13 +69,17 @@ export default {
 
   methods: {
     initializeMap() {
-      this.map = L.map('map').setView(this.center, 14);
+      this.map = L.map('map', {
+    center: this.center,
+    zoom: 14,
+    zoomControl: false, // Agregar esta opción para desactivar el control de zoom
+  });
 
       // Agregar capa de mapa base (OpenStreetMap)
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(this.map);
 
       // Agregar control de zoom
-      L.control.zoom({position: 'topright'}).addTo(this.map);
+      //L.control.zoom({position: 'topright'}).addTo(this.map);
       // Agregar evento para abrir la ventana emergente al hacer clic en el marcador
       this.map.on('click', this.closeVentana);
     },
