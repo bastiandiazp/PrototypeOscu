@@ -1,11 +1,15 @@
 <template>
     <div>
+        <div class="direccion">
+          Lista de Favoritos
+      </div>
       <div :style="recuadroStyles" :class="{ 'moved': isMoved }">
         <!-- Contenido del recuadro -->
         <div :style="botonStyles" @click="togglePosition">
             <svg width="38" height="13">
-                <rect rx="5" ry="5" width="38" height="13" fill="#B2DDEC" />
+                <rect rx="7" ry="7" width="38" height="13" fill="#B2DDEC" />
             </svg>
+            <div class="titulo-cuadro-deslizante">Centros de urgencia mas cercanos</div>
         </div>
       </div>
 
@@ -21,9 +25,13 @@
         isMoved: false,
         top:0,
         left:0,
+        cuadroHeight: 0,
+        cuadroWidth: 0,
         initialTop: 93,
         initialLeft: 20,
-        defaultLeft: 300
+        defaultLeft: 350,
+        defaultTopDesktop: 200,
+        defaultTopMobile:150
       };
     },
     mounted() {
@@ -35,8 +43,8 @@
     computed: {
       recuadroStyles() {
         return {
-          width: '430px',
-          height: '300px',
+          width: this.cuadroWidth,
+          height: this.cuadroHeight,
           borderRadius: '20px',
           backgroundColor: '#ffffff',
           position: 'fixed',
@@ -50,14 +58,14 @@
       botonStyles(){ 
             return {
                 width: '100%',
-                height: '20px',
+                height: '50px',
                 opacity: '100%',
-                cursor: 'grab',
+                cursor: 'pointer',
                 userSelect: 'none',
                 display: 'flex',
+                flexDirection: 'column',
                 alignItems: 'center',
                 justifyContent: 'center',
-                cursor: this.isMouseDown ? 'grabbing' : 'grab',
             }
         },
     },
@@ -67,10 +75,12 @@
       let widthWindow = window.innerWidth //obtenga ancho de ventana
       let heightWindow = window.innerHeight //obtenga alto de ventana
       if (! this.isMobile) {
-        this.initialTop = heightWindow ; //guardo posicion inicial
+        this.initialTop = heightWindow+this.defaultTopDesktop ; //guardo posicion inicial
         this.initialLeft = this.defaultLeft;
+        this.cuadroHeight = 500 +'px';
+        this.cuadroWidth = '360px'
         if (!this.isMoved) {
-            this.top = heightWindow + 'px' ;
+            this.top = heightWindow+this.defaultTopDesktop + 'px' ;
             this.left = this.defaultLeft +'px';
         } else{
             this.top = heightWindow/2 + 'px' ;
@@ -78,15 +88,18 @@
         }
       }
       if (this.isMobile) {
-        this.initialTop = heightWindow ;  //guardo posicion inicial
+        this.initialTop = heightWindow+this.defaultTopMobile ;  //guardo posicion inicial
         this.initialLeft = widthWindow/2;
+        this.cuadroHeight = 600 +'px';
+        this.cuadroWidth = widthWindow + 'px';
         if (!this.isMoved) {
-            this.top =  heightWindow + 'px' ;
+            this.top =  heightWindow+this.defaultTopMobile + 'px' ;
             this.left =  widthWindow/2 +'px';
         } else{
             this.top = heightWindow/2 + 'px' ;
             this.left = widthWindow/2 +'px';
         }
+        
       }
     },
       togglePosition() {
@@ -97,7 +110,7 @@
           // Cambiar a la posición deseada con animación
           if (! this.isMobile) {
           this.top = heightWindow/2 +'px';
-          this.left = '300px';
+          this.left = this.defaultLeft;
           } else {
             this.top = heightWindow/2 +'px';
             this.left = widthWindow/2 +'px';
@@ -114,6 +127,34 @@
   </script>
 
 <style>
+  .container-direccion {
+    position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(50%, 50%);
+  }
+
+  .direccion {
+    position: 'fixed';
+    height: 50px;
+    width: 300px;
+   
+    border-radius: 40px;
+    padding: 20px; /* Añade un espacio interno para separar el texto del borde */
+    margin: auto; /* Centra el input horizontalmente en el contenedor */
+    font-weight: bold;
+    font-size: 26px;
+    padding-left: 70px; /* Ajusta esto para separar el contenido del SVG */
+    background-image: url(~@/assets/svg/LogoOscu.svg); /* Ruta a la imagen SVG */
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    background-size: 48px 48px;
+
+    display: flex;
+    align-items: center;
+    /* Agrega aquí otros estilos según tus necesidades */
+  }
+
 ul {
   list-style-type: none;
   padding: 0;
@@ -138,5 +179,11 @@ li {
 
 .moved {
   transition: top 0.5s, left 0.5s; /* Definir la transición aquí también */
+}
+
+.titulo-cuadro-deslizante {
+  font-weight: bold;
+  font-size: 16px;
+  margin-top: 5px;
 }
 </style>

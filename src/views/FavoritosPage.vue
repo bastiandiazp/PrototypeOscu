@@ -8,8 +8,8 @@
       <div class="switch-container">
         <div
           class="switch-option"
-          :class="{ active: selectedOption === 'itemsCentros' }"
-          @click="setSelectedOption('itemsCentros')"
+          :class="{ active: selectedOption === 'locations' }"
+          @click="setSelectedOption('locations')"
         >
           Centros
         </div>
@@ -30,9 +30,9 @@
       </div>
       <div class="container5" :style="contenedorListaStyle">
         <ul class="medicamentos-list">
-          <li v-for="(item, index) in getSelectedList" :key="item.title" v-if="item.favorito === true ">
+          <li v-for="(item, index) in getSelectedList" :key="item.name" v-if="item.favorito === true ">
             <div class="medicamento-item" @click="itemClicked">
-              <div class="medicamento-nombre">{{ item.medicamento }}</div>
+              <div class="medicamento-nombre">{{ item.name }}</div>
               <div class="medicamento-info">
                 <div class="medicamento-desde">desde &nbsp;</div>
                 <div class="medicamento-precio">
@@ -53,7 +53,7 @@
   
   <script>
   export default {
-    props: ['datosProbando','itemsMedicamentos'], // Declaración de los props 'datos' y 'agregarElemento'
+    props: ['datosProbando','itemsMedicamentos','locations'], // Declaración de los props 'datos' y 'agregarElemento'
     data() {
       return {
         nuevoElemento: '',
@@ -80,8 +80,8 @@
     getSelectedList() {
       // Computed para obtener la lista correspondiente a la opción seleccionada
       switch (this.selectedOption) {
-        case 'itemsCentros':
-          return this.itemsCentros;
+        case 'locations':
+          return this.locations;
         case 'itemsFarmacias':
           return this.itemsFarmacias;
         case 'itemsMedicamentos':
