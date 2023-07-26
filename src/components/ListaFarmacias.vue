@@ -1,16 +1,17 @@
 <template>
     <div class="container5">
       <ul class="medicamentos-list">
-        <li v-for="(centro, index) in locations" :key="centro.name" v-if="centro.favorito === true">
+        <li v-for="(centro, index) in locationsFarmacias" :key="centro.name" v-if="centro.favorito === true">
             <div class="centro-item" @click="itemClicked">
+                <img class="icon" src="@/assets/svg/pharmacy.svg" alt="location1" />
                 <div class="centro-info">
-                <div class="centro-nombre">{{ centro.name }}</div>
-                <div class="centro-distancia">{{ centro.aforoC3 }} Km de distancia</div>
-            </div>
+                    <div class="centro-nombre">{{ centro.name }}</div>
+                    <div class="centro-distancia">{{ centro.aforoC3 }} Km de distancia</div>
+                </div>
             <div class="aforo-container">
-                <div class="aforo-oval">{{ centro.aforo }}</div>
-                <div class="aforo-texto">Aforo</div>
+                <img class="icon" src="@/assets/svg/outToPage.svg" alt="location1" />
             </div>
+
         </div>
         </li>
       </ul>
@@ -19,7 +20,7 @@
   
   <script>
   export default {
-    props: ['locations'],
+    props: ['locationsFarmacias'],
     methods: {
       itemClicked() {
         // Aquí colocas la lógica para manejar el clic en el item
@@ -56,6 +57,12 @@
   cursor: pointer;
 }
 
+.centro-info {
+  display: flex; /* Agrega el display: flex */
+  flex-direction: column; /* Apila los elementos verticalmente */
+  flex: 1; /* Ocupa el espacio disponible dentro de centro-item */
+  padding-left: 5px;
+}
 .centro-nombre {
     font-weight: bold;
     font-size: 16px;
@@ -91,5 +98,10 @@
   color: #888;
 }
 
+.icon {
+  width: 20px; /* Ancho del icono en píxeles */
+  height: 20px; /* Altura del icono en píxeles */
+  margin-right: 1px; /* Espacio entre el icono y el texto */
+}
   </style>
   

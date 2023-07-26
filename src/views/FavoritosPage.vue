@@ -34,6 +34,9 @@
       <div v-show="selectedOption == 'locations'" :style="contenedorListaStyle">
         <ListaCentros :locations="locations"/>
       </div>
+      <div v-show="selectedOption == 'itemsFarmacias'" :style="contenedorListaStyle">
+        <ListaFarmacias :locationsFarmacias="locationsFarmacias"/>
+      </div>
     <div>
     <input v-model="nuevoElemento"  />
     <button @click="enviarElemento">Agregar Elemento</button>
@@ -44,9 +47,10 @@
   <script>
 import ListaMedicamentos from '../components/ListaMedicamentos.vue';
 import ListaCentros from '../components/ListaCentros.vue';
+import ListaFarmacias from '../components/ListaFarmacias.vue';
   export default {
-    components:{ListaMedicamentos,ListaCentros},
-    props: ['datosProbando','itemsMedicamentos','locations','locationsUsuario','usuarioActual'], // Declaración de los props 'datos' y 'agregarElemento'
+    components:{ListaMedicamentos,ListaCentros,ListaFarmacias},
+    props: ['datosProbando','itemsMedicamentos','locations','locationsUsuario','usuarioActual','locationsFarmacias'], // Declaración de los props 'datos' y 'agregarElemento'
     data() {
       return {
         nuevoElemento: '',
@@ -87,7 +91,7 @@ import ListaCentros from '../components/ListaCentros.vue';
     methods: {
       setSelectedOption(option) {
         this.selectedOption = option;
-        console.log(this.locations)
+        console.log(this.locationsFarmacias)
       },
       enviarElemento() {
         // Utilizando la función 'agregarElemento' que recibimos como prop del componente padre
