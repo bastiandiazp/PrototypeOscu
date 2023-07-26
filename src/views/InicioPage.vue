@@ -74,6 +74,7 @@ export default {
 
   methods: {
     initializeMap() {
+      
       this.center = this.buscarPorTitulo(this.usuarioActual).cordenadas //se obtiene cordendas de usuario actual
       this.map = L.map('map', {
         center: this.center,
