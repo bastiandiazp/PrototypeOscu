@@ -11,6 +11,8 @@
         @mostrar-triage="mostrarTriage"
         :locationsUsuario="locationsUsuario"
         :usuarioActual="usuarioActual"
+        :locationsFarmacias="locationsFarmacias"
+        :locationsTipo="locationsTipo"
       />
     </div>
     <Inicio 
@@ -20,6 +22,9 @@
         :locationsUsuario="locationsUsuario"
         :usuarioActual="usuarioActual"
         @cambiar-usuario="cambiarUsuario"
+        :locationsFarmacias="locationsFarmacias"
+        :locationsTipo="locationsTipo"
+        @cambiar-tipo="cambiarTipo"
       />
     <div v-show="isMobile" style="position: absolute; z-index: 1400; bottom: 0; left: 0; width: 100%; height: 64px; background-color: #ffffff;">
       <BottomMenu/>
@@ -60,10 +65,12 @@ export default {
     visibleTriage: false,
     datosProbando: [{title: 'Elemento 1'}, {title: 'Elemento 2'}, {title: 'Elemento 3'}],
     usuarioActual: 1, //cambiar usuario usuario actual
+    locationsTipo: 'Centros', //centros o farmacias
     locationsUsuario: [
       {title:0, direccion: '9170125 Santiago, Santiago / Estación Central, Región Metropolitana', cordenadas : [-33.4500664, -70.686449]},
       {title:1, direccion: 'Avda Libertador Bernardo O`Higgins 1315, Santiago, 8340658, Región Metropolitana', cordenadas : [-33.4444012,-70.6555231]},
       {title:2, direccion: 'Nueva Los Leones 71, Providencia, Región Metropolitana', cordenadas : [-33.4192201,-70.6091028]}],
+    locationsFarmacias:[], // array con locaciones de farmacias
     locationsCentros:[
       {
         name: 'Arquitectura',
@@ -288,6 +295,9 @@ export default {
     mostrarTriage(){
       console.log('antes de cambiar: ' + this.visibleTriage);
       this.visibleTriage = !this.visibleTriage;
+    },
+    cambiarTipo(option){
+      this.locationsTipo = option;
     },
     // Función para actualizar los valores de las locaciones
     updateLocationsData() {

@@ -4,6 +4,10 @@
       class="cuadro"
       :locationsUsuario="locationsUsuario"
       :usuarioActual="usuarioActual"
+      :locations="locations"
+      :locationsFarmacias="locationsFarmacias"
+      :locationsTipo="locationsTipo"
+      @cambiar-tipo="cambiarTipo"
     />
     <div id="map" :style="mapStyle"></div>
     <VentanaCentros
@@ -29,20 +33,7 @@ import urgenciasIcon2 from '@/assets/svg/urgenciasOff.svg';
 
 export default {
   name: 'InicioPage',
-  props: {
-    locations: {
-      type: Array,
-      required: true,
-    },
-    locationsUsuario:{
-      type: Array,
-      required: true,
-    },
-    usuarioActual:{
-      type: Number,
-      required: true,
-    },
-  },
+  props: ['locations','locationsUsuario','usuarioActual','locationsFarmacias','locationsTipo'],
   data() {
     return {
       map: null,
@@ -103,7 +94,12 @@ export default {
       this.locations.forEach(location => {
         // Crea un nuevo marcador y establece el ícono según el valor de 'disponible'
         const iconUrl = location.disponible ? this.iconDisponible : this.iconNoDisponible;
-        const marker = L.marker(location.coordinates, { icon: L.icon({ iconUrl }) }).addTo(this.map);
+        const icon = L.icon({
+          iconUrl,
+          iconSize: [40, 40], // Tamaño del icono (ajusta según sea necesario)
+          iconAnchor: [20, 40], // Anclaje ajustado para colocar el icono justo arriba de las coordenadas
+        });
+        const marker = L.marker(location.coordinates, { icon }).addTo(this.map);
 
         // Agregar evento al hacer clic en el marcador para mostrar la ventana emergente
         marker.on('click', () => {
@@ -118,7 +114,10 @@ export default {
       this.showVentana = false;
     },
 
-
+    cambiarTipo(option){
+      //this.locationsTipo = option;
+      this.$emit('cambiar-tipo',option);
+    },
     navigateToLocation(location) {
       // Agrega aquí la lógica para llevar al usuario a otra vista o ejecutar alguna acción
       console.log(`Hiciste clic en ${location.name}`);

@@ -3,6 +3,22 @@
       <div class="direccion-title" :style="direccionStyles">
         {{this.buscarPorTitulo(this.usuarioActual).direccion}}
       </div>
+      <div class="switch-locations" :style="switchLocationStyles">
+        <div
+          class="switch-option"
+          :class="{ active: locationsTipo === 'Centros' }"
+          @click="setLocationOption('Centros')"
+        >
+          Urgencias
+        </div>
+        <div
+          class="switch-option"
+          :class="{ active: locationsTipo === 'Farmacias' }"
+          @click="setLocationOption('Farmacias')"
+        >
+          Farmacias
+        </div>
+      </div>
       <div :style="recuadroStyles" :class="{ 'moved': isMoved }">
         <!-- Contenido del recuadro -->
         <div :style="botonStyles" @click="togglePosition">
@@ -17,7 +33,7 @@
   
   <script>
   export default {
-    props: ['locationsUsuario','usuarioActual'],
+    props: ['locationsUsuario','usuarioActual','locationsTipo'],
     data() {
       return {
         isMobile: false,
@@ -28,6 +44,9 @@
         cuadroWidth: 0,
         direccionWidth: 0,
         direccionleft: 0,
+        switchTop:0,
+        switchLeft:300,
+        switchWidth:300,
         initialTop: 93,
         initialLeft: 20,
         defaultLeft: 350,
@@ -54,6 +73,7 @@
           boxShadow: '0px 0px 5px rgba(0, 0, 0, 0.5)',
           transform: 'translate(-50%, -50%)',
           transition: 'top 0.5s, left 0.5s', // Añadir la transición aquí
+          zIndex: 200,
         };
       },
       botonStyles(){ 
@@ -77,7 +97,15 @@
           top: 10 + 'px',
           /* Agrega aquí otros estilos según tus necesidades */
         };
-      }
+      },
+      switchLocationStyles() {
+        return {
+          width: this.switchWidth + 'px',
+          left: this.switchLeft + 'px',
+          top:this.switchTop + 'px',
+          /* Agrega aquí otros estilos según tus necesidades */
+        };
+      },
     },
     methods: {
       onResize2() {
@@ -85,9 +113,11 @@
       let widthWindow = window.innerWidth //obtenga ancho de ventana
       let heightWindow = window.innerHeight //obtenga alto de ventana
       if (! this.isMobile) {
+        this.switchTop  =72 ; //defino altura switch para desktop
+        this.switchWidth = 300;  //defino ancho switch para mobile
+        this.switchLeft  =200 ; //defino posicion horizontal switch para desktop
         this.direccionleft= 100 +'px'; //se establece posicion en el eje x para la barra de direccion
         this.direccionWidth= 500 +'px'; //se establece ancho de la barra de direccion
-        this.initialTop = heightWindow+this.defaultTopDesktop ; //guardo posicion inicial
         this.initialLeft = this.defaultLeft;
         this.cuadroHeight = 500 +'px';
         this.cuadroWidth = '360px'
@@ -95,14 +125,17 @@
             this.top = heightWindow+this.defaultTopDesktop + 'px' ;
             this.left = this.defaultLeft +'px';
         } else{
-            this.top = heightWindow/2 + 'px' ;
+            this.top = 370 + 'px' ;
             this.left = this.defaultLeft +'px';
         }
       }
       if (this.isMobile) {
+        this.switchTop  = 72 ; //defino altura switch para mobile
+        this.switchWidth = widthWindow-40;  //defino ancho switch para mobile
+        this.switchLeft = 20; //defino posicion horizontal switch para mobile
         this.direccionleft= 20 +'px'; //se establece posicion en el eje x para la barra de direccion
         this.direccionWidth= widthWindow - 40 +'px'; //se establece ancho de la barra de direccion
-        this.initialTop = heightWindow+this.defaultTopMobile ;  //guardo posicion inicial
+        
         this.initialLeft = widthWindow/2;
         this.cuadroHeight = 600 +'px';
         this.cuadroWidth = widthWindow + 'px';
@@ -110,7 +143,7 @@
             this.top =  heightWindow+this.defaultTopMobile + 'px' ;
             this.left =  widthWindow/2 +'px';
         } else{
-            this.top = heightWindow/2 + 'px' ;
+            this.top = 420 +'px';
             this.left = widthWindow/2 +'px';
         }
         
@@ -123,23 +156,32 @@
         if (this.isMoved) {
           // Cambiar a la posición deseada con animación
           if (! this.isMobile) {
-          this.top = heightWindow/2 +'px';
+          this.top = 370 +'px';
           this.left = this.defaultLeft;
           } else {
-            this.top = heightWindow/2 +'px';
+            this.top =420 +'px';
             this.left = widthWindow/2 +'px';
           }
         } else {
           // Volver a la posición original con animación
-            this.top = this.initialTop + 'px';
-            this.left = this.initialLeft + 'px';
-
+          if (! this.isMobile) { //caso desktop
+            this.top = heightWindow+ this.defaultTopDesktop+ 'px';
+            this.left = this.defaultLeft  + 'px';
+          }
+          if ( this.isMobile) { //caso mobile
+            this.top = heightWindow+ this.defaultTopMobile+ 'px';
+            this.left = widthWindow/2  + 'px';
+          }
         }
       },
       buscarPorTitulo(title){
         let elementoEncontrado = this.locationsUsuario.find(item => item.title === title);
         return elementoEncontrado;
-      }
+      },
+      setLocationOption(option) {
+        //this.locationsTipo = option;
+        this.$emit('cambiar-tipo',option)
+      },
     },
   };
   </script>
@@ -181,7 +223,7 @@ li {
 
 .direccion-title {
     position: fixed;
-    z-index: 99;
+    z-index: 98;
     border-radius: 40px;
     padding: 20px; /* Añade un espacio interno para separar el texto del borde */
     margin: auto; /* Centra el input horizontalmente en el contenedor */
@@ -204,4 +246,42 @@ li {
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+
+  .switch-locations {
+    top:70px;
+    position: fixed;
+    z-index: 1;
+    display: flex;
+    border-radius: 30px;
+    overflow: hidden;
+    background-color: #d0f0fc;
+    width: 90%;
+    margin: auto; /* Centra horizontalmente el switch-container */
+    box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
+  }
+
+.switch-option {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.switch-option.active {
+  background-color: #2596be;
+  color: #ffffff;
+  font-weight: bold;
+  border-radius: 30px 30px 30px 30px;
+}
+
+/* Estilo ovalado */
+.switch-option:first-child {
+  border-radius: 30px 30px 30px 30px;
+}
+
+.switch-option:last-child {
+  border-radius: 30px 30px 30px 30px;
+}
+
 </style>
