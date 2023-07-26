@@ -16,7 +16,7 @@
             <img class="icon" src="@/assets/svg/editarPerfil.svg" alt="location1" />
             <span class="text-boton">Editar perfil</span>
           </button>
-          <button class="custom-button" @click="editarPerfil">
+          <button class="custom-button" @click="redirectToCategorizacion">
             <img class="icon" src="@/assets/svg/info.svg" alt="location1" />
             <span class="text-boton">Categorización triage</span>
           </button>
@@ -51,7 +51,10 @@
       console.log('¡Botón presionado!');
 
       // Por ejemplo, podrías navegar a otra página, realizar una solicitud a la API, etc.
-    }
+    },
+    redirectToCategorizacion() {
+      this.$emit('mostrar-triage');
+    },
   }
   };
   </script>
