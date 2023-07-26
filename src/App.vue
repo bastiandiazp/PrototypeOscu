@@ -69,6 +69,15 @@
       :posicionFarmacia="posicionFarmacia"
       />
     </div>
+    <div v-show="visibleDetallesMedicamento"> 
+      <VentanaMedicamento
+      @mostrar-detalle-medicamento="mostrarDetalleMedicamento"
+      :itemsMedicamentos="itemsMedicamentos"
+      @update-favorito-medicamento="updateFavoritoMedicamento"
+      :indiceMedicamento="indiceMedicamento"
+      :posicionMedicamento="posicionMedicamento"
+      />
+    </div>
     
 
   </div>
@@ -85,6 +94,7 @@ import Inicio from './views/InicioPage.vue';
 import Triage from './components/Triage.vue';
 import VentanaCentros from './components/VentanaCentros.vue';
 import VentanaFarmacia from './components/VentanaFarmacia.vue';
+import VentanaMedicamento from './components/VentanaMedicamento.vue';
 
 export default {
   components: {
@@ -94,6 +104,8 @@ export default {
     Triage,
     VentanaCentros,
     VentanaFarmacia,
+    VentanaMedicamento,
+    
   },
   name: 'App',
 
@@ -114,6 +126,7 @@ export default {
     locationsTipo: 'Centros', //centros o farmacias
     posicion : 0,
     posicionFarmacia:0,
+    posicionMedicamento:0,
     locationsUsuario: [
       {title:0, direccion: '9170125 Santiago, Santiago / Estación Central, Región Metropolitana', cordenadas : [-33.4500664, -70.686449]},
       {title:1, direccion: 'Avda Libertador Bernardo O`Higgins 1315, Santiago, 8340658, Región Metropolitana', cordenadas : [-33.4444012,-70.6555231]},
@@ -194,124 +207,144 @@ export default {
     ],
     itemsMedicamentos: [
           {
-            favorito: true, medicamento: 'Paracetamol',
+            id: 1,
+            favorito: true,
+            medicamento: 'Paracetamol',
             precio: '1000',
             laboratorio: 'Farmalab',
-            title: '1',
           },
           {
-            favorito: true, medicamento: 'Ibuprofeno',
+            id: 2,
+            favorito: true,
+            medicamento: 'Ibuprofeno',
             precio: '1500',
             laboratorio: 'MediPharma',
-            title: '2',
           },
           {
-            favorito: false, medicamento: 'Omeprazol',
+            id: 3,
+            favorito: false,
+            medicamento: 'Omeprazol',
             precio: '2000',
             laboratorio: 'SaludPlus',
-            title: '3',
           },
           {
-            favorito: false, medicamento: 'Amoxicilina',
+            id: 4,
+            favorito: false,
+            medicamento: 'Amoxicilina',
             precio: '2500',
             laboratorio: 'BioGen',
-            title: '4',
           },
           {
-            favorito: false, medicamento: 'Aspirina',
+            id: 5,
+            favorito: false,
+            medicamento: 'Aspirina',
             precio: '800',
             laboratorio: 'PharmaCorp',
-            title: '5',
           },
           {
-            favorito: false, medicamento: 'Loratadina',
+            id: 6,
+            favorito: false,
+            medicamento: 'Loratadina',
             precio: '1200',
             laboratorio: 'BioHealth',
-            title: '6',
           },
           {
-            favorito: false, medicamento: 'Vitamina C',
+            id: 7,
+            favorito: false,
+            medicamento: 'Vitamina C',
             precio: '1800',
             laboratorio: 'NutriVida',
-            title: '7',
           },
           {
-            favorito: false, medicamento: 'Clorfenamina',
+            id: 8,
+            favorito: false,
+            medicamento: 'Clorfenamina',
             precio: '900',
             laboratorio: 'MediVit',
-            title: '8',
           },
           {
-            favorito: false, medicamento: 'Acetaminofén',
+            id: 9,
+            favorito: false,
+            medicamento: 'Acetaminofén',
             precio: '1200',
             laboratorio: 'MediHealth',
-            title: '9',
           },
           {
-            favorito: false, medicamento: 'Diclofenaco',
+            id: 10,
+            favorito: false,
+            medicamento: 'Diclofenaco',
             precio: '1400',
             laboratorio: 'Farmagen',
-            title: '10',
           },
           {
-            favorito: false, medicamento: 'Cetirizina',
+            id: 11,
+            favorito: false,
+            medicamento: 'Cetirizina',
             precio: '1700',
             laboratorio: 'BioPharma',
-            title: '11',
           },
           {
-            favorito: false, medicamento: 'Diazepam',
+            id: 12,
+            favorito: false,
+            medicamento: 'Diazepam',
             precio: '3000',
             laboratorio: 'MediCare',
-            title: '12',
           },
           {
-            favorito: false, medicamento: 'Ciprofloxacina',
+            id: 13,
+            favorito: false,
+            medicamento: 'Ciprofloxacina',
             precio: '3200',
             laboratorio: 'PharmaVida',
-            title: '13',
           },
           {
-            favorito: false, medicamento: 'Metformina',
+            id: 14,
+            favorito: false,
+            medicamento: 'Metformina',
             precio: '1800',
             laboratorio: 'SaludGen',
-            title: '14',
           },
           {
-            favorito: false, medicamento: 'Ondansetrón',
+            id: 15,
+            favorito: false,
+            medicamento: 'Ondansetrón',
             precio: '2800',
             laboratorio: 'PharmaPlus',
-            title: '15',
           },
           {
-            favorito: false, medicamento: 'Paroxetina',
+            id: 16,
+            favorito: false,
+            medicamento: 'Paroxetina',
             precio: '2500',
             laboratorio: 'MediLab',
-            title: '16',
           },
           {
-            favorito: false, medicamento: 'Salbutamol',
+            id: 17,
+            favorito: false,
+            medicamento: 'Salbutamol',
             precio: '1500',
             laboratorio: 'BioSalud',
-            title: '17',
           },
           {
-            favorito: false, medicamento: 'Simvastatina',
+            id: 18,
+            favorito: false,
+            medicamento: 'Simvastatina',
             precio: '3800',
             laboratorio: 'HealthCare',
-            title: '18',
           },
           {
-            favorito: false, medicamento: 'Metronidazol',
+            id: 19,
+            favorito: false,
+            medicamento: 'Metronidazol',
             precio: '1900',
             laboratorio: 'PharmaMed',
-            title: '19',
           },
           {
-            favorito: false, medicamento: 'Dipirona',
+            id: 20,
+            favorito: false,
+            medicamento: 'Dipirona',
             precio: '900',
             laboratorio: 'PharmaWell',
-            title: '20',
           },
           // Puedes agregar más medicamentos aquí
         ],
@@ -370,16 +403,23 @@ export default {
     },
     updateFavorito(locationName, newFavoritoValue) {
       // Encuentra el marcador con el nombre proporcionado y actualiza su atributo 'favorito'
-      const locationIndex = this.locationsCentros.findIndex(location => location.name === locationName);
+      const locationIndex = this.locationsCentros.findIndex(location => location.id === locationName);
       if (locationIndex !== -1) {
         this.locationsCentros[locationIndex].favorito = newFavoritoValue;
       }
     },
     updateFavoritoFarmacia(locationName, newFavoritoValue) {
       // Encuentra el marcador con el nombre proporcionado y actualiza su atributo 'favorito'
-      const locationIndex = this.locationsFarmacias.findIndex(location => location.name === locationName);
+      const locationIndex = this.locationsFarmacias.findIndex(location => location.id === locationName);
       if (locationIndex !== -1) {
         this.locationsFarmacias[locationIndex].favorito = newFavoritoValue;
+      }
+    },
+    updateFavoritoMedicamento(locationName, newFavoritoValue) {
+      // Encuentra el marcador con el nombre proporcionado y actualiza su atributo 'favorito'
+      const locationIndex = this.itemsMedicamentos.findIndex(location => location.id === locationName);
+      if (locationIndex !== -1) {
+        this.itemsMedicamentos[locationIndex].favorito = newFavoritoValue;
       }
     },
     mostrarTriage(){
@@ -430,8 +470,8 @@ export default {
 
         // Actualizar tiempoC3, tiempoC4 y tiempoC5
         location.tiempoC3 = Math.round(location.aforoC3 * 5.3);
-        location.tiempoC4 = Math.round(location.aforoC4 * 7.3);
-        location.tiempoC5 = Math.round(location.aforoC5 * 8.3);
+        location.tiempoC4 = Math.round((location.aforoC4 * 7.3)+location.tiempoC3);
+        location.tiempoC5 = Math.round((location.aforoC5 * 12.3)+location.tiempoC3+location.tiempoC4);
 
 
         // Actualizar el aforo como la suma de los aforos C1, C2, C3, C4 y C5

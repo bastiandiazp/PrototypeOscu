@@ -185,7 +185,7 @@ export default {
     },
     toggleFavorito() {
       this.favorito =  !this.locations[this.posicion].favorito; // Invertir el estado de favorito
-      this.$emit('update-favorito', this.locations[this.posicion].name, this.favorito); // Emitir evento para actualizar 'favorito'
+      this.$emit('update-favorito', this.locations[this.posicion].id, this.favorito); // Emitir evento para actualizar 'favorito'
     },
     /*
     filterCentro(locations, indiceCentro) {
