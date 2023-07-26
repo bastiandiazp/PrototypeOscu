@@ -116,6 +116,15 @@ export default {
         favorito: true, // Nuevo atributo favorito
         disponible: true, // Nuevo atributo disponible
       },
+      {
+        id: 2,
+        name: 'dr simi condon',
+        coordinates: [-33.4515456, -70.6863792],
+        icon: farmaciaOn,
+        address: 'Dirección 1',
+        favorito: true, // Nuevo atributo favorito
+        disponible: true, // Nuevo atributo disponible
+      },
     ], // array con locaciones de farmacias
     locationsCentros:[
       {

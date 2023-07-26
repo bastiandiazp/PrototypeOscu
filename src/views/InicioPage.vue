@@ -23,6 +23,9 @@ import CuadroDeslizante from '../components/CuadroDeslizante.vue';
 import urgenciasIcon from '@/assets/svg/urgenciasOn.svg';
 import urgenciasIcon2 from '@/assets/svg/urgenciasOff.svg';
 
+import farmaciaOn from '@/assets/svg/farmaciaOn.svg';
+import farmaciaOff from '@/assets/svg/farmaciaOff.svg';
+
 
 export default {
   name: 'InicioPage',
@@ -39,6 +42,8 @@ export default {
       selectedLocation: null,
       iconDisponible: urgenciasIcon,
       iconNoDisponible: urgenciasIcon2,
+      farmaciaOn: farmaciaOn,
+      farmaciaOff: farmaciaOff,
     };
   },
 
@@ -53,7 +58,6 @@ export default {
   },
   watch: {
     locationsTipo: function(newTipo) {
-      console.log('holalslldsadsaldfsdghurjfdfhecn');
       this.addMarkers();
       this.onResize();
       window.addEventListener('resize', this.onResize, { passive: true });
@@ -99,7 +103,8 @@ export default {
 
       const locationsToShow = this.locationsTipo === 'Centros' ? this.locations : this.locationsFarmacias;
 
-      locationsToShow.forEach(location => {
+      if (this.locationsTipo === 'Centros') {
+        locationsToShow.forEach(location => {
         // Crea un nuevo marcador y establece el ícono según el valor de 'disponible'
         const iconUrl = location.disponible ? this.iconDisponible : this.iconNoDisponible;
         const icon = L.icon({
@@ -114,8 +119,31 @@ export default {
         marker.on('click', () => {
           this.$emit('mostrar-aforo-centro', location.id);
         });
+        
         this.markers.push(marker);
       });
+      }
+      else{
+        locationsToShow.forEach(location => {
+        // Crea un nuevo marcador y establece el ícono según el valor de 'disponible'
+        const iconUrl = location.disponible ? this.farmaciaOn : this.farmaciaOff;
+        const icon = L.icon({
+          iconUrl,
+          iconSize: [40, 40], // Tamaño del icono (ajusta según sea necesario)
+          iconAnchor: [20, 40], // Anclaje ajustado para colocar el icono justo arriba de las coordenadas
+        
+        });
+        const marker = L.marker(location.coordinates, { icon }).addTo(this.map);
+
+        // Agregar evento al hacer clic en el marcador para mostrar la ventana emergente
+        marker.on('click', () => {
+          this.$emit('mostrar-aforo-centro', location.id);
+        });
+        
+        this.markers.push(marker);
+      });
+      }
+      
     },
     clearMarkers() {
       // Itera sobre los marcadores actuales y elimínalos del mapa
