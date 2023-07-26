@@ -29,6 +29,7 @@ export default {
   props: ['locations','locationsUsuario','usuarioActual','locationsFarmacias','locationsTipo','indiceCentro','indiceFarmacia'],
   data() {
     return {
+      markers: [],
       map: null,
       center: null, // Coordenadas de la Universidad de Santiago de Chile Diinf
       barHeight: 64, // Altura de la barra en píxeles
@@ -48,6 +49,14 @@ export default {
         marginLeft: `${this.barWidth}px`, // Centra el mapa a la izquierda agregando el margen
         //width: `calc(100vh - ${this.barWidth}px)`,
       };
+    },
+  },
+  watch: {
+    locationsTipo: function(newTipo) {
+      console.log('holalslldsadsaldfsdghurjfdfhecn');
+      this.addMarkers();
+      this.onResize();
+      window.addEventListener('resize', this.onResize, { passive: true });
     },
   },
 
@@ -82,28 +91,38 @@ export default {
       //L.control.zoom({position: 'topright'}).addTo(this.map);
       // Agregar evento para abrir la ventana emergente al hacer clic en el marcador
       this.map.on('click', this.closeVentana);
+      this.addMarkers();
     },
 
     addMarkers() {
-      this.locations.forEach(location => {
+      this.clearMarkers();
+
+      const locationsToShow = this.locationsTipo === 'Centros' ? this.locations : this.locationsFarmacias;
+
+      locationsToShow.forEach(location => {
         // Crea un nuevo marcador y establece el ícono según el valor de 'disponible'
         const iconUrl = location.disponible ? this.iconDisponible : this.iconNoDisponible;
         const icon = L.icon({
           iconUrl,
           iconSize: [40, 40], // Tamaño del icono (ajusta según sea necesario)
           iconAnchor: [20, 40], // Anclaje ajustado para colocar el icono justo arriba de las coordenadas
+        
         });
         const marker = L.marker(location.coordinates, { icon }).addTo(this.map);
 
         // Agregar evento al hacer clic en el marcador para mostrar la ventana emergente
         marker.on('click', () => {
-          //console.log('holaaaaaa' + location.id);
-          this.$emit('mostrar-aforo-centro',location.id);
-          //console.log('holaaaaaa2');
-          //this.showVentana = true;
-          //this.selectedLocation = location;
+          this.$emit('mostrar-aforo-centro', location.id);
         });
+        this.markers.push(marker);
       });
+    },
+    clearMarkers() {
+      // Itera sobre los marcadores actuales y elimínalos del mapa
+      this.markers.forEach(marker => marker.remove());
+
+      // Limpia la lista de marcadores
+      this.markers = [];
     },
 
 

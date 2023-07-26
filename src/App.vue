@@ -70,6 +70,8 @@ import BottomMenu from "./components/BottomMenuMobile.vue";
 import BottomMenu2 from "./components/BottomMenuDesktop.vue";
 import urgenciasIcon from '@/assets/svg/urgenciasOn.svg';
 import urgenciasIcon2 from '@/assets/svg/urgenciasOff.svg';
+import farmaciaOn from '@/assets/svg/farmaciaOn.svg';
+import farmaciaOff from '@/assets/svg/farmaciaOff.svg';
 import Inicio from './views/InicioPage.vue';
 import Triage from './components/Triage.vue';
 import VentanaCentros from './components/VentanaCentros.vue';
@@ -104,7 +106,17 @@ export default {
       {title:0, direccion: '9170125 Santiago, Santiago / Estación Central, Región Metropolitana', cordenadas : [-33.4500664, -70.686449]},
       {title:1, direccion: 'Avda Libertador Bernardo O`Higgins 1315, Santiago, 8340658, Región Metropolitana', cordenadas : [-33.4444012,-70.6555231]},
       {title:2, direccion: 'Nueva Los Leones 71, Providencia, Región Metropolitana', cordenadas : [-33.4192201,-70.6091028]}],
-    locationsFarmacias:[], // array con locaciones de farmacias
+    locationsFarmacias:[
+    {
+        id: 1,
+        name: 'dr simi condon',
+        coordinates: [-33.4515456, -70.6863792],
+        icon: farmaciaOn,
+        address: 'Dirección 1',
+        favorito: true, // Nuevo atributo favorito
+        disponible: true, // Nuevo atributo disponible
+      },
+    ], // array con locaciones de farmacias
     locationsCentros:[
       {
         id: 1,
