@@ -101,7 +101,7 @@
             <div class="text6">¿Qué es la categorización Triage?</div>
           </div>
 
-          <div class="popup-row6">
+          <div class="button-container">
             <button class="custom-button" @click="toggleFavorito">
               <img class="icon" :src="favorito ? require('@/assets/svg/favoritoOn.svg') : require('@/assets/svg/favorito.svg')" alt="location1" />
               <div class="text-boton">Favoritos</div>
@@ -227,7 +227,13 @@ export default {
 </script>
 
 <style scoped>
-
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: auto; /* Empuja el botón al fondo del contenedor */
+  gap: 10px; /* Espacio entre los elementos (botones) */
+  padding:10px;
+}
 .cursor{
   cursor:pointer;
 }
@@ -237,8 +243,8 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 90%;
-  height: 70%;
+  width: auto;
+  height: auto;
   max-width: 400px;
   max-height: 700px;
   min-height: 540px;
