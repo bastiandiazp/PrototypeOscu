@@ -252,7 +252,7 @@ export default {
     },
     onResize() {
       this.isMobile = window.innerWidth < 600
-      console.log(this.datosProbando)
+      
       if (! this.isMobile) {
         this.marginLeft = 64
         this.marginRight = window.innerWidth-600
