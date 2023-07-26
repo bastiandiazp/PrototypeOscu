@@ -28,21 +28,11 @@
           Medicamentos
         </div>
       </div>
-      <div class="container5" :style="contenedorListaStyle">
-        <ul class="medicamentos-list">
-          <li v-for="(item, index) in itemsMedicamentos" :key="item.name" v-if="item.favorito === true ">
-            <div class="medicamento-item" @click="itemClicked">
-              <div class="medicamento-nombre">{{ item.medicamento }}</div>
-              <div class="medicamento-info">
-                <div class="medicamento-desde">desde &nbsp;</div>
-                <div class="medicamento-precio">
-                  <span> ${{ item.precio }}</span>
-                </div>
-                <div class="medicamento-laboratorio">{{ item.laboratorio }}</div>
-              </div>
-            </div>
-          </li>
-        </ul>
+      <div v-show="selectedOption == 'itemsMedicamentos'" :style="contenedorListaStyle">
+        <ListaMedicamentos :itemsMedicamentos="itemsMedicamentos"/>
+      </div>
+      <div v-show="selectedOption == 'locations'" :style="contenedorListaStyle">
+        <ListaCentros :locations="locations"/>
       </div>
     <div>
     <input v-model="nuevoElemento"  />
@@ -52,8 +42,11 @@
   </template>
   
   <script>
+import ListaMedicamentos from '../components/ListaMedicamentos.vue';
+import ListaCentros from '../components/ListaCentros.vue';
   export default {
-    props: ['datosProbando','itemsMedicamentos','locations'], // Declaración de los props 'datos' y 'agregarElemento'
+    components:{ListaMedicamentos,ListaCentros},
+    props: ['datosProbando','itemsMedicamentos','locations','locationsUsuario','usuarioActual'], // Declaración de los props 'datos' y 'agregarElemento'
     data() {
       return {
         nuevoElemento: '',
@@ -94,6 +87,7 @@
     methods: {
       setSelectedOption(option) {
         this.selectedOption = option;
+        console.log(this.locations)
       },
       enviarElemento() {
         // Utilizando la función 'agregarElemento' que recibimos como prop del componente padre
@@ -166,58 +160,6 @@
 }
 
 
-/*lista de medicamentos*/
-.container5 {
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  max-height: 100%;
-  overflow-y: auto;
-  bottom: 64px;
-}
-
-.medicamentos-list {
-  list-style: none;
-  padding: 0;
-  width: 85%;
-}
-
-.medicamento-item {
-  padding: 10px;
-  border-bottom: 1px solid #2596BE;
-}
-
-.medicamento-nombre {
-  font-weight: bold;
-  font-size: 16px;
-}
-
-.medicamento-info {
-  display: flex;
-  align-items: center;
-}
-
-.medicamento-precio {
-  width: 80px;
-  height: 25px;
-  background-color: #2596BE;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 25px;
-  margin-right: 10px;
-}
-
-.medicamento-desde {
-  font-size: 14px;
-  color: #888;
-}
-.medicamento-laboratorio {
-  font-size: 14px;
-  color: #888;
-  margin-left: auto
-}
 
 
 
