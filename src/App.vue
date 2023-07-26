@@ -9,12 +9,17 @@
         @agregar-elemento="agregarElemento"
         :locations="locationsCentros"
         @mostrar-triage="mostrarTriage"
+        :locationsUsuario="locationsUsuario"
+        :usuarioActual="usuarioActual"
       />
     </div>
     <Inicio 
         :locations="locationsCentros"
         @update-favorito="updateFavorito"
         @mostrar-triage="mostrarTriage"
+        :locationsUsuario="locationsUsuario"
+        :usuarioActual="usuarioActual"
+        @cambiar-usuario="cambiarUsuario"
       />
     <div v-show="isMobile" style="position: absolute; z-index: 1400; bottom: 0; left: 0; width: 100%; height: 64px; background-color: #ffffff;">
       <BottomMenu/>
@@ -54,6 +59,11 @@ export default {
     marginBottom: 64,
     visibleTriage: false,
     datosProbando: [{title: 'Elemento 1'}, {title: 'Elemento 2'}, {title: 'Elemento 3'}],
+    usuarioActual: 1, //cambiar usuario usuario actual
+    locationsUsuario: [
+      {title:0, direccion: '9170125 Santiago, Santiago / Estación Central, Región Metropolitana', cordenadas : [-33.4500664, -70.686449]},
+      {title:1, direccion: 'Avda Libertador Bernardo O`Higgins 1315, Santiago, 8340658, Región Metropolitana', cordenadas : [-33.4444012,-70.6555231]},
+      {title:2, direccion: 'Nueva Los Leones 71, Providencia, Región Metropolitana', cordenadas : [-33.4192201,-70.6091028]}],
     locationsCentros:[
       {
         name: 'Arquitectura',
@@ -245,7 +255,10 @@ export default {
   },
 
   methods: {
-    
+    cambiarUsuario(title){
+      //hacer funcion que cambie el usuarioActual segun el parametro
+      console.log(this.usuarioActual)
+    },
     
     agregarElemento(nuevoElemento) {
       this.datosProbando.push(nuevoElemento);

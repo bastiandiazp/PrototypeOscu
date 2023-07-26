@@ -1,7 +1,7 @@
 <template>
     <div>
-      <div class="direccion-title">
-        Perfil
+      <div class="direccion-title" :style="direccionStyles">
+        {{this.buscarPorTitulo(this.usuarioActual).direccion}}
       </div>
       <div :style="recuadroStyles" :class="{ 'moved': isMoved }">
         <!-- Contenido del recuadro -->
@@ -17,6 +17,7 @@
   
   <script>
   export default {
+    props: ['locationsUsuario','usuarioActual'],
     data() {
       return {
         isMobile: false,
@@ -25,6 +26,8 @@
         left:0,
         cuadroHeight: 0,
         cuadroWidth: 0,
+        direccionWidth: 0,
+        direccionleft: 0,
         initialTop: 93,
         initialLeft: 20,
         defaultLeft: 350,
@@ -34,8 +37,8 @@
     },
     mounted() {
 
-    this.onResize()
-    window.addEventListener('resize', this.onResize, { passive: true })
+    this.onResize2()
+    window.addEventListener('resize', this.onResize2, { passive: true })
   },
 
     computed: {
@@ -54,25 +57,36 @@
         };
       },
       botonStyles(){ 
-            return {
-                width: '100%',
-                height: '50px',
-                opacity: '100%',
-                cursor: 'pointer',
-                userSelect: 'none',
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                justifyContent: 'center',
-            }
-        },
+        return {
+            width: '100%',
+            height: '50px',
+            opacity: '100%',
+            cursor: 'pointer',
+            userSelect: 'none',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+        }
+      },
+      direccionStyles() {
+        return {
+          height: "50px",
+          width: this.direccionWidth,
+          left: this.direccionleft,
+          top: 10 + 'px',
+          /* Agrega aquí otros estilos según tus necesidades */
+        };
+      }
     },
     methods: {
-        onResize() {
+      onResize2() {
       this.isMobile = window.innerWidth < 600
       let widthWindow = window.innerWidth //obtenga ancho de ventana
       let heightWindow = window.innerHeight //obtenga alto de ventana
       if (! this.isMobile) {
+        this.direccionleft= 100 +'px'; //se establece posicion en el eje x para la barra de direccion
+        this.direccionWidth= 500 +'px'; //se establece ancho de la barra de direccion
         this.initialTop = heightWindow+this.defaultTopDesktop ; //guardo posicion inicial
         this.initialLeft = this.defaultLeft;
         this.cuadroHeight = 500 +'px';
@@ -86,6 +100,8 @@
         }
       }
       if (this.isMobile) {
+        this.direccionleft= 20 +'px'; //se establece posicion en el eje x para la barra de direccion
+        this.direccionWidth= widthWindow - 40 +'px'; //se establece ancho de la barra de direccion
         this.initialTop = heightWindow+this.defaultTopMobile ;  //guardo posicion inicial
         this.initialLeft = widthWindow/2;
         this.cuadroHeight = 600 +'px';
@@ -120,6 +136,10 @@
 
         }
       },
+      buscarPorTitulo(title){
+        let elementoEncontrado = this.locationsUsuario.find(item => item.title === title);
+        return elementoEncontrado;
+      }
     },
   };
   </script>
@@ -160,27 +180,28 @@ li {
 }
 
 .direccion-title {
-    height: 50px;
-    width: 200px;
-    position: absolute;
+    position: fixed;
     z-index: 99;
     border-radius: 40px;
     padding: 20px; /* Añade un espacio interno para separar el texto del borde */
     margin: auto; /* Centra el input horizontalmente en el contenedor */
     font-weight: bold;
-    font-size: 26px;
+    font-size: 16px;
     padding-left: 70px; /* Ajusta esto para separar el contenido del SVG */
     background-image: url(~@/assets/svg/LogoOscu.svg); /* Ruta a la imagen SVG */
     background-repeat: no-repeat;
     background-position: 10px center;
     background-size: 48px 48px;
-    left:100px;
     background-color: #ffff;
+    color: #7B7B7B;
     display: flex;
     align-items: center;
     box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
     /* Agrega aquí otros estilos según tus necesidades */
-  margin-top: 50px; /* Espacio superior para separar del borde superior */
-  text-align: center; /* Centra el texto horizontalmente */
+    text-align: center; /* Centra el texto horizontalmente */
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 </style>

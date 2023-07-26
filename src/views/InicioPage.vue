@@ -1,6 +1,10 @@
 <template>
   <div>
-    <CuadroDeslizante class="cuadro"/>
+    <CuadroDeslizante 
+      class="cuadro"
+      :locationsUsuario="locationsUsuario"
+      :usuarioActual="usuarioActual"
+    />
     <div id="map" :style="mapStyle"></div>
     <VentanaCentros
       v-if="showVentana"
@@ -30,11 +34,19 @@ export default {
       type: Array,
       required: true,
     },
+    locationsUsuario:{
+      type: Array,
+      required: true,
+    },
+    usuarioActual:{
+      type: Number,
+      required: true,
+    },
   },
   data() {
     return {
       map: null,
-      center: [-33.4500664, -70.686449], // Coordenadas de la Universidad de Santiago de Chile Diinf
+      center: null, // Coordenadas de la Universidad de Santiago de Chile Diinf
       barHeight: 64, // Altura de la barra en píxeles
       barWidth: 64,
       widthMap:0,
@@ -71,6 +83,7 @@ export default {
 
   methods: {
     initializeMap() {
+      this.center = this.buscarPorTitulo(this.usuarioActual).cordenadas //se obtiene cordendas de usuario actual
       this.map = L.map('map', {
         center: this.center,
         zoom: 14,
@@ -105,6 +118,7 @@ export default {
       this.showVentana = false;
     },
 
+
     navigateToLocation(location) {
       // Agrega aquí la lógica para llevar al usuario a otra vista o ejecutar alguna acción
       console.log(`Hiciste clic en ${location.name}`);
@@ -134,6 +148,10 @@ export default {
       // Emitir el evento desde InicioPage.vue hacia App.vue
       this.$emit('mostrar-triage');
     },
+    buscarPorTitulo(title){
+    let elementoEncontrado = this.locationsUsuario.find(item => item.title === title);
+      return elementoEncontrado;
+    }
   },
 
   provide() {
