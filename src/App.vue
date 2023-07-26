@@ -56,6 +56,7 @@
       :locations="locationsCentros"
       :indiceCentro="indiceCentro"
       @mostrar-triage="mostrarTriage"
+      :posicion="posicion"
       />
 
     </div>
@@ -98,6 +99,7 @@ export default {
     datosProbando: [{title: 'Elemento 1'}, {title: 'Elemento 2'}, {title: 'Elemento 3'}],
     usuarioActual: 1, //cambiar usuario usuario actual
     locationsTipo: 'Centros', //centros o farmacias
+    posicion : 0,
     locationsUsuario: [
       {title:0, direccion: '9170125 Santiago, Santiago / Estación Central, Región Metropolitana', cordenadas : [-33.4500664, -70.686449]},
       {title:1, direccion: 'Avda Libertador Bernardo O`Higgins 1315, Santiago, 8340658, Región Metropolitana', cordenadas : [-33.4444012,-70.6555231]},
@@ -140,6 +142,25 @@ export default {
         tiempoC5: 5,
         favorito: true, // Nuevo atributo favorito
         disponible: false, // Nuevo atributo disponible
+        tiempoTotal: 0,
+      },
+      {
+        id: 3,
+        name: 'los heroes',
+        coordinates: [-33.4472214, -70.665429],
+        icon: urgenciasIcon,
+        address: 'Dirección 2',
+        aforo: 15,
+        aforoC1: 3,
+        aforoC2: 6,
+        aforoC3: 1,
+        aforoC4: 2,
+        aforoC5: 3,
+        tiempoC3: 20,
+        tiempoC4: 30,
+        tiempoC5: 5,
+        favorito: true, // Nuevo atributo favorito
+        disponible: true, // Nuevo atributo disponible
         tiempoTotal: 0,
       },
     ],

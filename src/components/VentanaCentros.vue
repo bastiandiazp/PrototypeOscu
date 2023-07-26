@@ -3,13 +3,10 @@
       <div class="ventana-centros">
         <div class="ventana-header">
           <v-list-item no-gutters>
-            <div class="text">{{ location.name }}</div>
+            <div class="text">{{ locations[posicion].name }}</div>
             <v-list-item-action>
               <v-btn icon @click="mostrarCentro(0)"  class="cerrar">
                 <img src="@/assets/svg/close.svg" alt="close1" />
-              </v-btn>
-              <v-btn icon @click="filterCentro(locations, indiceCentro)" >
-                <img src="@/assets/svg/info.svg" alt="close1" />
               </v-btn>
             </v-list-item-action>
           </v-list-item>
@@ -19,81 +16,81 @@
           
           <div class="popup-row1">
             <div><img src="@/assets/svg/locationOn.svg" alt="location1" /></div>
-            <div class="text2">{{ location.address }}</div>
+            <div class="text2">{{ locations[posicion].address }}</div>
           </div>
 
-          <div v-if="!location.disponible" class="columna">
+          <div v-if="!locations[posicion].disponible" class="columna">
             <div><img src="@/assets/svg/locationOff.svg" alt="location1" /></div>
             <div class="text7">¡Cerrado por Emergencia!</div>
           </div>
 
-          <div v-if="location.disponible" class="popup-row2">
-            <div class="text3 elemento-izquierdo">{{ location.aforo }}</div>
+          <div v-if="locations[posicion].disponible" class="popup-row2">
+            <div class="text3 elemento-izquierdo">{{ locations[posicion].aforo }}</div>
             <div class="text elemento-derecho">Personas en total esperando</div>
           </div>
 
           
 
-          <div v-if="location.disponible" class="popup-row3 colorC1">
+          <div v-if="locations[posicion].disponible" class="popup-row3 colorC1">
             <div class="categoria elemento-izquierdo">C1</div>
             <div class="elemento-central"> 
               <div class="barra-izquierda"></div>
-              <div class="text4">{{ location.aforoC1 }}</div>
+              <div class="text4">{{ locations[posicion].aforoC1 }}</div>
               <div class="text5 margen-derecha">Personas en total esperando</div>
               <div class="barra-derecha"></div>
             </div>
             <div class="text5">Atención inmediata</div>
           </div>
 
-          <div v-if="location.disponible" class="popup-row3 colorC2">
+          <div v-if="locations[posicion].disponible" class="popup-row3 colorC2">
             <div class="categoria elemento-izquierdo">C2</div>
             <div class="elemento-central"> 
               <div class="barra-izquierda"></div>
-              <div class="text4">{{ location.aforoC2 }}</div>
+              <div class="text4">{{ locations[posicion].aforoC2 }}</div>
               <div class="text5 margen-derecha">Personas en total esperando</div>
               <div class="barra-derecha"></div>
             </div>
             <div class="text5">Atención inmediata</div>
           </div>
 
-          <div v-if="location.disponible" class="popup-row3 colorC3">
+          <div v-if="locations[posicion].disponible" class="popup-row3 colorC3">
             <div class="categoria elemento-izquierdo">C3</div>
             <div class="elemento-central"> 
               <div class="barra-izquierda"></div>
-              <div class="text4">{{ location.aforoC3 }}</div>
+              <div class="text4">{{ locations[posicion].aforoC3 }}</div>
               <div class="text5 margen-derecha">Personas en total esperando</div>
               <div class="barra-derecha"></div>
             </div>
             <div class="popup-row4">
-              <div class="text4">{{ location.tiempoC3 }}</div>
+              <div class="text4">{{ locations[posicion].tiempoC3 }}</div>
               <div class="text5">Min de tiempo de espera estimado</div>
             </div>
           </div>
 
-          <div v-if="location.disponible" class="popup-row3 colorC4">
+          <div v-if="locations[posicion].disponible" class="popup-row3 colorC4">
             <div class="categoria elemento-izquierdo">C4</div>
             <div class="elemento-central"> 
               <div class="barra-izquierda"></div>
-              <div class="text4">{{ location.aforoC4 }}</div>
+              <div class="text4">{{ locations[posicion].aforoC4 }}</div>
               <div class="text5 margen-derecha">Personas en total esperando</div>
               <div class="barra-derecha"></div>
             </div>
             <div class="popup-row4">
-              <div class="text4">{{ location.tiempoC4 }}</div>
+              <div class="text4">{{ locations[posicion].tiempoC4 }}</div>
               <div class="text5">Min de tiempo de espera estimado</div>
             </div>
           </div>
 
-          <div v-if="location.disponible" class="popup-row3 colorC5">
+          <div v-if="locations[posicion].disponible" class="popup-row3 colorC5">
             <div class="categoria elemento-izquierdo">C5</div>
             <div class="elemento-central"> 
               <div class="barra-izquierda"></div>
-              <div class="text4">{{ location.aforoC5 }}</div>
+              <div class="text4">{{ locations[posicion].aforoC5 }}</div>
               <div class="text5 margen-derecha">Personas en total esperando</div>
               <div class="barra-derecha"></div>
             </div>
             <div class="popup-row4">
-              <div class="text4">{{ location.tiempoC5 }}</div>
+              <div class="text4">{{ locations[posicion].tiempoC5 }}</div>
               <div class="text5">Min de tiempo de espera estimado</div>
             </div>
           </div>
@@ -138,7 +135,6 @@ export default {
   name: 'VentanaCentros',
   data() {
     return {
-      posicion : null,
       location : {
         id: null,
         name: null,
@@ -160,12 +156,18 @@ export default {
       },
     };
   },
-  props: ['locations', 'favorito','indiceCentro'], // Agregar la prop 'favorito'
+  props: ['locations', 'favorito','indiceCentro','posicion'], // Agregar la prop 'favorito'
   mounted() {
     //console.log('indice: '+this.indiceCentro);
     // Llamar a la función que deseas ejecutar automáticamente al inicio
-    this.posicion = findIndexById(this.locations, this.indiceCentro);
-    this.filterCentro(this.locations, this.indiceCentro);
+    this.posicion = this.findIndexById(this.locations, this.indiceCentro);
+    //console.log('posicion: '+this.posicion);
+    //this.filterCentro(this.locations, this.indiceCentro);
+  },
+  updated(){
+    this.posicion = this.findIndexById(this.locations, this.indiceCentro);
+    //console.log('posicion: '+this.posicion);
+    //this.filterCentro(this.locations, this.indiceCentro);
   },
   methods: {
     closeWindow() {
@@ -184,6 +186,7 @@ export default {
       const newFavoritoValue = !this.favorito; // Invertir el estado de favorito
       this.$emit('update-favorito', this.location.name, newFavoritoValue); // Emitir evento para actualizar 'favorito'
     },
+    /*
     filterCentro(locations, indiceCentro) {
       
       // Filtrar el array de ubicaciones por el indiceCentro
@@ -207,9 +210,16 @@ export default {
       this.location.favorito = filteredLocations.favorito;
       this.location.disponible = filteredLocations.disponible;
       this.location.tiempoTotal = filteredLocations.tiempoTotal;
-    },
+
+      this.posicion = this.findIndexById(this.locations, this.indiceCentro);
+      console.log('buscar index: '+this.posicion);
+    },*/
     mostrarCentro(indice){
       this.$emit('mostrar-aforo-centro',indice);
+    },
+    findIndexById(locations, idCentro) {
+      const index = locations.findIndex(location => location.id === idCentro);
+      return index;
     },
   },
   

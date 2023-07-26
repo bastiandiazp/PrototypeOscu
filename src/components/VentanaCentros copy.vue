@@ -3,108 +3,123 @@
     <div class="ventana-centros">
       <div class="ventana-header">
         <v-list-item no-gutters>
+          <div class="text">{{ location.name }}</div>
           <v-list-item-action>
-            <v-btn icon @click="mostrarTriageAca" class="cerrar">
+            <v-btn icon @click="mostrarCentro(0)"  class="cerrar">
               <img src="@/assets/svg/close.svg" alt="close1" />
+            </v-btn>
+            <v-btn icon @click="filterCentro(locations, indiceCentro)" >
+              <img src="@/assets/svg/info.svg" alt="close1" />
             </v-btn>
           </v-list-item-action>
         </v-list-item>
       </div>
+
       <div class="ventana-body">
+        
+        <div class="popup-row1">
+          <div><img src="@/assets/svg/locationOn.svg" alt="location1" /></div>
+          <div class="text2">{{ locations[index].address }}</div>
+        </div>
 
-          <v-row justify="center">
-              <v-expansion-panels accordion>
-              <v-expansion-panel>
-                  <v-expansion-panel-header>Item</v-expansion-panel-header>
-                  <v-expansion-panel-content>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  </v-expansion-panel-content>
-              </v-expansion-panel>
+        <div v-if="!location.disponible" class="columna">
+          <div><img src="@/assets/svg/locationOff.svg" alt="location1" /></div>
+          <div class="text7">¡Cerrado por Emergencia!</div>
+        </div>
 
-              <v-expansion-panel>
-                  <v-expansion-panel-header>Item</v-expansion-panel-header>
-                  <v-expansion-panel-content>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  </v-expansion-panel-content>
-              </v-expansion-panel>
+        <div v-if="location.disponible" class="popup-row2">
+          <div class="text3 elemento-izquierdo">{{ locations[index].aforo }}</div>
+          <div class="text elemento-derecho">Personas en total esperando</div>
+        </div>
 
-              <v-expansion-panel>
-                  <v-expansion-panel-header>Item</v-expansion-panel-header>
-                  <v-expansion-panel-content>
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                  </v-expansion-panel-content>
-              </v-expansion-panel>
-              </v-expansion-panels>
-          </v-row>
+        
 
-
-
-
-
-
-        <div  class="popup-row3 colorC1">
+        <div v-if="location.disponible" class="popup-row3 colorC1">
           <div class="categoria elemento-izquierdo">C1</div>
           <div class="elemento-central"> 
             <div class="barra-izquierda"></div>
-            <div class="text4">aa</div>
+            <div class="text4">{{ locations[index].aforoC1 }}</div>
             <div class="text5 margen-derecha">Personas en total esperando</div>
             <div class="barra-derecha"></div>
           </div>
           <div class="text5">Atención inmediata</div>
         </div>
 
-        <div  class="popup-row3 colorC2">
+        <div v-if="location.disponible" class="popup-row3 colorC2">
           <div class="categoria elemento-izquierdo">C2</div>
           <div class="elemento-central"> 
             <div class="barra-izquierda"></div>
-            <div class="text4">aa</div>
+            <div class="text4">{{ locations[index].aforoC2 }}</div>
             <div class="text5 margen-derecha">Personas en total esperando</div>
             <div class="barra-derecha"></div>
           </div>
           <div class="text5">Atención inmediata</div>
         </div>
 
-        <div  class="popup-row3 colorC3">
+        <div v-if="location.disponible" class="popup-row3 colorC3">
           <div class="categoria elemento-izquierdo">C3</div>
           <div class="elemento-central"> 
             <div class="barra-izquierda"></div>
-            <div class="text4">aa</div>
+            <div class="text4">{{ locations[index].aforoC3 }}</div>
             <div class="text5 margen-derecha">Personas en total esperando</div>
             <div class="barra-derecha"></div>
           </div>
           <div class="popup-row4">
-            <div class="text4">bb</div>
+            <div class="text4">{{ locations[index].tiempoC3 }}</div>
             <div class="text5">Min de tiempo de espera estimado</div>
           </div>
         </div>
 
-        <div  class="popup-row3 colorC4">
+        <div v-if="location.disponible" class="popup-row3 colorC4">
           <div class="categoria elemento-izquierdo">C4</div>
           <div class="elemento-central"> 
             <div class="barra-izquierda"></div>
-            <div class="text4">aa</div>
+            <div class="text4">{{ locations[index].aforoC4 }}</div>
             <div class="text5 margen-derecha">Personas en total esperando</div>
             <div class="barra-derecha"></div>
           </div>
           <div class="popup-row4">
-            <div class="text4">bb</div>
+            <div class="text4">{{ locations[index].tiempoC4 }}</div>
             <div class="text5">Min de tiempo de espera estimado</div>
           </div>
         </div>
 
-        <div class="popup-row3 colorC5">
+        <div v-if="location.disponible" class="popup-row3 colorC5">
           <div class="categoria elemento-izquierdo">C5</div>
           <div class="elemento-central"> 
             <div class="barra-izquierda"></div>
-            <div class="text4">aa</div>
+            <div class="text4">{{ locations[index].aforoC5 }}</div>
             <div class="text5 margen-derecha">Personas en total esperando</div>
             <div class="barra-derecha"></div>
           </div>
           <div class="popup-row4">
-            <div class="text4">bb</div>
+            <div class="text4">{{ locations[index].tiempoC5 }}</div>
             <div class="text5">Min de tiempo de espera estimado</div>
           </div>
         </div>
+
+
+        <div class="popup-row5 cursor"  @click="redirectToCategorizacion">
+          <div><img src="@/assets/svg/info.svg" alt="location1" /></div>
+          <div class="text6">¿Qué es la categorización Triage?</div>
+        </div>
+
+        <div class="popup-row6">
+          <button class="custom-button" @click="toggleFavorito">
+            <img class="icon" :src="favorito ? require('@/assets/svg/favoritoOn.svg') : require('@/assets/svg/favorito.svg')" alt="location1" />
+            <div class="text-boton">Favoritos</div>
+          </button>
+
+          <button class="custom-button">
+            <img class="icon" src="@/assets/svg/valorar.svg" alt="location1" />
+            <span class="text-boton">Valorar Atención</span>
+          </button>
+        </div>
+
+        
+
+
+
 
 
 
@@ -119,15 +134,85 @@
 
 
 export default {
-  name: 'Triage',
-  methods: {
-      closeWindow() {
-      this.$emit('close'); // Emitir el evento 'close' para notificar a VentanaCentros.vue que se debe cerrar la ventana emergente
-      },
-      mostrarTriageAca() {
-          this.$emit('mostrar-triage');
-      },
+
+name: 'VentanaCentros',
+data() {
+  return {
+    index : null,
+    location : {
+      id: null,
+      name: null,
+      coordinates: null,
+      icon: null,
+      address: null,
+      aforo: null,
+      aforoC1: null,
+      aforoC2: null,
+      aforoC3: null,
+      aforoC4: null,
+      aforoC5: null,
+      tiempoC3: null,
+      tiempoC4: null,
+      tiempoC5: null,
+      favorito: null, // Nuevo atributo favorito
+      disponible: null, // Nuevo atributo disponible
+      tiempoTotal: 0,
+    },
+  };
+},
+props: ['locations', 'favorito','indiceCentro'], // Agregar la prop 'favorito'
+mounted() {
+  //console.log('indice: '+this.indiceCentro);
+  // Llamar a la función que deseas ejecutar automáticamente al inicio
+  this.index = findIndexById(this.locations, this.indiceCentro);
+  this.filterCentro(this.locations, this.indiceCentro);
+},
+methods: {
+  closeWindow() {
+    this.$emit('close');
   },
+  redirectToCategorizacion() {
+    this.$emit('mostrar-triage');
+  },
+  redirectToFavorite() {
+    console.log('Redirigir a la vista de favoritos');
+  },
+  redirectToRating() {
+    console.log('Redirigir a la vista de valoración de atención');
+  },
+  toggleFavorito() {
+    const newFavoritoValue = !this.favorito; // Invertir el estado de favorito
+    this.$emit('update-favorito', this.location.name, newFavoritoValue); // Emitir evento para actualizar 'favorito'
+  },
+  filterCentro(locations, indiceCentro) {
+    
+    // Filtrar el array de ubicaciones por el indiceCentro
+    const filteredLocations = locations.filter(location => location.id === indiceCentro)[0];
+    
+
+    this.location.id = filteredLocations.id;
+    this.location.name = filteredLocations.name;
+    this.location.coordinates = filteredLocations.coordinates;
+    this.location.icon = filteredLocations.icon;
+    this.location.address = filteredLocations.address;
+    this.location.aforo = filteredLocations.aforo;
+    this.location.aforoC1 = filteredLocations.aforoC1;
+    this.location.aforoC2 = filteredLocations.aforoC2;
+    this.location.aforoC3 = filteredLocations.aforoC3;
+    this.location.aforoC4 = filteredLocations.aforoC4;
+    this.location.aforoC5 = filteredLocations.aforoC5;
+    this.location.tiempoC3 = filteredLocations.tiempoC3;
+    this.location.tiempoC4 = filteredLocations.tiempoC4;
+    this.location.tiempoC5 = filteredLocations.tiempoC5;
+    this.location.favorito = filteredLocations.favorito;
+    this.location.disponible = filteredLocations.disponible;
+    this.location.tiempoTotal = filteredLocations.tiempoTotal;
+  },
+  mostrarCentro(indice){
+    this.$emit('mostrar-aforo-centro',indice);
+  },
+},
+
 };
 </script>
 
@@ -142,8 +227,8 @@ z-index: 1000;
 top: 50%;
 left: 50%;
 transform: translate(-50%, -50%);
-width: 100%;
-height: 100%;
+width: 90%;
+height: 70%;
 max-width: 400px;
 max-height: 700px;
 min-height: 540px;
@@ -155,7 +240,7 @@ box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
 
 .fondo-oscuro {
 position: absolute;
-z-index: 10000;
+z-index: 9999;
 top: 0;
 left: 0;
 width: 100%;
