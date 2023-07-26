@@ -8,7 +8,8 @@
       :locationsFarmacias="locationsFarmacias"
       :locationsTipo="locationsTipo"
       @cambiar-tipo="cambiarTipo"
-    />
+      @mostrar-aforo-centro="mostrarAforoCentro"
+      @mostrar-detalle-farmacia="mostrarDetalleFarmacia"    />
     <div id="map" :style="mapStyle"></div>
     
     

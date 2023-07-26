@@ -25,7 +25,8 @@
             <svg width="38" height="13">
                 <rect rx="7" ry="7" width="38" height="13" fill="#B2DDEC" />
             </svg>
-            <div class="titulo-cuadro-deslizante">Centros de urgencia mas cercanos</div>
+            <div v-show="locationsTipo == 'Centros'" class="titulo-cuadro-deslizante">Centros de urgencia mas cercanos</div>
+            <div v-show="locationsTipo == 'Farmacias'" class="titulo-cuadro-deslizante">Farmacias mas cercanas</div>
         </div>
       </div>
     </div>
@@ -33,7 +34,7 @@
   
   <script>
   export default {
-    props: ['locationsUsuario','usuarioActual','locationsTipo'],
+    props: ['locationsUsuario','usuarioActual','locationsTipo','locations','locationsFarmacias'],
     data() {
       return {
         isMobile: false,

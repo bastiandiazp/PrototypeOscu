@@ -30,9 +30,9 @@
       </div>
       <div class="container5" :style="contenedorListaStyle">
         <ul class="medicamentos-list">
-          <li v-for="(item, index) in getSelectedList" :key="item.name" v-if="item.favorito === true ">
+          <li v-for="(item, index) in itemsMedicamentos" :key="item.name" v-if="item.favorito === true ">
             <div class="medicamento-item" @click="itemClicked">
-              <div class="medicamento-nombre">{{ item.name }}</div>
+              <div class="medicamento-nombre">{{ item.medicamento }}</div>
               <div class="medicamento-info">
                 <div class="medicamento-desde">desde &nbsp;</div>
                 <div class="medicamento-precio">
