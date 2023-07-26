@@ -5,8 +5,11 @@
           <v-list-item no-gutters>
             <div class="text">{{ location.name }}</div>
             <v-list-item-action>
-              <v-btn icon @click="closeWindow" class="cerrar">
+              <v-btn icon @click="mostrarCentro(0)"  class="cerrar">
                 <img src="@/assets/svg/close.svg" alt="close1" />
+              </v-btn>
+              <v-btn icon @click="filterCentro(locations, indiceCentro)" >
+                <img src="@/assets/svg/info.svg" alt="close1" />
               </v-btn>
             </v-list-item-action>
           </v-list-item>
@@ -131,8 +134,39 @@
 
 
 export default {
+  
   name: 'VentanaCentros',
-  props: ['location', 'favorito'], // Agregar la prop 'favorito'
+  data() {
+    return {
+      posicion : null,
+      location : {
+        id: null,
+        name: null,
+        coordinates: null,
+        icon: null,
+        address: null,
+        aforo: null,
+        aforoC1: null,
+        aforoC2: null,
+        aforoC3: null,
+        aforoC4: null,
+        aforoC5: null,
+        tiempoC3: null,
+        tiempoC4: null,
+        tiempoC5: null,
+        favorito: null, // Nuevo atributo favorito
+        disponible: null, // Nuevo atributo disponible
+        tiempoTotal: 0,
+      },
+    };
+  },
+  props: ['locations', 'favorito','indiceCentro'], // Agregar la prop 'favorito'
+  mounted() {
+    //console.log('indice: '+this.indiceCentro);
+    // Llamar a la función que deseas ejecutar automáticamente al inicio
+    this.posicion = findIndexById(this.locations, this.indiceCentro);
+    this.filterCentro(this.locations, this.indiceCentro);
+  },
   methods: {
     closeWindow() {
       this.$emit('close');
@@ -150,7 +184,35 @@ export default {
       const newFavoritoValue = !this.favorito; // Invertir el estado de favorito
       this.$emit('update-favorito', this.location.name, newFavoritoValue); // Emitir evento para actualizar 'favorito'
     },
+    filterCentro(locations, indiceCentro) {
+      
+      // Filtrar el array de ubicaciones por el indiceCentro
+      const filteredLocations = locations.filter(location => location.id === indiceCentro)[0];
+      
+
+      this.location.id = filteredLocations.id;
+      this.location.name = filteredLocations.name;
+      this.location.coordinates = filteredLocations.coordinates;
+      this.location.icon = filteredLocations.icon;
+      this.location.address = filteredLocations.address;
+      this.location.aforo = filteredLocations.aforo;
+      this.location.aforoC1 = filteredLocations.aforoC1;
+      this.location.aforoC2 = filteredLocations.aforoC2;
+      this.location.aforoC3 = filteredLocations.aforoC3;
+      this.location.aforoC4 = filteredLocations.aforoC4;
+      this.location.aforoC5 = filteredLocations.aforoC5;
+      this.location.tiempoC3 = filteredLocations.tiempoC3;
+      this.location.tiempoC4 = filteredLocations.tiempoC4;
+      this.location.tiempoC5 = filteredLocations.tiempoC5;
+      this.location.favorito = filteredLocations.favorito;
+      this.location.disponible = filteredLocations.disponible;
+      this.location.tiempoTotal = filteredLocations.tiempoTotal;
+    },
+    mostrarCentro(indice){
+      this.$emit('mostrar-aforo-centro',indice);
+    },
   },
+  
 };
 </script>
 

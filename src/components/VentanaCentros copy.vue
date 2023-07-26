@@ -119,7 +119,6 @@
 
 
 export default {
-  props: 'visibleTriage',
   name: 'Triage',
   methods: {
       closeWindow() {

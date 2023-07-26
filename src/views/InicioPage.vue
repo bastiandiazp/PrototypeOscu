@@ -10,14 +10,7 @@
       @cambiar-tipo="cambiarTipo"
     />
     <div id="map" :style="mapStyle"></div>
-    <VentanaCentros
-      v-if="showVentana"
-      :location="selectedLocation"
-      :favorito="selectedLocation.favorito" 
-      @close="closeVentana"
-      @update-favorito="updateFavorito" 
-      @mostrar-triage="mostrarTriage"
-    />
+    
     
   </div>
 </template>
@@ -33,7 +26,7 @@ import urgenciasIcon2 from '@/assets/svg/urgenciasOff.svg';
 
 export default {
   name: 'InicioPage',
-  props: ['locations','locationsUsuario','usuarioActual','locationsFarmacias','locationsTipo'],
+  props: ['locations','locationsUsuario','usuarioActual','locationsFarmacias','locationsTipo','indiceCentro','indiceFarmacia'],
   data() {
     return {
       map: null,
@@ -104,8 +97,11 @@ export default {
 
         // Agregar evento al hacer clic en el marcador para mostrar la ventana emergente
         marker.on('click', () => {
-          this.showVentana = true;
-          this.selectedLocation = location;
+          //console.log('holaaaaaa' + location.id);
+          this.$emit('mostrar-aforo-centro',location.id);
+          //console.log('holaaaaaa2');
+          //this.showVentana = true;
+          //this.selectedLocation = location;
         });
       });
     },
@@ -119,10 +115,7 @@ export default {
       //this.locationsTipo = option;
       this.$emit('cambiar-tipo',option);
     },
-    navigateToLocation(location) {
-      // Agrega aquí la lógica para llevar al usuario a otra vista o ejecutar alguna acción
-      console.log(`Hiciste clic en ${location.name}`);
-    },
+   
     onResize() {
       this.isMobile = window.innerWidth < 600;
       if (!this.isMobile) {
@@ -136,14 +129,14 @@ export default {
         this.widthMap = window.innerWidth;
       }
     },
-
+    /*
     updateFavorito(locationName, newFavoritoValue) {
       // Actualizar el estado de 'favorito' en el marcador seleccionado
       const locationIndex = this.locations.findIndex(location => location.name === locationName);
       if (locationIndex !== -1) {
         this.locations[locationIndex].favorito = newFavoritoValue;
       }
-    },
+    },*/
     mostrarTriage() {
       // Emitir el evento desde InicioPage.vue hacia App.vue
       this.$emit('mostrar-triage');

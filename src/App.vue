@@ -13,11 +13,16 @@
         :usuarioActual="usuarioActual"
         :locationsFarmacias="locationsFarmacias"
         :locationsTipo="locationsTipo"
+        @mostrar-detalle-farmacia="mostrarDetalleFarmacia"
+        @mostrar-detalle-medicamento="mostrarDetalleMedicamento"
+        @mostrar-aforo-centro="mostrarAforoCentro"
+        :indice-centros="indiceCentro"
+        :indice-farmacia="indiceFarmacia"
+        :indice-medicamento="indiceMedicamento"
       />
     </div>
     <Inicio 
         :locations="locationsCentros"
-        @update-favorito="updateFavorito"
         @mostrar-triage="mostrarTriage"
         :locationsUsuario="locationsUsuario"
         :usuarioActual="usuarioActual"
@@ -25,6 +30,12 @@
         :locationsFarmacias="locationsFarmacias"
         :locationsTipo="locationsTipo"
         @cambiar-tipo="cambiarTipo"
+        @mostrar-detalle-farmacia="mostrarDetalleFarmacia"
+        @mostrar-detalle-medicamento="mostrarDetalleMedicamento"
+        @mostrar-aforo-centro="mostrarAforoCentro"
+        :indiceCentros="indiceCentro"
+        :indiceFarmacia="indiceFarmacia"
+        :indiceMedicamento="indiceMedicamento"
       />
     <div v-show="isMobile" style="position: absolute; z-index: 1400; bottom: 0; left: 0; width: 100%; height: 64px; background-color: #ffffff;">
       <BottomMenu/>
@@ -35,8 +46,21 @@
     <div v-show="visibleTriage">
       <Triage 
       @mostrar-triage="mostrarTriage"
+      
       />
     </div>
+    <div v-show="visibleAforoCentro">
+      <VentanaCentros
+      @update-favorito="updateFavorito"
+      @mostrar-aforo-centro="mostrarAforoCentro"
+      :locations="locationsCentros"
+      :indiceCentro="indiceCentro"
+      @mostrar-triage="mostrarTriage"
+      />
+
+    </div>
+  
+
   </div>
 </template>
 
@@ -47,6 +71,7 @@ import urgenciasIcon from '@/assets/svg/urgenciasOn.svg';
 import urgenciasIcon2 from '@/assets/svg/urgenciasOff.svg';
 import Inicio from './views/InicioPage.vue';
 import Triage from './components/Triage.vue';
+import VentanaCentros from './components/VentanaCentros.vue';
 
 export default {
   components: {
@@ -54,6 +79,7 @@ export default {
     BottomMenu2,
     Inicio,
     Triage,
+    VentanaCentros,
   },
   name: 'App',
 
@@ -63,6 +89,12 @@ export default {
     marginRight: 800,
     marginBottom: 64,
     visibleTriage: false,
+    visibleAforoCentro: false,
+    visibleDetallesFarmacia: false,
+    visibleDetalleMedicamento: false,
+    indiceCentro: 0,
+    indiceFarmacia: 0,
+    indiceMedicamento:0,
     datosProbando: [{title: 'Elemento 1'}, {title: 'Elemento 2'}, {title: 'Elemento 3'}],
     usuarioActual: 1, //cambiar usuario usuario actual
     locationsTipo: 'Centros', //centros o farmacias
@@ -73,6 +105,7 @@ export default {
     locationsFarmacias:[], // array con locaciones de farmacias
     locationsCentros:[
       {
+        id: 1,
         name: 'Arquitectura',
         coordinates: [-33.4515456, -70.6863792],
         icon: urgenciasIcon,
@@ -91,6 +124,7 @@ export default {
         tiempoTotal: 0,
       },
       {
+        id: 2,
         name: 'Perreras',
         coordinates: [-33.4506137, -70.6803435],
         icon: urgenciasIcon2,
@@ -256,7 +290,7 @@ export default {
     // Establecer el temporizador para llamar a updateLocationsData cada 10 segundos (10000 milisegundos)
     setInterval(() => {
       this.updateLocationsData();
-    }, 60000);
+    }, 1000);
     this.onResize()
     window.addEventListener('resize', this.onResize, { passive: true })
   },
@@ -293,8 +327,23 @@ export default {
       }
     },
     mostrarTriage(){
-      console.log('antes de cambiar: ' + this.visibleTriage);
+      //console.log('antes de cambiar: ' + this.visibleTriage);
       this.visibleTriage = !this.visibleTriage;
+    },
+    mostrarAforoCentro(newIdCentro){
+      console.log('viejo: ' +this.indiceCentro);
+      this.indiceCentro = newIdCentro;
+      console.log('nuevo: ' +this.indiceCentro);
+      this.visibleAforoCentro = !this.visibleAforoCentro;
+      console.log('bool aforo: ' +this.visibleAforoCentro);
+    },
+    mostrarDetalleFarmacia(newIdFarmacia){
+      this.indiceFarmacia = newIdFarmacia;
+      this.visibleDetallesFarmacia = !this.visibleDetallesFarmacia;
+    },
+    mostrarDetalleMedicamento(newIdMedicamento){
+      this.indiceMedicamento = newIdMedicamento;
+      this.visibleDetalleMedicamento = !this.visibleDetalleMedicamento
     },
     cambiarTipo(option){
       this.locationsTipo = option;
