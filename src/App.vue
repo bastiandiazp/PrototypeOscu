@@ -62,7 +62,11 @@
     </div>
     <div v-show="visibleDetallesFarmacia"> 
       <VentanaFarmacia
-      
+      @mostrar-detalle-farmacia="mostrarDetalleFarmacia"
+      :locationsFarmacias="locationsFarmacias"
+      @update-favorito-farmacia="updateFavoritoFarmacia"
+      :indiceFarmacia="indiceFarmacia"
+      :posicionFarmacia="posicionFarmacia"
       />
     </div>
     
@@ -109,6 +113,7 @@ export default {
     usuarioActual: 1, //cambiar usuario usuario actual
     locationsTipo: 'Centros', //centros o farmacias
     posicion : 0,
+    posicionFarmacia:0,
     locationsUsuario: [
       {title:0, direccion: '9170125 Santiago, Santiago / Estación Central, Región Metropolitana', cordenadas : [-33.4500664, -70.686449]},
       {title:1, direccion: 'Avda Libertador Bernardo O`Higgins 1315, Santiago, 8340658, Región Metropolitana', cordenadas : [-33.4444012,-70.6555231]},
@@ -124,7 +129,7 @@ export default {
       },
       {
         id: 2,
-        name: 'dr simi condon 2.00000',
+        name: 'saca coirchos',
         coordinates: [-33.4492897, -70.6763032],
         address: 'Dirección 1',
         favorito: true, // Nuevo atributo favorito
@@ -370,16 +375,23 @@ export default {
         this.locationsCentros[locationIndex].favorito = newFavoritoValue;
       }
     },
+    updateFavoritoFarmacia(locationName, newFavoritoValue) {
+      // Encuentra el marcador con el nombre proporcionado y actualiza su atributo 'favorito'
+      const locationIndex = this.locationsFarmacias.findIndex(location => location.name === locationName);
+      if (locationIndex !== -1) {
+        this.locationsFarmacias[locationIndex].favorito = newFavoritoValue;
+      }
+    },
     mostrarTriage(){
       //console.log('antes de cambiar: ' + this.visibleTriage);
       this.visibleTriage = !this.visibleTriage;
     },
     mostrarAforoCentro(newIdCentro){
-      console.log('viejo: ' +this.indiceCentro);
+      //console.log('viejo: ' +this.indiceCentro);
       this.indiceCentro = newIdCentro;
-      console.log('nuevo: ' +this.indiceCentro);
+      //console.log('nuevo: ' +this.indiceCentro);
       this.visibleAforoCentro = !this.visibleAforoCentro;
-      console.log('bool aforo: ' +this.visibleAforoCentro);
+      //console.log('bool aforo: ' +this.visibleAforoCentro);
     },
     mostrarDetalleFarmacia(newIdFarmacia){
       this.indiceFarmacia = newIdFarmacia;
