@@ -103,7 +103,7 @@
 
           <div class="button-container">
             <button class="custom-button" @click="toggleFavorito">
-              <img class="icon" :src="favorito ? require('@/assets/svg/favoritoOn.svg') : require('@/assets/svg/favorito.svg')" alt="location1" />
+              <img class="icon" :src="locations[posicion].favorito ? require('@/assets/svg/favoritoOn.svg') : require('@/assets/svg/favorito.svg')" alt="location1" />
               <div class="text-boton">Favoritos</div>
             </button>
 
@@ -135,6 +135,7 @@ export default {
   name: 'VentanaCentros',
   data() {
     return {
+      favorito:true,
       location : {
         id: null,
         name: null,
@@ -183,8 +184,8 @@ export default {
       console.log('Redirigir a la vista de valoración de atención');
     },
     toggleFavorito() {
-      const newFavoritoValue = !this.favorito; // Invertir el estado de favorito
-      this.$emit('update-favorito', this.location.name, newFavoritoValue); // Emitir evento para actualizar 'favorito'
+      this.favorito =  !this.locations[this.posicion].favorito; // Invertir el estado de favorito
+      this.$emit('update-favorito', this.locations[this.posicion].name, this.favorito); // Emitir evento para actualizar 'favorito'
     },
     /*
     filterCentro(locations, indiceCentro) {

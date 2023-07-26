@@ -60,7 +60,12 @@
       />
 
     </div>
-  
+    <div v-show="visibleDetallesFarmacia"> 
+      <VentanaFarmacia
+      
+      />
+    </div>
+    
 
   </div>
 </template>
@@ -68,13 +73,14 @@
 <script>
 import BottomMenu from "./components/BottomMenuMobile.vue";
 import BottomMenu2 from "./components/BottomMenuDesktop.vue";
-import urgenciasIcon from '@/assets/svg/urgenciasOn.svg';
-import urgenciasIcon2 from '@/assets/svg/urgenciasOff.svg';
-import farmaciaOn from '@/assets/svg/farmaciaOn.svg';
-import farmaciaOff from '@/assets/svg/farmaciaOff.svg';
+//import urgenciasIcon from '@/assets/svg/urgenciasOn.svg';
+//import urgenciasIcon2 from '@/assets/svg/urgenciasOff.svg';
+//import farmaciaOn from '@/assets/svg/farmaciaOn.svg';
+//import farmaciaOff from '@/assets/svg/farmaciaOff.svg';
 import Inicio from './views/InicioPage.vue';
 import Triage from './components/Triage.vue';
 import VentanaCentros from './components/VentanaCentros.vue';
+import VentanaFarmacia from './components/VentanaFarmacia.vue';
 
 export default {
   components: {
@@ -83,6 +89,7 @@ export default {
     Inicio,
     Triage,
     VentanaCentros,
+    VentanaFarmacia,
   },
   name: 'App',
 
@@ -111,19 +118,17 @@ export default {
         id: 1,
         name: 'dr simi condon',
         coordinates: [-33.4515456, -70.6863792],
-        icon: farmaciaOn,
         address: 'Dirección 1',
         favorito: true, // Nuevo atributo favorito
         disponible: true, // Nuevo atributo disponible
       },
       {
         id: 2,
-        name: 'dr simi condon',
-        coordinates: [-33.4515456, -70.6863792],
-        icon: farmaciaOn,
+        name: 'dr simi condon 2.00000',
+        coordinates: [-33.4492897, -70.6763032],
         address: 'Dirección 1',
         favorito: true, // Nuevo atributo favorito
-        disponible: true, // Nuevo atributo disponible
+        disponible: false, // Nuevo atributo disponible
       },
     ], // array con locaciones de farmacias
     locationsCentros:[
@@ -131,7 +136,6 @@ export default {
         id: 1,
         name: 'Arquitectura',
         coordinates: [-33.4515456, -70.6863792],
-        icon: urgenciasIcon,
         address: 'Dirección 1',
         aforo: 20,
         aforoC1: 5,
@@ -150,7 +154,6 @@ export default {
         id: 2,
         name: 'Perreras',
         coordinates: [-33.4506137, -70.6803435],
-        icon: urgenciasIcon2,
         address: 'Dirección 2',
         aforo: 15,
         aforoC1: 3,
@@ -169,7 +172,6 @@ export default {
         id: 3,
         name: 'los heroes',
         coordinates: [-33.4472214, -70.665429],
-        icon: urgenciasIcon,
         address: 'Dirección 2',
         aforo: 15,
         aforoC1: 3,

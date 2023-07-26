@@ -138,7 +138,7 @@ export default {
 
         // Agregar evento al hacer clic en el marcador para mostrar la ventana emergente
         marker.on('click', () => {
-          this.$emit('mostrar-aforo-centro', location.id);
+          this.$emit('mostrar-detalle-farmacia', location.id);
         });
         
         this.markers.push(marker);
