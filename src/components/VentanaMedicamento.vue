@@ -23,20 +23,22 @@
         <div class="roboto colorCeleste tamano22px">Farmacias disponibles</div>
         
         
-        <div class="roboto tamano20px colorGris">Distancia máxima</div>
-        <div class="distance-filter">
-          <input type="number" v-model="distanciaMaxima" min="0" placeholder="Ingrese distancia máxima" />
-          <button @click="filterByDistance">Filtrar</button>
-        </div>
 
-        <!-- Lista para mostrar los elementos que cumplen con la distancia -->
-        <div v-if="filteredItems.length > 0">
-          <div class="roboto colorCeleste tamano22px">Farmacias disponibles a distancia máxima</div>
-          <ul>
-            <li v-for="item in filteredItems" :key="item.id" class="roboto tamano20px colorGris">{{ item.name }}</li>
-          </ul>
+        <div class="container-slider">
+        <div class="slider-title">
+          Distancia máxima 
+          <div class="slider-value">{{ sliderValue2 }} km</div>
         </div>
+        <vue-slider v-model="sliderValue2" :min="0" :max="10" :height="3" :interval="1" :tooltip="'none'" v-bind="options"/>
+      </div>
+      <div class="filtered-list-container">
+        <ListaFarmacias 
+        :locationsFarmacias="locationsFarmaciasCercanas"  
+        :precio="itemsMedicamentos[posicionMedicamento].precio"
+        :style="listaStyles"/>
+      </div>
 
+      
         
         <div class="button-container">
           <button class="custom-button " @click="toggleFavorito">
@@ -52,33 +54,70 @@
 
 
 <script>
-
+import ListaFarmacias from './ListaFarmacias2.vue';
 
 
 export default {
+  
 
 name: 'VentanaMedicamento',
 data() {
   return {
+    cuadroHeight: 0,
+    maxDistance: 0,
+    maxDistanceLimit: 50, // Límite máximo de distancia
+    locationsFarmaciasCercanas: [],
+    sliderValue2: 3,
+    posicionMedicamento: 0,
+    options: {
+      	dotOptions: [
+        {
+        	style: {
+            "backgroundColor": "#2596BE",
+            "border": "0px solid #ffff",
+            "boxShadow": "0.5px 0.5px 2px 1px rgba(107,107,107,.36)"
+          },
+        }],
+      },
+  
   };
 },
-props: ['itemsMedicamentos','indiceMedicamento','posicionMedicamento','distanciaMaxima','locationsFarmacias'], // Agregar la prop 'favorito'
+components:{ListaFarmacias},
+props: ['itemsMedicamentos','indiceMedicamento','locationsFarmacias','usuarioActual'], // Agregar la prop 'favorito'
 mounted() {
   this.posicionMedicamento = this.findIndexById(this.itemsMedicamentos, this.indiceMedicamento);
+  this.locationsFarmaciasCercanas = [];
+        this.locationsFarmaciasCercanas= this.locationsFarmacias.filter((punto) => punto.distancia < this.sliderValue2);
+        this.locationsFarmaciasCercanas.sort((a, b) => a.distancia - b.distancia);
 },
-updated(){
-  this.posicionMedicamento = this.findIndexById(this.itemsMedicamentos, this.indiceMedicamento);
-},
+
 watch: {
-  posicionMedicamento: function(newTipo) {
+  indiceMedicamento: function(newTipo) {
         this.posicionMedicamento = this.findIndexById(this.itemsMedicamentos, this.indiceMedicamento);
     },
+    sliderValue2: function() {
+        this.locationsFarmaciasCercanas = [];
+        this.locationsFarmaciasCercanas= this.locationsFarmacias.filter((punto) => punto.distancia < this.sliderValue2);
+        this.locationsFarmaciasCercanas.sort((a, b) => a.distancia - b.distancia);
+      },
+      usuarioActual: function() {
+        this.locationsFarmaciasCercanas = [];
+        this.locationsFarmaciasCercanas= this.locationsFarmacias.filter((punto) => punto.distancia < this.sliderValue2);
+        this.locationsFarmaciasCercanas.sort((a, b) => a.distancia - b.distancia);
+      },
   },
 computed: {
   filteredItems() {
     // Filtrar los elementos que cumplen con la distancia máxima
-    return this.locationsFarmacias.filter(item => item.distancia <= this.distanciaMaxima);
+    console.log('distancia: dsdad' + this.maxDistance);
+    return this.locationsFarmacias.filter(item => item.distancia <= this.maxDistance);
   },
+  listaStyles(){
+        return {
+          height: this.cuadroHeight-94 +'px',
+          /* Agrega aquí otros estilos según tus necesidades */
+        };
+      },
 },
 methods: {
   closeWindow() {
@@ -96,9 +135,7 @@ methods: {
     return index;
   },
   filterByDistance() {
-      // Método para aplicar el filtro por distancia
-      // Llama a este método cuando el usuario haga clic en el botón "Filtrar"
-      // El resultado se mostrará en la lista debajo de "Farmacias disponibles a distancia máxima"
+      this.filteredItems;
     },
 },
 
@@ -241,28 +278,32 @@ box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
 
 }
 
-.distance-filter {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
+
+
+
+
+
+  .filtered-list-container {
+    max-height: 400px;
+    overflow-y: auto; /* Aplica desbordamiento vertical y muestra el deslizador cuando necesario */
   }
 
-  .distance-filter input {
-    margin-right: 10px;
-    padding: 5px;
-  }
-
-  .distance-filter button {
-    padding: 5px 10px;
-    border: none;
-    background-color: #D0F0FC;
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    outline: none;
-    box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
-  }
-
-
+  .container-slider{
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.slider-title{
+  display: flex;
+  font-size: 14px;
+  font-weight: 500;
+  color: #7B7B7B;
+}
+.slider-value{
+  margin-left: auto;
+  font-size: 14px;
+  font-weight: 500;
+  color: #7B7B7B;
+  
+}
 </style>

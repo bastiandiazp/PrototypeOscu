@@ -1,345 +1,301 @@
 <template>
-  <div id="app" >
-    <div >
-      <router-view  
-        class="router-container" 
-        :style="routerStyle" 
-        :itemsMedicamentos="itemsMedicamentos" 
-        :locations="locationsCentros"
-        @mostrar-triage="mostrarTriage"
-        :locationsUsuario="locationsUsuario"
-        :usuarioActual="usuarioActual"
-        :locationsFarmacias="locationsFarmacias"
-        :locationsTipo="locationsTipo"
-        @mostrar-detalle-farmacia="mostrarDetalleFarmacia"
-        @mostrar-detalle-medicamento="mostrarDetalleMedicamento"
-        @mostrar-aforo-centro="mostrarAforoCentro"
-        :indice-centros="indiceCentro"
-        :indice-farmacia="indiceFarmacia"
-        :indice-medicamento="indiceMedicamento"
-      />
-    </div>
-    <Inicio 
-        :locations="locationsCentros"
-        @mostrar-triage="mostrarTriage"
-        :locationsUsuario="locationsUsuario"
-        :usuarioActual="usuarioActual"
-        @cambiar-usuario="cambiarUsuario"
-        :locationsFarmacias="locationsFarmacias"
-        :locationsTipo="locationsTipo"
-        @cambiar-tipo="cambiarTipo"
-        @mostrar-detalle-farmacia="mostrarDetalleFarmacia"
-        @mostrar-detalle-medicamento="mostrarDetalleMedicamento"
-        @mostrar-aforo-centro="mostrarAforoCentro"
-        :indiceCentros="indiceCentro"
-        :indiceFarmacia="indiceFarmacia"
-        :indiceMedicamento="indiceMedicamento"
-      />
-    <div v-show="isMobile" style="position: absolute; z-index: 1400; bottom: 0; left: 0; width: 100%; height: 64px; background-color: #ffffff;">
-      <BottomMenu/>
-    </div>
-    <div v-show="!isMobile" style="position: fixed; bottom: 0; left: 0; width: 100%; height: 64px; background-color: #ffffff;">
-      <BottomMenu2 />
-    </div>
-    <div v-show="visibleTriage">
-      <Triage 
-      @mostrar-triage="mostrarTriage"
-      
-      />
-    </div>
-    <div v-show="visibleAforoCentro">
-      <VentanaCentros
-      @update-favorito="updateFavorito"
-      @mostrar-aforo-centro="mostrarAforoCentro"
-      :locations="locationsCentros"
-      :indiceCentro="indiceCentro"
-      @mostrar-triage="mostrarTriage"
-      :posicion="posicion"
-      />
+  <div class="fondo-oscuro">
+    <div class="ventana-medicamentos">
+      <div class="cabeza">
+        <v-list-item no-gutters>
+          <div class="roboto colorNegro tamano22px ancho90">{{ itemsMedicamentos[posicionMedicamento].medicamento }}</div>
+          <v-list-item-action>
+            <v-btn icon @click="mostrarMedicamento(0)"  class="cerrar">
+              <img src="@/assets/svg/close.svg" alt="close1" />
+            </v-btn>
+          </v-list-item-action>
+        </v-list-item>
+      </div>
 
-    </div>
-    <div v-show="visibleDetallesFarmacia"> 
-      <VentanaFarmacia
-      @mostrar-detalle-farmacia="mostrarDetalleFarmacia"
-      :locationsFarmacias="locationsFarmacias"
-      @update-favorito-farmacia="updateFavoritoFarmacia"
-      :indiceFarmacia="indiceFarmacia"
-      :posicionFarmacia="posicionFarmacia"
-      />
-    </div>
-    <div v-show="visibleDetalleMedicamento"> 
-      <VentanaMedicamento
-      @mostrar-detalle-medicamento="mostrarDetalleMedicamento"
-      :itemsMedicamentos="itemsMedicamentos"
-      @update-favorito-medicamento="updateFavoritoMedicamento"
-      :indiceMedicamento="indiceMedicamento"
-      :posicionMedicamento="posicionMedicamento"
-      :distanciaMaxima="distanciaMaxima"
-      :locationsFarmacias="locationsFarmacias"
-      />
-    </div>
-    
-    
+      <div class="cuerpo bloque">
+        <div class="roboto tamano20px colorGris">{{ itemsMedicamentos[posicionMedicamento].laboratorio }}</div>
 
+        <div class="popup-row1">
+            <div><img src="@/assets/svg/receta.svg" alt="location1" /></div>
+            <div class="roboto tamano20px colorCeleste ">{{ itemsMedicamentos[posicionMedicamento].receta }}</div>
+        </div>
+
+        <div class="roboto colorCeleste tamano22px">Farmacias disponibles</div>
+        
+        
+        <div class="roboto tamano20px colorGris">Distancia máxima</div>
+        <div class="distance-filter">
+          <input
+            type="range"
+            v-model="maxDistance"
+            min="0"
+            :max="maxDistanceLimit"
+            step="1"
+            class="slider"
+          />
+          <div class="distance-label">{{ maxDistance }} km</div>
+        </div>
+
+        <!-- Lista para mostrar los elementos que cumplen con la distancia -->
+        <div v-if="filteredItems.length > 0">
+          <div class="filtered-list-container">
+          <ul class="filtered-list">
+            <li v-for="item in filteredItems" :key="item.id" class="roboto tamano20px colorGris">{{ item.name }} {{ item.distancia }}</li>
+
+          </ul>
+        </div>
+        </div>
+
+        
+        <div class="button-container">
+          <button class="custom-button " @click="toggleFavorito">
+            <img class="icon" :src="itemsMedicamentos[posicionMedicamento].favorito ? require('@/assets/svg/favoritoOn.svg') : require('@/assets/svg/favorito.svg')" alt="location1" />
+            <div class="text-boton">Favoritos</div>
+          </button>
+        </div>
+        
+      </div>
+    </div>
   </div>
 </template>
 
+
 <script>
-import BottomMenu from "./components/BottomMenuMobile.vue";
-import BottomMenu2 from "./components/BottomMenuDesktop.vue";
-import Inicio from './views/InicioPage.vue';
-import Triage from './components/Triage.vue';
-import VentanaCentros from './components/VentanaCentros.vue';
-import VentanaFarmacia from './components/VentanaFarmacia.vue';
-import VentanaMedicamento from './components/VentanaMedicamento.vue';
-import datos from './datos.js';
+
+
+
 export default {
-  components: {
-    BottomMenu,
-    BottomMenu2,
-    Inicio,
-    Triage,
-    VentanaCentros,
-    VentanaFarmacia,
-    VentanaMedicamento,
-    
-  },
-  name: 'App',
 
-  data: () => ({
-    isMobile: false,
-    marginLeft: 64,
-    marginRight: 800,
-    marginBottom: 64,
-    visibleTriage: false,
-    visibleAforoCentro: false,
-    visibleDetallesFarmacia: false,
-    visibleDetalleMedicamento: false,
-    indiceCentro: 0,
-    indiceFarmacia: 0,
-    indiceMedicamento: 0,
-    datosProbando: [{title: 'Elemento 1'}, {title: 'Elemento 2'}, {title: 'Elemento 3'}],
-    usuarioActual: 0, //cambiar usuario usuario actual
-    locationsTipo: 'Centros', //centros o farmacias
-    posicion :null,
-    posicionFarmacia:null,
-    posicionMedicamento:null,
-    locationsUsuario: datos.locationsUsuario,
-    locationsFarmacias: datos.locationsFarmacias,
-    locationsCentros: datos.locationsCentros,
-    itemsMedicamentos: datos.itemsMedicamentos,
-    distanciaMaxima: 0,
-  }),
-
-  beforeDestroy() {
-    if (typeof window === 'undefined') return
-
-    window.removeEventListener('resize', this.onResize, { passive: true })
-  },
-  computed: {
-    routerStyle() {
-      return {
-        left: `${this.marginLeft}px`, // Centra el mapa a la izquierda agregando el margen
-        right: `${this.marginRight}px`, // Centra el mapa a la izquierda agregando el margen
-        bottom: `${this.marginBottom}px`, // Centra el mapa a la izquierda agregando el margen
-        //width: `calc(100vh - ${this.marginLeft}px)`,
-      };
-    },
-  },
-  watch: {
-    usuarioActual: function() {
-      this.calcularDistancias(); //se ejecuta cada vez que cambia usuarioActual
-    },
-  },
-  mounted() {
-    // Llamar a updateLocationsData al inicio
-    this.updateLocationsData();
-    // Establecer el temporizador para llamar a updateLocationsData cada 10 segundos (10000 milisegundos)
-    setInterval(() => {
-      this.updateLocationsData();
-    }, 60000);
-    this.onResize()
-    window.addEventListener('resize', this.onResize, { passive: true })
-  },
-  created(){
-    this.calcularDistancias();
-  },
-
-  methods: {
-    getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
-      const R = 6371; // Radio de la Tierra en kilómetros
-      const dLat = this.deg2rad(lat2 - lat1);
-      const dLon = this.deg2rad(lon2 - lon1);
-      const a =
-        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
-        Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
-      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-      const distance = R * c;
-      return distance;
-    },
-    deg2rad(deg) {
-      return deg * (Math.PI / 180);
-    },
-    calcularDistancias(){
-      let center = this.buscarPorTitulo(this.usuarioActual).cordenadas
-      this.locationsCentros.forEach((punto) => {
-      let distancia = this.getDistanceFromLatLonInKm(
-          center[0],
-          center[1],
-          punto.coordinates[0],
-          punto.coordinates[1]
-        );
-        punto.distancia = distancia.toFixed(2);
-        
-      });
-      this.locationsFarmacias.forEach((punto,index) => {
-      let distancia = this.getDistanceFromLatLonInKm(
-          center[0],
-          center[1],
-          punto.coordinates[0],
-          punto.coordinates[1]
-        );
-        punto.distancia = distancia.toFixed(2);
-        
-      });
-    },
-    buscarPorTitulo(title){
-    let elementoEncontrado = this.locationsUsuario.find(item => item.title === title);
-      return elementoEncontrado;
-    },
-    cambiarUsuario(id){
-      this.usuarioActual= id;
-      console.log(this.usuarioActual)
-    },
-    
-    agregarElemento(nuevoElemento) {
-      this.datosProbando.push(nuevoElemento);
-    },
-    onResize() {
-      this.isMobile = window.innerWidth < 600
-      
-      if (! this.isMobile) {
-        this.marginLeft = 64
-        this.marginRight = window.innerWidth-600
-        this.marginBottom = 0
-      }
-      if (this.isMobile) {
-        this.marginLeft = 0
-        this.marginRight = 0
-        this.marginBottom = 64
-        
-      }
-    },
-    updateFavorito(locationName, newFavoritoValue) {
-      // Encuentra el marcador con el nombre proporcionado y actualiza su atributo 'favorito'
-      const locationIndex = this.locationsCentros.findIndex(location => location.id === locationName);
-      if (locationIndex !== -1) {
-        this.locationsCentros[locationIndex].favorito = newFavoritoValue;
-      }
-    },
-    updateFavoritoFarmacia(locationName, newFavoritoValue) {
-      // Encuentra el marcador con el nombre proporcionado y actualiza su atributo 'favorito'
-      const locationIndex = this.locationsFarmacias.findIndex(location => location.id === locationName);
-      if (locationIndex !== -1) {
-        this.locationsFarmacias[locationIndex].favorito = newFavoritoValue;
-      }
-    },
-    updateFavoritoMedicamento(locationName, newFavoritoValue) {
-      // Encuentra el marcador con el nombre proporcionado y actualiza su atributo 'favorito'
-      const locationIndex = this.itemsMedicamentos.findIndex(location => location.id === locationName);
-      if (locationIndex !== -1) {
-        this.itemsMedicamentos[locationIndex].favorito = newFavoritoValue;
-      }
-    },
-    mostrarTriage(){
-      //console.log('antes de cambiar: ' + this.visibleTriage);
-      this.visibleTriage = !this.visibleTriage;
-    },
-    mostrarAforoCentro(newIdCentro){
-      //console.log('viejo: ' +this.indiceCentro);
-      this.indiceCentro = newIdCentro;
-      //console.log('nuevo: ' +this.indiceCentro);
-      this.visibleAforoCentro = !this.visibleAforoCentro;
-      //console.log('bool aforo: ' +this.visibleAforoCentro);
-    },
-    mostrarDetalleFarmacia(newIdFarmacia){
-      this.indiceFarmacia = newIdFarmacia;
-      this.visibleDetallesFarmacia = !this.visibleDetallesFarmacia;
-    },
-    mostrarDetalleMedicamento(newIdMedicamento){
-      this.indiceMedicamento = newIdMedicamento;
-      this.visibleDetalleMedicamento = !this.visibleDetalleMedicamento
-    },
-    cambiarTipo(option){
-      this.locationsTipo = option;
-    },
-    // Función para actualizar los valores de las locaciones
-    updateLocationsData() {
-      this.locationsCentros.forEach(location => {
-        
-        // Actualizar aforoC1 (incrementa o decrementa en 1)
-        location.aforoC1 += Math.random() < 0.5 ? -1 : 1;
-        location.aforoC1 = Math.max(0, Math.min(location.aforoC1, 2)); // Limitar entre 0 y 5
-
-        // Actualizar aforoC2 (incrementa o decrementa en 1)
-        location.aforoC2 += Math.random() < 0.5 ? -1 : 1;
-        location.aforoC2 = Math.max(0, Math.min(location.aforoC2, 3)); // Limitar entre 0 y 5
-
-        // Actualizar aforoC3 (incrementa o decrementa entre 1 y 2)
-        location.aforoC3 += Math.random() < 0.5 ? -1 : 1;
-        location.aforoC3 = Math.max(0, Math.min(location.aforoC3, 10)); // Limitar entre 0 y 10
-
-        // Actualizar aforoC4 (incrementa o decrementa entre 1 y 3)
-        location.aforoC4 += Math.random() < 0.5 ? -1 : 1;
-        location.aforoC4 = Math.max(0, Math.min(location.aforoC4, 15)); // Limitar entre 0 y 15
-
-        // Actualizar aforoC5 (incrementa o decrementa entre 1 y 3)
-        location.aforoC5 += Math.random() < 0.5 ? -1 : 1;
-        location.aforoC5 = Math.max(0, Math.min(location.aforoC5, 22)); // Limitar entre 0 y 22
-
-        // Actualizar tiempoC3, tiempoC4 y tiempoC5
-        location.tiempoC3 = Math.round(location.aforoC3 * 5.3);
-        location.tiempoC4 = Math.round((location.aforoC4 * 7.3)+location.tiempoC3);
-        location.tiempoC5 = Math.round((location.aforoC5 * 12.3)+location.tiempoC3+location.tiempoC4);
-
-
-        // Actualizar el aforo como la suma de los aforos C1, C2, C3, C4 y C5
-        location.aforo = location.aforoC1 + location.aforoC2 + location.aforoC3 + location.aforoC4 + location.aforoC5;
-
-        // Actualizar tiempoTotal como el máximo entre tiempoC3, tiempoC4 y tiempoC5
-        location.tiempoTotal = Math.max(location.tiempoC3, location.tiempoC4, location.tiempoC5);
+name: 'VentanaMedicamento',
+data() {
+  return {
+    maxDistance: 0,
+    maxDistanceLimit: 50, // Límite máximo de distancia
   
-      });
+  };
+},
+props: ['itemsMedicamentos','indiceMedicamento','posicionMedicamento','distanciaMaxima','locationsFarmacias'], // Agregar la prop 'favorito'
+mounted() {
+  this.posicionMedicamento = this.findIndexById(this.itemsMedicamentos, this.indiceMedicamento);
+},
+updated(){
+  this.posicionMedicamento = this.findIndexById(this.itemsMedicamentos, this.indiceMedicamento);
+},
+watch: {
+  posicionMedicamento: function(newTipo) {
+        this.posicionMedicamento = this.findIndexById(this.itemsMedicamentos, this.indiceMedicamento);
     },
-    
   },
+computed: {
+  filteredItems() {
+    // Filtrar los elementos que cumplen con la distancia máxima
+    console.log('distancia: dsdad' + this.maxDistance);
+    return this.locationsFarmacias.filter(item => item.distancia <= this.maxDistance);
+  },
+},
+methods: {
+  closeWindow() {
+    this.$emit('close');
+  },
+  toggleFavorito() {
+    const favorito =  !this.itemsMedicamentos[this.posicionMedicamento].favorito; // Invertir el estado de favorito
+    this.$emit('update-favorito-medicamento', this.itemsMedicamentos[this.posicionMedicamento].id, favorito); // Emitir evento para actualizar 'favorito'
+  },
+  mostrarMedicamento(indice){
+    this.$emit('mostrar-detalle-medicamento',indice);
+  },
+  findIndexById(itemsMedicamentos, idCentro) {
+    const index = itemsMedicamentos.findIndex(location => location.id === idCentro);
+    return index;
+  },
+  filterByDistance() {
+      this.filteredItems;
+    },
+},
 
-  provide() {
-    return {
-      isMobile: this.isMobile,
-    };
-  },
 };
 </script>
 
-<style>
-html, body, #app {
-  height: 100%;
-  margin: 0;
-  overflow: hidden;
+<style scoped>
+
+.bloque {
+    display: block;
+  }
+.button-container {
+display: block;
+flex-wrap: wrap;
+margin-top: auto; /* Empuja el botón al fondo del contenedor */
+gap: 10px; /* Espacio entre los elementos (botones) */
+padding:10px;
+}
+.cursor{
+cursor:pointer;
 }
 
+.roboto{
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+  margin-top: 2px;
+  text-transform: none;
+  padding: 2px;
+}
 
-.router-container {
-    position: absolute;
-    top: 0;
-    bottom: 64px;
-    z-index: 1400;
-    background-color: #ffffff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    /* Agrega aquí otras propiedades de estilo según tus necesidades */
+.ancho90{
+  width: 90%;
+}
 
+.tamano22px{
+  font-size: 22px;
+}
 
-    /*margin-left: 64px; /* Establece el margen a la izquierda */
+.tamano20px{
+  font-size: 18px;
+}
+
+.colorGris{
+  color: #7B7B7B;
+}
+.colorNegro{
+  color: black;
+}
+
+.colorCeleste{
+  color: #2596BE;
+}
+
+.ventana-medicamentos {
+position: absolute;
+z-index: 1000;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+width: auto;
+height: auto;
+max-width: 400px;
+max-height: 700px;
+min-height: 200px;
+min-width: 300px;
+background-color: white;
+border-radius: 16px;
+box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
+}
+
+.fondo-oscuro {
+position: absolute;
+z-index: 9999;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-color: rgba(0, 0, 0, 0.5);
+backdrop-filter: blur(8px);
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.cabeza {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-top: 2%;
+}
+.cuerpo {
+justify-content: space-between;
+align-items: center;
+margin-left: 4.3%;
+}
+
+.cerrar {
+position: absolute;
+top: 16px;
+right: 16px;
+display: flex;
+justify-content: center;
+align-items: center;
+width: 29.18px;
+height: 29.18px;
+border-radius: 50%;
+background-color: #ffff;
+}
+
+.popup-row5 {
+display: flex;
+align-items: center;
+margin-left: 40px;
+margin-top: 10px;
+}
+
+.popup-row1 {
+  display: flex;
+  align-items: center;
+  margin-left: 20px;
+}
+
+.custom-button {
+display: flex;
+align-items: center;
+border: none;
+background-color: #D0F0FC;
+padding: 4px 10px;
+border-radius: 30px; /* Bordes ovalados */
+cursor: pointer;
+font-size: 16px;
+font-weight: bold;
+outline: none;
+box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
+}
+
+.text-boton{
+  white-space: nowrap;
+  color: #2596BE;
+
+}
+
+.distance-filter {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
   }
+
+  .distance-filter input {
+    margin-right: 10px;
+    padding: 5px;
+  }
+
+  .distance-filter button {
+    padding: 5px 10px;
+    border: none;
+    background-color: #D0F0FC;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    outline: none;
+    box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
+  }
+
+
+  .distance-filter .slider {
+    flex: 1;
+  }
+
+  .distance-filter .distance-label {
+    margin-left: 10px;
+  }
+
+
+  .filtered-list-container {
+    max-height: 400px;
+    overflow-y: auto; /* Aplica desbordamiento vertical y muestra el deslizador cuando necesario */
+  }
+
+  .filtered-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+    /* Ajusta el ancho para mostrar el deslizador lateral cuando sea necesario */
+    width: calc(100% + 15px);
+  }
+
 </style>

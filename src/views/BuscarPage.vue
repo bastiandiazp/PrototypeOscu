@@ -31,8 +31,8 @@
 import svgIcon from "@/assets/svg/LogoOscu.svg";
 export default {
   mounted() {
-    this.onResize()
-    window.addEventListener('resize', this.onResize, { passive: true })
+    //this.onResize()
+    //window.addEventListener('resize', this.onResize, { passive: true })
   },
   props: ['itemsMedicamentos'],
   data() {

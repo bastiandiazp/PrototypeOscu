@@ -66,13 +66,13 @@
     </div>
     <div v-show="visibleDetalleMedicamento"> 
       <VentanaMedicamento
+      
       @mostrar-detalle-medicamento="mostrarDetalleMedicamento"
       :itemsMedicamentos="itemsMedicamentos"
       @update-favorito-medicamento="updateFavoritoMedicamento"
       :indiceMedicamento="indiceMedicamento"
-      :posicionMedicamento="posicionMedicamento"
-      :distanciaMaxima="distanciaMaxima"
       :locationsFarmacias="locationsFarmacias"
+      @mostrar-detalle-farmacia="mostrarDetalleFarmacia"
       />
     </div>
     
@@ -124,7 +124,6 @@ export default {
     locationsFarmacias: datos.locationsFarmacias,
     locationsCentros: datos.locationsCentros,
     itemsMedicamentos: datos.itemsMedicamentos,
-    distanciaMaxima: 0,
   }),
 
   beforeDestroy() {

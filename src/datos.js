@@ -2,7 +2,8 @@ export default {
     locationsUsuario: [
         {title:0, direccion: '9170125 Santiago, Santiago / Estación Central, Región Metropolitana', cordenadas : [-33.4500664, -70.686449]},
         {title:1, direccion: 'Avda Libertador Bernardo O`Higgins 1315, Santiago, 8340658, Región Metropolitana', cordenadas : [-33.4444012,-70.6555231]},
-        {title:2, direccion: 'Nueva Los Leones 71, Providencia, Región Metropolitana', cordenadas : [-33.4192201,-70.6091028]}],
+        {title:2, direccion: 'Nueva Los Leones 71, Providencia, Región Metropolitana', cordenadas : [-33.4192201,-70.6091028]}
+      ],
       locationsFarmacias:[
         {
       id: 1,
@@ -11,7 +12,7 @@ export default {
       address: 'Av. Pajaritos 2345, Maipú, Santiago',
       favorito: true,
       disponible: false,
-      distancia: 0,
+      distancia: 1,
     },
     {
       id: 2,
@@ -1114,7 +1115,7 @@ export default {
     {
       id: 56,
       name: 'Clínica Las Condes',
-      coordinates: [-33.3614413, -70.5039997],
+      coordinates: [-33.4209935, -70.6107391],
       address: 'Av. Las Condes 111',
       aforo: 14,
       aforoC1: 3,
