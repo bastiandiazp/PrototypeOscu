@@ -113,13 +113,6 @@
             </button>
           </div>
 
-          
-
-
-
-
-
-
         </div>
       </div>
     </div>
@@ -188,6 +181,7 @@ export default {
     toggleFavorito() {
       this.favorito =  !this.locations[this.posicion].favorito; // Invertir el estado de favorito
       this.$emit('update-favorito', this.locations[this.posicion].id, this.favorito); // Emitir evento para actualizar 'favorito'
+      this.location = Object.assign({}, this.locations[this.posicion]);
     },
     openGoogleMaps() {
       const coordinates = this.locations[this.posicion].coordinates;

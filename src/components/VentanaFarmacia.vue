@@ -105,7 +105,9 @@ export default {
     },
     toggleFavorito() {
       const favorito =  !this.locationsFarmacias[this.posicionFarmacia].favorito; // Invertir el estado de favorito
+      console.log('el nuevo centro es: '+ favorito)
       this.$emit('update-favorito-farmacia', this.locationsFarmacias[this.posicionFarmacia].id, favorito); // Emitir evento para actualizar 'favorito'
+      this.locationFarmacia = Object.assign({}, this.locationsFarmacias[this.posicionFarmacia]);
     },
     mostrarFarmacia(indice){
       this.$emit('mostrar-detalle-farmacia',indice);
