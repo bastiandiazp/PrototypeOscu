@@ -14,7 +14,7 @@
 
         <div class="ventana-body">
 
-        <div class="popup-row1">
+        <div class="popup-row1 cursor" @click="openGoogleMaps">
             <div><img src="@/assets/svg/locationOn.svg" alt="location1" /></div>
             <div class="text2">{{ locationsFarmacias[posicionFarmacia].address }}</div>
         </div>
@@ -104,6 +104,11 @@ export default {
     findIndexById(locationsFarmacias, idCentro) {
       const index = locationsFarmacias.findIndex(location => location.id === idCentro);
       return index;
+    },
+    openGoogleMaps() {
+      const coordinates = this.locationsFarmacias[this.posicionFarmacia].coordinates;
+      const url = `https://www.google.com/maps?q=${coordinates}`;
+      window.open(url, '_blank');
     },
   },
   

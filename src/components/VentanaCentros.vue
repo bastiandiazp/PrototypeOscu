@@ -14,7 +14,7 @@
 
         <div class="ventana-body">
           
-          <div class="popup-row1">
+          <div class="popup-row1 cursor" @click="openGoogleMaps">
             <div><img src="@/assets/svg/locationOn.svg" alt="location1" /></div>
             <div class="text2">{{ locations[posicion].address }}</div>
           </div>
@@ -187,34 +187,11 @@ export default {
       this.favorito =  !this.locations[this.posicion].favorito; // Invertir el estado de favorito
       this.$emit('update-favorito', this.locations[this.posicion].id, this.favorito); // Emitir evento para actualizar 'favorito'
     },
-    /*
-    filterCentro(locations, indiceCentro) {
-      
-      // Filtrar el array de ubicaciones por el indiceCentro
-      const filteredLocations = locations.filter(location => location.id === indiceCentro)[0];
-      
-
-      this.location.id = filteredLocations.id;
-      this.location.name = filteredLocations.name;
-      this.location.coordinates = filteredLocations.coordinates;
-      this.location.icon = filteredLocations.icon;
-      this.location.address = filteredLocations.address;
-      this.location.aforo = filteredLocations.aforo;
-      this.location.aforoC1 = filteredLocations.aforoC1;
-      this.location.aforoC2 = filteredLocations.aforoC2;
-      this.location.aforoC3 = filteredLocations.aforoC3;
-      this.location.aforoC4 = filteredLocations.aforoC4;
-      this.location.aforoC5 = filteredLocations.aforoC5;
-      this.location.tiempoC3 = filteredLocations.tiempoC3;
-      this.location.tiempoC4 = filteredLocations.tiempoC4;
-      this.location.tiempoC5 = filteredLocations.tiempoC5;
-      this.location.favorito = filteredLocations.favorito;
-      this.location.disponible = filteredLocations.disponible;
-      this.location.tiempoTotal = filteredLocations.tiempoTotal;
-
-      this.posicion = this.findIndexById(this.locations, this.indiceCentro);
-      console.log('buscar index: '+this.posicion);
-    },*/
+    openGoogleMaps() {
+      const coordinates = this.locations[this.posicion].coordinates;
+      const url = `https://www.google.com/maps?q=${coordinates}`;
+      window.open(url, '_blank');
+    },
     mostrarCentro(indice){
       this.$emit('mostrar-aforo-centro',indice);
     },
