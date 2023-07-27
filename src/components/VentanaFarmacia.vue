@@ -3,7 +3,7 @@
       <div class="ventana-centros3">
         <div class="ventana-header">
           <v-list-item no-gutters>
-            <div class="text">{{ locationsFarmacias[posicionFarmacia].name }}</div>
+            <div class="text">{{ locationFarmacia.name}}</div>
             <v-list-item-action>
               <v-btn icon @click="mostrarFarmacia(0)"  class="cerrar">
                 <img src="@/assets/svg/close.svg" alt="close1" />
@@ -16,7 +16,7 @@
 
         <div class="popup-row1 cursor" @click="openGoogleMaps">
             <div><img src="@/assets/svg/locationOn.svg" alt="location1" /></div>
-            <div class="text2">{{ locationsFarmacias[posicionFarmacia].address }}</div>
+            <div class="text2">{{ locationFarmacia.address}}</div>
         </div>
 
         <div class="popup-row1">
@@ -48,7 +48,8 @@
 
           <div class="button-container">
             <button class="custom-button" @click="toggleFavorito">
-              <img class="icon" :src="locationsFarmacias[posicionFarmacia].favorito ? require('@/assets/svg/favoritoOn.svg') : require('@/assets/svg/favorito.svg')" alt="location1" />
+            
+              <img class="icon" :src="locationFarmacia.favorito ? require('@/assets/svg/favoritoOn.svg') : require('@/assets/svg/favorito.svg')" alt="location1" />
               <div class="text-boton">Favoritos</div>
             </button>
 
@@ -68,26 +69,34 @@
 
 
 export default {
-  
+  data(){
+    return{
+      posicionFarmacia: 0,
+      locationFarmacia:{
+      id: 0,
+      name: '',
+      coordinates: [0, 0],
+      address: '',
+      favorito: true,
+      disponible: true,
+      distancia: 0,
+    },
+    }
+  },
   name: 'VentanaFarmacia',
   created() {
     // Ejecutar la función findIndexById antes de mostrar la información
     this.posicionFarmacia = this.findIndexById(this.locationsFarmacias, this.indiceFarmacia);
   },
-  data() {
-    return {
-    };
-  },
-  props: ['locationsFarmacias','indiceFarmacia','posicionFarmacia'], // Agregar la prop 'favorito'
+  props: ['locationsFarmacias','indiceFarmacia'], // Agregar la prop 'favorito'
   mounted() {
-    this.posicionFarmacia = this.findIndexById(this.locationsFarmacias, this.indiceFarmacia);
-  },
-  updated(){
+    console.log('creo la ventana farmacia')
     this.posicionFarmacia = this.findIndexById(this.locationsFarmacias, this.indiceFarmacia);
   },
   watch: {
-    posicionFarmacia: function(newTipo) {
-        this.posicionFarmacia = this.findIndexById(this.locationsFarmacias, this.indiceFarmacia);
+    indiceFarmacia: function() {
+      this.posicionFarmacia = this.findIndexById(this.locationsFarmacias, this.indiceFarmacia);
+      this.locationFarmacia = Object.assign({}, this.locationsFarmacias[this.posicionFarmacia]);
     },
   },
   methods: {

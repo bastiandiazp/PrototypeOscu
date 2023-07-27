@@ -15,7 +15,6 @@
         @mostrar-detalle-medicamento="mostrarDetalleMedicamento"
         @mostrar-aforo-centro="mostrarAforoCentro"
         :indice-centros="indiceCentro"
-        :indice-farmacia="indiceFarmacia"
         :indice-medicamento="indiceMedicamento"
       />
     </div>
@@ -54,7 +53,6 @@
       :locations="locationsCentros"
       :indiceCentro="indiceCentro"
       @mostrar-triage="mostrarTriage"
-      :posicion="posicion"
       />
 
     </div>
@@ -64,9 +62,9 @@
       :locationsFarmacias="locationsFarmacias"
       @update-favorito-farmacia="updateFavoritoFarmacia"
       :indiceFarmacia="indiceFarmacia"
-      :posicionFarmacia="posicionFarmacia"
       />
     </div>
+    <!--
     <div v-show="visibleDetallesMedicamento"> 
       <VentanaMedicamento
       @mostrar-detalle-medicamento="mostrarDetalleMedicamento"
@@ -76,7 +74,7 @@
       :posicionMedicamento="posicionMedicamento"
       />
     </div>
-    
+    -->
     
 
   </div>
@@ -160,6 +158,7 @@ export default {
   },
   created(){
     this.calcularDistancias();
+    console.log(this.locationsCentros[60])
   },
 
   methods: {
@@ -262,6 +261,7 @@ export default {
     mostrarDetalleFarmacia(newIdFarmacia){
       this.indiceFarmacia = newIdFarmacia;
       this.visibleDetallesFarmacia = !this.visibleDetallesFarmacia;
+      console.log("llegue a mostrar detalle farmacia" + this.indiceFarmacia + '  '+ this.visibleDetallesFarmacia)
     },
     mostrarDetalleMedicamento(newIdMedicamento){
       this.indiceMedicamento = newIdMedicamento;

@@ -3,7 +3,7 @@
       <div class="ventana-centros">
         <div class="ventana-header">
           <v-list-item no-gutters>
-            <div class="text">{{ locations[posicion].name }}</div>
+            <div class="text">{{ location.name }}</div>
             <v-list-item-action>
               <v-btn icon @click="mostrarCentro(0)"  class="cerrar">
                 <img src="@/assets/svg/close.svg" alt="close1" />
@@ -16,81 +16,81 @@
           
           <div class="popup-row1 cursor" @click="openGoogleMaps">
             <div><img src="@/assets/svg/locationOn.svg" alt="location1" /></div>
-            <div class="text2">{{ locations[posicion].address }}</div>
+            <div class="text2">{{ location.address }}</div>
           </div>
 
-          <div v-if="!locations[posicion].disponible" class="columna">
+          <div v-if="!location.disponible" class="columna">
             <div><img src="@/assets/svg/locationOff.svg" alt="location1" /></div>
             <div class="text7">¡Cerrado por Emergencia!</div>
           </div>
 
-          <div v-if="locations[posicion].disponible" class="popup-row2">
-            <div class="text3 elemento-izquierdo">{{ locations[posicion].aforo }}</div>
+          <div v-if="location.disponible" class="popup-row2">
+            <div class="text3 elemento-izquierdo">{{ location.aforo }}</div>
             <div class="text elemento-derecho">Personas en total esperando</div>
           </div>
 
           
 
-          <div v-if="locations[posicion].disponible" class="popup-row3 colorC1">
+          <div v-if="location.disponible" class="popup-row3 colorC1">
             <div class="categoria elemento-izquierdo">C1</div>
             <div class="elemento-central"> 
               <div class="barra-izquierda"></div>
-              <div class="text4">{{ locations[posicion].aforoC1 }}</div>
+              <div class="text4">{{ location.aforoC1 }}</div>
               <div class="text5 margen-derecha">Personas en total esperando</div>
               <div class="barra-derecha"></div>
             </div>
             <div class="text5">Atención inmediata</div>
           </div>
 
-          <div v-if="locations[posicion].disponible" class="popup-row3 colorC2">
+          <div v-if="location.disponible" class="popup-row3 colorC2">
             <div class="categoria elemento-izquierdo">C2</div>
             <div class="elemento-central"> 
               <div class="barra-izquierda"></div>
-              <div class="text4">{{ locations[posicion].aforoC2 }}</div>
+              <div class="text4">{{ location.aforoC2 }}</div>
               <div class="text5 margen-derecha">Personas en total esperando</div>
               <div class="barra-derecha"></div>
             </div>
             <div class="text5">Atención inmediata</div>
           </div>
 
-          <div v-if="locations[posicion].disponible" class="popup-row3 colorC3">
+          <div v-if="location.disponible" class="popup-row3 colorC3">
             <div class="categoria elemento-izquierdo">C3</div>
             <div class="elemento-central"> 
               <div class="barra-izquierda"></div>
-              <div class="text4">{{ locations[posicion].aforoC3 }}</div>
+              <div class="text4">{{ location.aforoC3 }}</div>
               <div class="text5 margen-derecha">Personas en total esperando</div>
               <div class="barra-derecha"></div>
             </div>
             <div class="popup-row4">
-              <div class="text4">{{ locations[posicion].tiempoC3 }}</div>
+              <div class="text4">{{ location.tiempoC3 }}</div>
               <div class="text5">Min de tiempo de espera estimado</div>
             </div>
           </div>
 
-          <div v-if="locations[posicion].disponible" class="popup-row3 colorC4">
+          <div v-if="location.disponible" class="popup-row3 colorC4">
             <div class="categoria elemento-izquierdo">C4</div>
             <div class="elemento-central"> 
               <div class="barra-izquierda"></div>
-              <div class="text4">{{ locations[posicion].aforoC4 }}</div>
+              <div class="text4">{{ location.aforoC4 }}</div>
               <div class="text5 margen-derecha">Personas en total esperando</div>
               <div class="barra-derecha"></div>
             </div>
             <div class="popup-row4">
-              <div class="text4">{{ locations[posicion].tiempoC4 }}</div>
+              <div class="text4">{{ location.tiempoC4 }}</div>
               <div class="text5">Min de tiempo de espera estimado</div>
             </div>
           </div>
 
-          <div v-if="locations[posicion].disponible" class="popup-row3 colorC5">
+          <div v-if="location.disponible" class="popup-row3 colorC5">
             <div class="categoria elemento-izquierdo">C5</div>
             <div class="elemento-central"> 
               <div class="barra-izquierda"></div>
-              <div class="text4">{{ locations[posicion].aforoC5 }}</div>
+              <div class="text4">{{ location.aforoC5 }}</div>
               <div class="text5 margen-derecha">Personas en total esperando</div>
               <div class="barra-derecha"></div>
             </div>
             <div class="popup-row4">
-              <div class="text4">{{ locations[posicion].tiempoC5 }}</div>
+              <div class="text4">{{ location.tiempoC5 }}</div>
               <div class="text5">Min de tiempo de espera estimado</div>
             </div>
           </div>
@@ -103,7 +103,7 @@
 
           <div class="button-container">
             <button class="custom-button" @click="toggleFavorito">
-              <img class="icon" :src="locations[posicion].favorito ? require('@/assets/svg/favoritoOn.svg') : require('@/assets/svg/favorito.svg')" alt="location1" />
+              <img class="icon" :src="location.favorito ? require('@/assets/svg/favoritoOn.svg') : require('@/assets/svg/favorito.svg')" alt="location1" />
               <div class="text-boton">Favoritos</div>
             </button>
 
@@ -136,28 +136,29 @@ export default {
   data() {
     return {
       favorito:true,
+      posicion: 0,
       location : {
-        id: null,
-        name: null,
-        coordinates: null,
-        icon: null,
-        address: null,
-        aforo: null,
-        aforoC1: null,
-        aforoC2: null,
-        aforoC3: null,
-        aforoC4: null,
-        aforoC5: null,
-        tiempoC3: null,
-        tiempoC4: null,
-        tiempoC5: null,
-        favorito: null, // Nuevo atributo favorito
-        disponible: null, // Nuevo atributo disponible
+        id: 31,
+        name: 'SAPU Providencia',
+        coordinates: [-33.4615456, -70.6763792],
+        address: 'Av. Providencia 321',
+        aforo: 15,
+        aforoC1: 2,
+        aforoC2: 5,
+        aforoC3: 1,
+        aforoC4: 6,
+        aforoC5: 1,
+        tiempoC3: 0,
+        tiempoC4: 0,
+        tiempoC5: 0,
+        favorito: true,
+        disponible: true,
         tiempoTotal: 0,
+        distancia: 0,
       },
     };
   },
-  props: ['locations', 'favorito','indiceCentro','posicion'], // Agregar la prop 'favorito'
+  props: ['locations','indiceCentro'], // Agregar la prop 'favorito'
   mounted() {
     //console.log('indice: '+this.indiceCentro);
     // Llamar a la función que deseas ejecutar automáticamente al inicio
@@ -165,10 +166,11 @@ export default {
     //console.log('posicion: '+this.posicion);
     //this.filterCentro(this.locations, this.indiceCentro);
   },
-  updated(){
-    this.posicion = this.findIndexById(this.locations, this.indiceCentro);
-    //console.log('posicion: '+this.posicion);
-    //this.filterCentro(this.locations, this.indiceCentro);
+  watch: {
+    indiceCentro: function() {
+      this.posicion = this.findIndexById(this.locations, this.indiceCentro);
+      this.location = Object.assign({}, this.locations[this.posicion]);
+    },
   },
   methods: {
     closeWindow() {
@@ -200,8 +202,7 @@ export default {
       return index;
     },
   },
-  
-};
+  }
 </script>
 
 <style scoped>

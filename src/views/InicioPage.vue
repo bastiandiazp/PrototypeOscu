@@ -160,6 +160,7 @@ export default {
 
         // Agregar evento al hacer clic en el marcador para mostrar la ventana emergente
         marker.on('click', () => {
+          console.log('hoododfodododododood0'+ location.id);
           this.$emit('mostrar-detalle-farmacia', location.id);
         });
         
