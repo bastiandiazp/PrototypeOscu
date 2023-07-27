@@ -2,7 +2,7 @@
     <div class="container5">
       <ul class="medicamentos-list">
         <li v-for="(item, index) in itemsMedicamentos" :key="item.name" v-if="item.favorito === true">
-          <div class="medicamento-item" @click="itemClicked">
+          <div class="medicamento-item" @click="itemClicked(item.id)">
             <div class="medicamento-nombre">{{ item.medicamento }}</div>
             <div class="medicamento-info">
               <div class="medicamento-desde">desde &nbsp;</div>
@@ -21,10 +21,9 @@
   export default {
     props: ['itemsMedicamentos'],
     methods: {
-      itemClicked() {
+      itemClicked(indice) {
         // Aquí colocas la lógica para manejar el clic en el item
-        console.log('Item clicado:');
-        // Puedes redirigir al usuario a otra página, mostrar detalles del medicamento, etc.
+        this.$emit('mostrar-detalle-medicamento',indice)
       }
     }
   };

@@ -29,7 +29,7 @@
         </div>
       </div>
       <div v-show="selectedOption == 'itemsMedicamentos'" :style="contenedorListaStyle">
-        <ListaMedicamentos :itemsMedicamentos="itemsMedicamentos"/>
+        <ListaMedicamentos :itemsMedicamentos="itemsMedicamentos"  @mostrar-detalle-medicamento="mostrarDetalleMedicamento" :soloFavoritos="true"/>
       </div>
       <div v-show="selectedOption == 'locations'" :style="contenedorListaStyle">
         <ListaCentros :locations="locations" @mostrar-aforo-centro="mostrarAforoCentro" :soloFavoritos="true"/>
@@ -94,6 +94,9 @@ import ListaFarmacias from '../components/ListaFarmacias.vue';
     },
     mostrarDetalleFarmacia(id){
       this.$emit('mostrar-detalle-farmacia', id);
+    },
+    mostrarDetalleMedicamento(id){
+      this.$emit('mostrar-detalle-medicamento', id);
     },
       setSelectedOption(option) {
         this.selectedOption = option;
