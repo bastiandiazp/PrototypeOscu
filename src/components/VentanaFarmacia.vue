@@ -70,6 +70,10 @@
 export default {
   
   name: 'VentanaFarmacia',
+  created() {
+    // Ejecutar la función findIndexById antes de mostrar la información
+    this.posicionFarmacia = this.findIndexById(this.locationsFarmacias, this.indiceFarmacia);
+  },
   data() {
     return {
     };
@@ -80,6 +84,11 @@ export default {
   },
   updated(){
     this.posicionFarmacia = this.findIndexById(this.locationsFarmacias, this.indiceFarmacia);
+  },
+  watch: {
+    posicionFarmacia: function(newTipo) {
+        this.posicionFarmacia = this.findIndexById(this.locationsFarmacias, this.indiceFarmacia);
+    },
   },
   methods: {
     closeWindow() {

@@ -27,6 +27,8 @@ import urgenciasIcon2 from '@/assets/svg/urgenciasOff.svg';
 import farmaciaOn from '@/assets/svg/farmaciaOn.svg';
 import farmaciaOff from '@/assets/svg/farmaciaOff.svg';
 
+import inicioIcon from '@/assets/svg/inicioIcon.svg';
+
 
 export default {
   name: 'InicioPage',
@@ -81,7 +83,6 @@ export default {
 
   methods: {
     initializeMap() {
-      
       this.center = this.buscarPorTitulo(this.usuarioActual).cordenadas //se obtiene cordendas de usuario actual
       this.map = L.map('map', {
         center: this.center,
@@ -96,7 +97,14 @@ export default {
       //L.control.zoom({position: 'topright'}).addTo(this.map);
       // Agregar evento para abrir la ventana emergente al hacer clic en el marcador
       this.map.on('click', this.closeVentana);
-      this.addMarkers();
+
+      // Agregar el marcador de inicio utilizando el icono personalizado
+      const inicioIcono = L.icon({
+        iconUrl: inicioIcon,
+        iconSize: [20, 20], // Tamaño del icono (ajusta según sea necesario)
+        iconAnchor: [10, 20], // Anclaje ajustado para colocar el icono justo arriba de las coordenadas
+      });
+      L.marker(this.center, { icon: inicioIcono }).addTo(this.map);
     },
 
     addMarkers() {

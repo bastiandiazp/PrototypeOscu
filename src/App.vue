@@ -124,8 +124,8 @@ export default {
     datosProbando: [{title: 'Elemento 1'}, {title: 'Elemento 2'}, {title: 'Elemento 3'}],
     usuarioActual: 1, //cambiar usuario usuario actual
     locationsTipo: 'Centros', //centros o farmacias
-    posicion : 0,
-    posicionFarmacia:0,
+    posicion :null,
+    posicionFarmacia:null,
     posicionMedicamento:0,
     locationsUsuario: [
       {title:0, direccion: '9170125 Santiago, Santiago / Estación Central, Región Metropolitana', cordenadas : [-33.4500664, -70.686449]},
@@ -144,7 +144,7 @@ export default {
         id: 2,
         name: 'saca coirchos',
         coordinates: [-33.4492897, -70.6763032],
-        address: 'Dirección 1',
+        address: 'Dirección 2',
         favorito: true, // Nuevo atributo favorito
         disponible: false, // Nuevo atributo disponible
       },
