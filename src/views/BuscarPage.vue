@@ -7,10 +7,10 @@
     </div>
     <div class="containerMedicamentos" :style="contenedorListaStyle">
       <ul class="medicamentos-list">
-        <li v-for="item in filteredItems" :key="item.title">
-          <div class="medicamento-item" @click="itemClicked">
+        <li v-for="item in filteredItems" :key="item.id">
+          <div class="medicamento-item" @click="itemClicked(item.id)">
  
-            <div class="medicamento-nombre">{{ item.medicamento }}</div>
+            <div class="medicamento-nombre ancho90">{{ item.medicamento }}</div>
             <div class="medicamento-info">
               <div class="medicamento-desde">desde &nbsp;</div>
               <div class="medicamento-precio">
@@ -42,9 +42,10 @@ export default {
     };
   },
   methods: {
-      itemClicked() {
+      itemClicked(indice) {
       // Aquí colocas la lógica para manejar el clic en el item
-      console.log('Item clicado:');
+      console.log('Item clicado: holaaaaaaASDFSDAGHFHDGSFHDGSFKHJDSK');
+      this.$emit('mostrar-detalle-medicamento',indice)
       // Puedes redirigir al usuario a otra página, mostrar detalles del medicamento, etc.
     }
     },
@@ -74,6 +75,9 @@ export default {
 </script>
 
 <style>
+.ancho90{
+  width: 90%;
+}
   .container4 {
     display: flex;
     justify-content: center;

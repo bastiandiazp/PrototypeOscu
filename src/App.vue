@@ -64,17 +64,17 @@
       :indiceFarmacia="indiceFarmacia"
       />
     </div>
-    <!--
-    <div v-show="visibleDetallesMedicamento"> 
+    <div v-show="visibleDetalleMedicamento"> 
       <VentanaMedicamento
       @mostrar-detalle-medicamento="mostrarDetalleMedicamento"
       :itemsMedicamentos="itemsMedicamentos"
       @update-favorito-medicamento="updateFavoritoMedicamento"
       :indiceMedicamento="indiceMedicamento"
       :posicionMedicamento="posicionMedicamento"
+      :distanciaMaxima="distanciaMaxima"
+      :locationsFarmacias="locationsFarmacias"
       />
     </div>
-    -->
     
 
   </div>
@@ -113,17 +113,18 @@ export default {
     visibleDetalleMedicamento: false,
     indiceCentro: 0,
     indiceFarmacia: 0,
-    indiceMedicamento:0,
+    indiceMedicamento: 0,
     datosProbando: [{title: 'Elemento 1'}, {title: 'Elemento 2'}, {title: 'Elemento 3'}],
     usuarioActual: 0, //cambiar usuario usuario actual
     locationsTipo: 'Centros', //centros o farmacias
     posicion :null,
     posicionFarmacia:null,
-    posicionMedicamento:0,
+    posicionMedicamento:null,
     locationsUsuario: datos.locationsUsuario,
     locationsFarmacias: datos.locationsFarmacias,
     locationsCentros: datos.locationsCentros,
     itemsMedicamentos: datos.itemsMedicamentos,
+    distanciaMaxima: 0,
   }),
 
   beforeDestroy() {

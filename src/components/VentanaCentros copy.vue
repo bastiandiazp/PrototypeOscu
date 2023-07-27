@@ -1,521 +1,345 @@
 <template>
-  <div class="fondo-oscuro">
-    <div class="ventana-centros">
-      <div class="ventana-header">
-        <v-list-item no-gutters>
-          <div class="text">{{ location.name }}</div>
-          <v-list-item-action>
-            <v-btn icon @click="mostrarCentro(0)"  class="cerrar">
-              <img src="@/assets/svg/close.svg" alt="close1" />
-            </v-btn>
-            <v-btn icon @click="filterCentro(locations, indiceCentro)" >
-              <img src="@/assets/svg/info.svg" alt="close1" />
-            </v-btn>
-          </v-list-item-action>
-        </v-list-item>
-      </div>
-
-      <div class="ventana-body">
-        
-        <div class="popup-row1">
-          <div><img src="@/assets/svg/locationOn.svg" alt="location1" /></div>
-          <div class="text2">{{ locations[index].address }}</div>
-        </div>
-
-        <div v-if="!location.disponible" class="columna">
-          <div><img src="@/assets/svg/locationOff.svg" alt="location1" /></div>
-          <div class="text7">¡Cerrado por Emergencia!</div>
-        </div>
-
-        <div v-if="location.disponible" class="popup-row2">
-          <div class="text3 elemento-izquierdo">{{ locations[index].aforo }}</div>
-          <div class="text elemento-derecho">Personas en total esperando</div>
-        </div>
-
-        
-
-        <div v-if="location.disponible" class="popup-row3 colorC1">
-          <div class="categoria elemento-izquierdo">C1</div>
-          <div class="elemento-central"> 
-            <div class="barra-izquierda"></div>
-            <div class="text4">{{ locations[index].aforoC1 }}</div>
-            <div class="text5 margen-derecha">Personas en total esperando</div>
-            <div class="barra-derecha"></div>
-          </div>
-          <div class="text5">Atención inmediata</div>
-        </div>
-
-        <div v-if="location.disponible" class="popup-row3 colorC2">
-          <div class="categoria elemento-izquierdo">C2</div>
-          <div class="elemento-central"> 
-            <div class="barra-izquierda"></div>
-            <div class="text4">{{ locations[index].aforoC2 }}</div>
-            <div class="text5 margen-derecha">Personas en total esperando</div>
-            <div class="barra-derecha"></div>
-          </div>
-          <div class="text5">Atención inmediata</div>
-        </div>
-
-        <div v-if="location.disponible" class="popup-row3 colorC3">
-          <div class="categoria elemento-izquierdo">C3</div>
-          <div class="elemento-central"> 
-            <div class="barra-izquierda"></div>
-            <div class="text4">{{ locations[index].aforoC3 }}</div>
-            <div class="text5 margen-derecha">Personas en total esperando</div>
-            <div class="barra-derecha"></div>
-          </div>
-          <div class="popup-row4">
-            <div class="text4">{{ locations[index].tiempoC3 }}</div>
-            <div class="text5">Min de tiempo de espera estimado</div>
-          </div>
-        </div>
-
-        <div v-if="location.disponible" class="popup-row3 colorC4">
-          <div class="categoria elemento-izquierdo">C4</div>
-          <div class="elemento-central"> 
-            <div class="barra-izquierda"></div>
-            <div class="text4">{{ locations[index].aforoC4 }}</div>
-            <div class="text5 margen-derecha">Personas en total esperando</div>
-            <div class="barra-derecha"></div>
-          </div>
-          <div class="popup-row4">
-            <div class="text4">{{ locations[index].tiempoC4 }}</div>
-            <div class="text5">Min de tiempo de espera estimado</div>
-          </div>
-        </div>
-
-        <div v-if="location.disponible" class="popup-row3 colorC5">
-          <div class="categoria elemento-izquierdo">C5</div>
-          <div class="elemento-central"> 
-            <div class="barra-izquierda"></div>
-            <div class="text4">{{ locations[index].aforoC5 }}</div>
-            <div class="text5 margen-derecha">Personas en total esperando</div>
-            <div class="barra-derecha"></div>
-          </div>
-          <div class="popup-row4">
-            <div class="text4">{{ locations[index].tiempoC5 }}</div>
-            <div class="text5">Min de tiempo de espera estimado</div>
-          </div>
-        </div>
-
-
-        <div class="popup-row5 cursor"  @click="redirectToCategorizacion">
-          <div><img src="@/assets/svg/info.svg" alt="location1" /></div>
-          <div class="text6">¿Qué es la categorización Triage?</div>
-        </div>
-
-        <div class="popup-row6">
-          <button class="custom-button" @click="toggleFavorito">
-            <img class="icon" :src="favorito ? require('@/assets/svg/favoritoOn.svg') : require('@/assets/svg/favorito.svg')" alt="location1" />
-            <div class="text-boton">Favoritos</div>
-          </button>
-
-          <button class="custom-button">
-            <img class="icon" src="@/assets/svg/valorar.svg" alt="location1" />
-            <span class="text-boton">Valorar Atención</span>
-          </button>
-        </div>
-
-        
-
-
-
-
-
-
-      </div>
+  <div id="app" >
+    <div >
+      <router-view  
+        class="router-container" 
+        :style="routerStyle" 
+        :itemsMedicamentos="itemsMedicamentos" 
+        :locations="locationsCentros"
+        @mostrar-triage="mostrarTriage"
+        :locationsUsuario="locationsUsuario"
+        :usuarioActual="usuarioActual"
+        :locationsFarmacias="locationsFarmacias"
+        :locationsTipo="locationsTipo"
+        @mostrar-detalle-farmacia="mostrarDetalleFarmacia"
+        @mostrar-detalle-medicamento="mostrarDetalleMedicamento"
+        @mostrar-aforo-centro="mostrarAforoCentro"
+        :indice-centros="indiceCentro"
+        :indice-farmacia="indiceFarmacia"
+        :indice-medicamento="indiceMedicamento"
+      />
     </div>
+    <Inicio 
+        :locations="locationsCentros"
+        @mostrar-triage="mostrarTriage"
+        :locationsUsuario="locationsUsuario"
+        :usuarioActual="usuarioActual"
+        @cambiar-usuario="cambiarUsuario"
+        :locationsFarmacias="locationsFarmacias"
+        :locationsTipo="locationsTipo"
+        @cambiar-tipo="cambiarTipo"
+        @mostrar-detalle-farmacia="mostrarDetalleFarmacia"
+        @mostrar-detalle-medicamento="mostrarDetalleMedicamento"
+        @mostrar-aforo-centro="mostrarAforoCentro"
+        :indiceCentros="indiceCentro"
+        :indiceFarmacia="indiceFarmacia"
+        :indiceMedicamento="indiceMedicamento"
+      />
+    <div v-show="isMobile" style="position: absolute; z-index: 1400; bottom: 0; left: 0; width: 100%; height: 64px; background-color: #ffffff;">
+      <BottomMenu/>
+    </div>
+    <div v-show="!isMobile" style="position: fixed; bottom: 0; left: 0; width: 100%; height: 64px; background-color: #ffffff;">
+      <BottomMenu2 />
+    </div>
+    <div v-show="visibleTriage">
+      <Triage 
+      @mostrar-triage="mostrarTriage"
+      
+      />
+    </div>
+    <div v-show="visibleAforoCentro">
+      <VentanaCentros
+      @update-favorito="updateFavorito"
+      @mostrar-aforo-centro="mostrarAforoCentro"
+      :locations="locationsCentros"
+      :indiceCentro="indiceCentro"
+      @mostrar-triage="mostrarTriage"
+      :posicion="posicion"
+      />
+
+    </div>
+    <div v-show="visibleDetallesFarmacia"> 
+      <VentanaFarmacia
+      @mostrar-detalle-farmacia="mostrarDetalleFarmacia"
+      :locationsFarmacias="locationsFarmacias"
+      @update-favorito-farmacia="updateFavoritoFarmacia"
+      :indiceFarmacia="indiceFarmacia"
+      :posicionFarmacia="posicionFarmacia"
+      />
+    </div>
+    <div v-show="visibleDetalleMedicamento"> 
+      <VentanaMedicamento
+      @mostrar-detalle-medicamento="mostrarDetalleMedicamento"
+      :itemsMedicamentos="itemsMedicamentos"
+      @update-favorito-medicamento="updateFavoritoMedicamento"
+      :indiceMedicamento="indiceMedicamento"
+      :posicionMedicamento="posicionMedicamento"
+      :distanciaMaxima="distanciaMaxima"
+      :locationsFarmacias="locationsFarmacias"
+      />
+    </div>
+    
+    
+
   </div>
 </template>
 
-
 <script>
-
-
-
+import BottomMenu from "./components/BottomMenuMobile.vue";
+import BottomMenu2 from "./components/BottomMenuDesktop.vue";
+import Inicio from './views/InicioPage.vue';
+import Triage from './components/Triage.vue';
+import VentanaCentros from './components/VentanaCentros.vue';
+import VentanaFarmacia from './components/VentanaFarmacia.vue';
+import VentanaMedicamento from './components/VentanaMedicamento.vue';
+import datos from './datos.js';
 export default {
+  components: {
+    BottomMenu,
+    BottomMenu2,
+    Inicio,
+    Triage,
+    VentanaCentros,
+    VentanaFarmacia,
+    VentanaMedicamento,
+    
+  },
+  name: 'App',
 
-name: 'VentanaCentros',
-data() {
-  return {
-    index : null,
-    location : {
-      id: null,
-      name: null,
-      coordinates: null,
-      icon: null,
-      address: null,
-      aforo: null,
-      aforoC1: null,
-      aforoC2: null,
-      aforoC3: null,
-      aforoC4: null,
-      aforoC5: null,
-      tiempoC3: null,
-      tiempoC4: null,
-      tiempoC5: null,
-      favorito: null, // Nuevo atributo favorito
-      disponible: null, // Nuevo atributo disponible
-      tiempoTotal: 0,
+  data: () => ({
+    isMobile: false,
+    marginLeft: 64,
+    marginRight: 800,
+    marginBottom: 64,
+    visibleTriage: false,
+    visibleAforoCentro: false,
+    visibleDetallesFarmacia: false,
+    visibleDetalleMedicamento: false,
+    indiceCentro: 0,
+    indiceFarmacia: 0,
+    indiceMedicamento: 0,
+    datosProbando: [{title: 'Elemento 1'}, {title: 'Elemento 2'}, {title: 'Elemento 3'}],
+    usuarioActual: 0, //cambiar usuario usuario actual
+    locationsTipo: 'Centros', //centros o farmacias
+    posicion :null,
+    posicionFarmacia:null,
+    posicionMedicamento:null,
+    locationsUsuario: datos.locationsUsuario,
+    locationsFarmacias: datos.locationsFarmacias,
+    locationsCentros: datos.locationsCentros,
+    itemsMedicamentos: datos.itemsMedicamentos,
+    distanciaMaxima: 0,
+  }),
+
+  beforeDestroy() {
+    if (typeof window === 'undefined') return
+
+    window.removeEventListener('resize', this.onResize, { passive: true })
+  },
+  computed: {
+    routerStyle() {
+      return {
+        left: `${this.marginLeft}px`, // Centra el mapa a la izquierda agregando el margen
+        right: `${this.marginRight}px`, // Centra el mapa a la izquierda agregando el margen
+        bottom: `${this.marginBottom}px`, // Centra el mapa a la izquierda agregando el margen
+        //width: `calc(100vh - ${this.marginLeft}px)`,
+      };
     },
-  };
-},
-props: ['locations', 'favorito','indiceCentro'], // Agregar la prop 'favorito'
-mounted() {
-  //console.log('indice: '+this.indiceCentro);
-  // Llamar a la función que deseas ejecutar automáticamente al inicio
-  this.index = findIndexById(this.locations, this.indiceCentro);
-  this.filterCentro(this.locations, this.indiceCentro);
-},
-methods: {
-  closeWindow() {
-    this.$emit('close');
   },
-  redirectToCategorizacion() {
-    this.$emit('mostrar-triage');
+  watch: {
+    usuarioActual: function() {
+      this.calcularDistancias(); //se ejecuta cada vez que cambia usuarioActual
+    },
   },
-  redirectToFavorite() {
-    console.log('Redirigir a la vista de favoritos');
+  mounted() {
+    // Llamar a updateLocationsData al inicio
+    this.updateLocationsData();
+    // Establecer el temporizador para llamar a updateLocationsData cada 10 segundos (10000 milisegundos)
+    setInterval(() => {
+      this.updateLocationsData();
+    }, 60000);
+    this.onResize()
+    window.addEventListener('resize', this.onResize, { passive: true })
   },
-  redirectToRating() {
-    console.log('Redirigir a la vista de valoración de atención');
+  created(){
+    this.calcularDistancias();
   },
-  toggleFavorito() {
-    const newFavoritoValue = !this.favorito; // Invertir el estado de favorito
-    this.$emit('update-favorito', this.location.name, newFavoritoValue); // Emitir evento para actualizar 'favorito'
-  },
-  filterCentro(locations, indiceCentro) {
-    
-    // Filtrar el array de ubicaciones por el indiceCentro
-    const filteredLocations = locations.filter(location => location.id === indiceCentro)[0];
-    
 
-    this.location.id = filteredLocations.id;
-    this.location.name = filteredLocations.name;
-    this.location.coordinates = filteredLocations.coordinates;
-    this.location.icon = filteredLocations.icon;
-    this.location.address = filteredLocations.address;
-    this.location.aforo = filteredLocations.aforo;
-    this.location.aforoC1 = filteredLocations.aforoC1;
-    this.location.aforoC2 = filteredLocations.aforoC2;
-    this.location.aforoC3 = filteredLocations.aforoC3;
-    this.location.aforoC4 = filteredLocations.aforoC4;
-    this.location.aforoC5 = filteredLocations.aforoC5;
-    this.location.tiempoC3 = filteredLocations.tiempoC3;
-    this.location.tiempoC4 = filteredLocations.tiempoC4;
-    this.location.tiempoC5 = filteredLocations.tiempoC5;
-    this.location.favorito = filteredLocations.favorito;
-    this.location.disponible = filteredLocations.disponible;
-    this.location.tiempoTotal = filteredLocations.tiempoTotal;
-  },
-  mostrarCentro(indice){
-    this.$emit('mostrar-aforo-centro',indice);
-  },
-},
+  methods: {
+    getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+      const R = 6371; // Radio de la Tierra en kilómetros
+      const dLat = this.deg2rad(lat2 - lat1);
+      const dLon = this.deg2rad(lon2 - lon1);
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      const distance = R * c;
+      return distance;
+    },
+    deg2rad(deg) {
+      return deg * (Math.PI / 180);
+    },
+    calcularDistancias(){
+      let center = this.buscarPorTitulo(this.usuarioActual).cordenadas
+      this.locationsCentros.forEach((punto) => {
+      let distancia = this.getDistanceFromLatLonInKm(
+          center[0],
+          center[1],
+          punto.coordinates[0],
+          punto.coordinates[1]
+        );
+        punto.distancia = distancia.toFixed(2);
+        
+      });
+      this.locationsFarmacias.forEach((punto,index) => {
+      let distancia = this.getDistanceFromLatLonInKm(
+          center[0],
+          center[1],
+          punto.coordinates[0],
+          punto.coordinates[1]
+        );
+        punto.distancia = distancia.toFixed(2);
+        
+      });
+    },
+    buscarPorTitulo(title){
+    let elementoEncontrado = this.locationsUsuario.find(item => item.title === title);
+      return elementoEncontrado;
+    },
+    cambiarUsuario(id){
+      this.usuarioActual= id;
+      console.log(this.usuarioActual)
+    },
+    
+    agregarElemento(nuevoElemento) {
+      this.datosProbando.push(nuevoElemento);
+    },
+    onResize() {
+      this.isMobile = window.innerWidth < 600
+      
+      if (! this.isMobile) {
+        this.marginLeft = 64
+        this.marginRight = window.innerWidth-600
+        this.marginBottom = 0
+      }
+      if (this.isMobile) {
+        this.marginLeft = 0
+        this.marginRight = 0
+        this.marginBottom = 64
+        
+      }
+    },
+    updateFavorito(locationName, newFavoritoValue) {
+      // Encuentra el marcador con el nombre proporcionado y actualiza su atributo 'favorito'
+      const locationIndex = this.locationsCentros.findIndex(location => location.id === locationName);
+      if (locationIndex !== -1) {
+        this.locationsCentros[locationIndex].favorito = newFavoritoValue;
+      }
+    },
+    updateFavoritoFarmacia(locationName, newFavoritoValue) {
+      // Encuentra el marcador con el nombre proporcionado y actualiza su atributo 'favorito'
+      const locationIndex = this.locationsFarmacias.findIndex(location => location.id === locationName);
+      if (locationIndex !== -1) {
+        this.locationsFarmacias[locationIndex].favorito = newFavoritoValue;
+      }
+    },
+    updateFavoritoMedicamento(locationName, newFavoritoValue) {
+      // Encuentra el marcador con el nombre proporcionado y actualiza su atributo 'favorito'
+      const locationIndex = this.itemsMedicamentos.findIndex(location => location.id === locationName);
+      if (locationIndex !== -1) {
+        this.itemsMedicamentos[locationIndex].favorito = newFavoritoValue;
+      }
+    },
+    mostrarTriage(){
+      //console.log('antes de cambiar: ' + this.visibleTriage);
+      this.visibleTriage = !this.visibleTriage;
+    },
+    mostrarAforoCentro(newIdCentro){
+      //console.log('viejo: ' +this.indiceCentro);
+      this.indiceCentro = newIdCentro;
+      //console.log('nuevo: ' +this.indiceCentro);
+      this.visibleAforoCentro = !this.visibleAforoCentro;
+      //console.log('bool aforo: ' +this.visibleAforoCentro);
+    },
+    mostrarDetalleFarmacia(newIdFarmacia){
+      this.indiceFarmacia = newIdFarmacia;
+      this.visibleDetallesFarmacia = !this.visibleDetallesFarmacia;
+    },
+    mostrarDetalleMedicamento(newIdMedicamento){
+      this.indiceMedicamento = newIdMedicamento;
+      this.visibleDetalleMedicamento = !this.visibleDetalleMedicamento
+    },
+    cambiarTipo(option){
+      this.locationsTipo = option;
+    },
+    // Función para actualizar los valores de las locaciones
+    updateLocationsData() {
+      this.locationsCentros.forEach(location => {
+        
+        // Actualizar aforoC1 (incrementa o decrementa en 1)
+        location.aforoC1 += Math.random() < 0.5 ? -1 : 1;
+        location.aforoC1 = Math.max(0, Math.min(location.aforoC1, 2)); // Limitar entre 0 y 5
 
+        // Actualizar aforoC2 (incrementa o decrementa en 1)
+        location.aforoC2 += Math.random() < 0.5 ? -1 : 1;
+        location.aforoC2 = Math.max(0, Math.min(location.aforoC2, 3)); // Limitar entre 0 y 5
+
+        // Actualizar aforoC3 (incrementa o decrementa entre 1 y 2)
+        location.aforoC3 += Math.random() < 0.5 ? -1 : 1;
+        location.aforoC3 = Math.max(0, Math.min(location.aforoC3, 10)); // Limitar entre 0 y 10
+
+        // Actualizar aforoC4 (incrementa o decrementa entre 1 y 3)
+        location.aforoC4 += Math.random() < 0.5 ? -1 : 1;
+        location.aforoC4 = Math.max(0, Math.min(location.aforoC4, 15)); // Limitar entre 0 y 15
+
+        // Actualizar aforoC5 (incrementa o decrementa entre 1 y 3)
+        location.aforoC5 += Math.random() < 0.5 ? -1 : 1;
+        location.aforoC5 = Math.max(0, Math.min(location.aforoC5, 22)); // Limitar entre 0 y 22
+
+        // Actualizar tiempoC3, tiempoC4 y tiempoC5
+        location.tiempoC3 = Math.round(location.aforoC3 * 5.3);
+        location.tiempoC4 = Math.round((location.aforoC4 * 7.3)+location.tiempoC3);
+        location.tiempoC5 = Math.round((location.aforoC5 * 12.3)+location.tiempoC3+location.tiempoC4);
+
+
+        // Actualizar el aforo como la suma de los aforos C1, C2, C3, C4 y C5
+        location.aforo = location.aforoC1 + location.aforoC2 + location.aforoC3 + location.aforoC4 + location.aforoC5;
+
+        // Actualizar tiempoTotal como el máximo entre tiempoC3, tiempoC4 y tiempoC5
+        location.tiempoTotal = Math.max(location.tiempoC3, location.tiempoC4, location.tiempoC5);
+  
+      });
+    },
+    
+  },
+
+  provide() {
+    return {
+      isMobile: this.isMobile,
+    };
+  },
 };
 </script>
 
-<style scoped>
-
-.cursor{
-cursor:pointer;
-}
-.ventana-centros {
-position: absolute;
-z-index: 1000;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
-width: 90%;
-height: 70%;
-max-width: 400px;
-max-height: 700px;
-min-height: 540px;
-min-width: 300px;
-background-color: white;
-border-radius: 16px;
-box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
-}
-
-.fondo-oscuro {
-position: absolute;
-z-index: 9999;
-top: 0;
-left: 0;
-width: 100%;
-height: 100%;
-background-color: rgba(0, 0, 0, 0.5);
-backdrop-filter: blur(8px);
-display: flex;
-justify-content: center;
-align-items: center;
-}
-
-.ventana-header {
-display: flex;
-justify-content: space-between;
-align-items: center;
-}
-
-.cerrar {
-position: absolute;
-top: 16px;
-right: 16px;
-display: flex;
-justify-content: center;
-align-items: center;
-width: 29.18px;
-height: 29.18px;
-border-radius: 50%;
-background-color: #ffff;
-}
-
-.text {
-font-size: 22px;
-font-family: 'Roboto', sans-serif;
-font-weight: bold;
-color: black;
-margin-top: 2px;
-text-transform: none;
-padding: 2px;
-}
-
-.text2 {
-font-size: 12px;
-font-family: 'Roboto', sans-serif;
-font-weight: bold;
-color: #2596BE;
-margin-top: 2px;
-text-transform: none;
-text-decoration: underline;
-}
-
-.text3 {
-font-size: 96px;
-font-family: 'Roboto', sans-serif;
-font-weight: bold;
-color: #2596BE;
-margin-top: 4px;
-text-transform: none;
-}
-
-.categoria {
-font-size: 36px;
-font-family: 'Roboto', sans-serif;
-font-weight: bold;
-color: #FFFFFF;
-margin-top: 4px;
-text-transform: none;
-margin-right: 5px;
-}
-
-.text4 {
-font-size: 36px;
-font-family: 'Roboto', sans-serif;
-font-weight: bold;
-color: black;
-margin-top: 2px;
-text-transform: none;
-padding: 2px;
-margin:auto;
-
-}
-.text5 {
-font-size: 11px;
-font-family: 'Roboto', sans-serif;
-font-weight: normal;
-color: black;
-text-transform: none;
-margin: auto;
-}
-.text6 {
-font-size: 12px;
-font-family: 'Roboto', sans-serif;
-font-weight: bold;
-color: #2596BE;
-margin-top: 2px;
-text-transform: none;
-margin-left: 10px;
-margin-bottom: 8px;
-}
-
-.text7 {
-font-size: 36px;
-font-family: 'Roboto', sans-serif;
-font-weight: bold;
-color: black;
-margin-top: 2px;
-text-transform: none;
-padding: 2px;
-text-align: center;
-
-
+<style>
+html, body, #app {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
 }
 
 
-
-.margen-derecha{
-margin-right: 20px;
-}
-
-
-.icon {
-margin-right: 8px;
-}
-
-.botones {
-display: flex;
-justify-content: space-between;
-margin-top: 16px;
-}
-
-div {
-/* Estilos que se aplicarán a todos los elementos div */
-font-size: 12px; /* Tamaño del texto, ajusta según tus necesidades */
-font-family: 'Roboto', sans-serif;
-text-transform: none;
-}
-
-.botones {
-display: flex;
-align-items: center;
-gap: 2px;
-}
-
-.popup-row1 {
-display: flex;
-align-items: center;
-margin-left: 20px;
-}
-
-.popup-row2 {
-display: grid;
-grid-template-columns: 1fr 1fr; /* Dividimos la fila en dos columnas iguales */
-align-items: center; /* Centramos verticalmente el contenido en la fila */
-}
-
-.elemento-izquierdo {
-/* Alineamos el elemento de la izquierda hacia su borde derecho */
-justify-self: end;
-
-}
-
-.elemento-derecho {
-/* Alineamos el elemento de la derecha hacia su borde izquierdo */
-justify-self: start;
-}
-
-.barra-derecha{
-border-right: 2px solid #FFFFFF;
-height: 40px; /* Establece la altura vertical deseada */
-margin: auto;
-
-}
-
-.barra-izquierda{
-border-left: 2px solid #FFFFFF;
-height: 40px; /* Establece la altura vertical deseada */
-margin: auto;
-}
+.router-container {
+    position: absolute;
+    top: 0;
+    bottom: 64px;
+    z-index: 1400;
+    background-color: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    /* Agrega aquí otras propiedades de estilo según tus necesidades */
 
 
-
-.popup-row3 {
-/* Agregamos los estilos para la cuadrícula de 3 columnas */
-display: grid;
-grid-template-columns: 0.4fr 1fr 1fr; /* Columna izquierda con el tamaño de 0.5 fracción y columnas centrales/derechas con 1 fracción cada una */
-align-items: center; /* Centramos verticalmente el contenido en la fila */
-gap: 8px; /* Agregamos espacio entre las celdas (opcional) */
-}
-
-
-.popup-row4 {
-display: grid;
-grid-template-columns: 1fr 1fr; /* Dividimos la fila en dos columnas iguales */
-align-items: center; /* Centramos verticalmente el contenido en la fila */
-margin-right: 20px;
-}
-
-.popup-row5 {
-display: flex;
-align-items: center;
-margin-left: 40px;
-margin-top: 10px;
-}
-
-.popup-row6 {
-display: flex;
-align-items: center;
-gap: 20px;
-margin-left: 40px;
-margin-top: 10px;
-}
-
-.colorC1{
-background-color: #EF4143;
-}
-
-.colorC2{
-background-color: #F17825;
-}
-
-.colorC3{
-background-color: #F7AF41;
-}
-
-.colorC4{
-background-color: #8CC540;
-}
-
-.colorC5{
-background-color: #3AB644;
-}
-.elemento-central {
-/* Ajustamos la cuadrícula para tener 4 columnas */
-display: grid;
-grid-template-columns: 0.2fr 1.2fr 1.2fr 0.2fr;
-justify-self: center;
-gap: 8px;
-}
-
-
-.elemento-derecha2 {
-/* Ajustamos el contenido del .elemento-central en una cuadrícula de 2 columnas */
-display: grid;
-grid-template-columns: 1fr 2fr; /* Columna izquierda 1/3 y columna derecha 2/3 del tamaño */
-gap: 8px; /* Agregamos espacio entre las celdas */
-align-items: center; /* Centramos verticalmente el contenido en la fila */
-}
-
-
-.custom-button {
-display: flex;
-align-items: center;
-border: none;
-background-color: #D0F0FC;
-padding: 4px 10px;
-border-radius: 30px; /* Bordes ovalados */
-cursor: pointer;
-font-size: 16px;
-font-weight: bold;
-outline: none;
-box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
-}
-
-.text-boton{
-white-space: nowrap;
-color: #2596BE;
-
-}
-
-
-.columna {
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-margin: auto;
-margin-top: 50px;
-}
+    /*margin-left: 64px; /* Establece el margen a la izquierda */
+  }
 </style>
