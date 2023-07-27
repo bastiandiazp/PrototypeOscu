@@ -37,10 +37,18 @@
         <vue-slider v-model="sliderValue" :min="0" :max="10" :height="3" :interval="1" :tooltip="'none'" v-bind="options"/>
       </div>
       <div  v-show="locationsTipo == 'Centros'"  >
-        <ListaCentros :locations="locationsCercanas" @mostrar-aforo-centro="mostrarAforoCentro" :style="listaStyles"/>
+        <ListaCentros 
+        :locations="locationsCercanas" 
+        @mostrar-aforo-centro="mostrarAforoCentro" 
+        :style="listaStyles" 
+        :soloFavoritos="false"/>
       </div>
       <div  v-show="locationsTipo == 'Farmacias'"  >
-        <ListaFarmacias :locationsFarmacias="locationsFarmaciasCercanas"   @mostrar-detalle-farmacia="mostrarDetalleFarmacia" :style="listaStyles"/>
+        <ListaFarmacias 
+        :locationsFarmacias="locationsFarmaciasCercanas"   
+        @mostrar-detalle-farmacia="mostrarDetalleFarmacia" 
+        :style="listaStyles"
+        :soloFavoritos="false"/>
       </div>
     
 

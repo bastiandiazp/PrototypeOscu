@@ -32,10 +32,10 @@
         <ListaMedicamentos :itemsMedicamentos="itemsMedicamentos"/>
       </div>
       <div v-show="selectedOption == 'locations'" :style="contenedorListaStyle">
-        <ListaCentros :locations="locations" @mostrar-aforo-centro="mostrarAforoCentro"/>
+        <ListaCentros :locations="locations" @mostrar-aforo-centro="mostrarAforoCentro" :soloFavoritos="true"/>
       </div>
       <div v-show="selectedOption == 'itemsFarmacias'" :style="contenedorListaStyle">
-        <ListaFarmacias :locationsFarmacias="locationsFarmacias" @mostrar-detalle-farmacia="mostrarDetalleFarmacia"/>
+        <ListaFarmacias :locationsFarmacias="locationsFarmacias" @mostrar-detalle-farmacia="mostrarDetalleFarmacia" :soloFavoritos="true"/>
       </div>
     <div>
   

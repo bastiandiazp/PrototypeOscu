@@ -1114,7 +1114,7 @@ export default {
     {
       id: 56,
       name: 'Clínica Las Condes',
-      coordinates: [-33.4209935, -70.6107391],
+      coordinates: [-33.3614413, -70.5039997],
       address: 'Av. Las Condes 111',
       aforo: 14,
       aforoC1: 3,
