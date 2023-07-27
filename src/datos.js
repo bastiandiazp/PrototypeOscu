@@ -11,6 +11,7 @@ export default {
       address: 'Av. Pajaritos 2345, Maipú, Santiago',
       favorito: true,
       disponible: false,
+      distancia: 0,
     },
     {
       id: 2,
@@ -19,6 +20,7 @@ export default {
       address: 'Av. Irarrázaval 3456, Ñuñoa, Santiago',
       favorito: true,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 3,
@@ -27,6 +29,7 @@ export default {
       address: 'Av. Providencia 7890, Providencia, Santiago',
       favorito: true,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 4,
@@ -35,6 +38,7 @@ export default {
       address: 'Calle Moneda 120, Santiago Centro, Santiago',
       favorito: true,
       disponible: false,
+      distancia: 0,
     },
     {
       id: 5,
@@ -43,6 +47,7 @@ export default {
       address: 'Av. Las Condes 987, Las Condes, Santiago',
       favorito: true,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 6,
@@ -51,6 +56,7 @@ export default {
       address: 'Av. Américo Vespucio 876, La Cisterna, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 7,
@@ -59,6 +65,7 @@ export default {
       address: 'Av. Las Condes 4321, Las Condes, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 8,
@@ -67,6 +74,7 @@ export default {
       address: 'Av. Irarrázaval 6789, Ñuñoa, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 9,
@@ -75,6 +83,7 @@ export default {
       address: 'Av. Vitacura 5678, Vitacura, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 10,
@@ -83,6 +92,7 @@ export default {
       address: 'Av. Providencia 4321, Providencia, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 11,
@@ -91,6 +101,7 @@ export default {
       address: 'Av. La Florida 2345, La Florida, Santiago',
       favorito: true,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 12,
@@ -99,6 +110,7 @@ export default {
       address: 'Av. Grecia 1234, Peñalolén, Santiago',
       favorito: true,
       disponible: false,
+      distancia: 0,
     },
     {
       id: 13,
@@ -107,6 +119,7 @@ export default {
       address: 'Calle Huérfanos 789, Santiago Centro, Santiago',
       favorito: true,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 14,
@@ -115,6 +128,7 @@ export default {
       address: 'Av. Las Condes 5678, Las Condes, Santiago',
       favorito: true,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 15,
@@ -123,6 +137,7 @@ export default {
       address: 'Av. Pajaritos 4321, Maipú, Santiago',
       favorito: true,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 16,
@@ -131,6 +146,7 @@ export default {
       address: 'Av. Irarrázaval 2345, Ñuñoa, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 17,
@@ -139,6 +155,7 @@ export default {
       address: 'Av. Américo Vespucio 4321, La Cisterna, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 18,
@@ -147,6 +164,7 @@ export default {
       address: 'Av. Las Condes 6789, Las Condes, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 19,
@@ -155,6 +173,7 @@ export default {
       address: 'Av. Irarrázaval 1234, Ñuñoa, Santiago',
       favorito: false,
       disponible: false,
+      distancia: 0,
     },
     {
       id: 20,
@@ -163,6 +182,7 @@ export default {
       address: 'Av. Las Condes 8765, Las Condes, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 21,
@@ -171,6 +191,7 @@ export default {
       address: 'Av. Las Condes 8765, Las Condes, Santiago',
       favorito: true,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 22,
@@ -179,6 +200,7 @@ export default {
       address: 'Av. Irarrázaval 7890, Ñuñoa, Santiago',
       favorito: true,
       disponible: false,
+      distancia: 0,
     },
     {
       id: 23,
@@ -187,6 +209,7 @@ export default {
       address: 'Av. Américo Vespucio 6789, La Cisterna, Santiago',
       favorito: true,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 24,
@@ -195,6 +218,7 @@ export default {
       address: 'Av. Las Condes 3456, Las Condes, Santiago',
       favorito: true,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 25,
@@ -203,6 +227,7 @@ export default {
       address: 'Av. Providencia 3456, Providencia, Santiago',
       favorito: true,
       disponible: false,
+      distancia: 0,
     },
     {
       id: 26,
@@ -211,6 +236,7 @@ export default {
       address: 'Av. Pajaritos 7890, Maipú, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 27,
@@ -219,6 +245,7 @@ export default {
       address: 'Av. Irarrázaval 8765, Ñuñoa, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 28,
@@ -227,6 +254,7 @@ export default {
       address: 'Calle Moneda 876, Santiago Centro, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 29,
@@ -235,6 +263,7 @@ export default {
       address: 'Av. Las Condes 3456, Las Condes, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 30,
@@ -243,6 +272,7 @@ export default {
       address: 'Av. Providencia 3456, Providencia, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 31,
@@ -251,6 +281,7 @@ export default {
       address: 'Av. Libertador Bernardo O\'Higgins 4567, Estación Central, Santiago',
       favorito: true,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 32,
@@ -259,6 +290,7 @@ export default {
       address: 'Av. Carrascal 2345, Quinta Normal, Santiago',
       favorito: true,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 33,
@@ -267,6 +299,7 @@ export default {
       address: 'Av. Alameda 6789, Estación Central, Santiago',
       favorito: true,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 34,
@@ -275,6 +308,7 @@ export default {
       address: 'Av. Matucana 3456, Quinta Normal, Santiago',
       favorito: true,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 35,
@@ -283,6 +317,7 @@ export default {
       address: 'Av. Alameda 4321, Estación Central, Santiago',
       favorito: true,
       disponible: false,
+      distancia: 0,
     },
     {
       id: 36,
@@ -291,6 +326,7 @@ export default {
       address: 'Av. Carrascal 6789, Quinta Normal, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 37,
@@ -299,6 +335,7 @@ export default {
       address: 'Av. Libertador Bernardo O\'Higgins 9876, Estación Central, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 38,
@@ -307,6 +344,7 @@ export default {
       address: 'Av. Carrascal 1234, Quinta Normal, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 39,
@@ -315,6 +353,7 @@ export default {
       address: 'Av. Libertador Bernardo O\'Higgins 2345, Estación Central, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 40,
@@ -323,6 +362,7 @@ export default {
       address: 'Av. Matucana 6789, Quinta Normal, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 41,
@@ -331,6 +371,7 @@ export default {
       address: 'Av. Pajaritos 2345, Maipú, Santiago',
       favorito: true,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 42,
@@ -339,6 +380,7 @@ export default {
       address: 'Av. Irarrázaval 3456, Ñuñoa, Santiago',
       favorito: true,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 43,
@@ -347,6 +389,7 @@ export default {
       address: 'Av. Providencia 7890, Providencia, Santiago',
       favorito: true,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 44,
@@ -355,6 +398,7 @@ export default {
       address: 'Calle Moneda 120, Santiago Centro, Santiago',
       favorito: true,
       disponible: false,
+      distancia: 0,
     },
     {
       id: 45,
@@ -363,6 +407,7 @@ export default {
       address: 'Av. Las Condes 987, Las Condes, Santiago',
       favorito: true,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 46,
@@ -371,6 +416,7 @@ export default {
       address: 'Av. Américo Vespucio 876, La Cisterna, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 47,
@@ -379,6 +425,7 @@ export default {
       address: 'Av. Las Condes 4321, Las Condes, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 48,
@@ -387,6 +434,7 @@ export default {
       address: 'Av. Irarrázaval 6789, Ñuñoa, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 49,
@@ -395,6 +443,7 @@ export default {
       address: 'Av. Vitacura 5678, Vitacura, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 50,
@@ -403,6 +452,7 @@ export default {
       address: 'Av. Providencia 4321, Providencia, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 51,
@@ -411,6 +461,7 @@ export default {
       address: 'Av. La Florida 2345, La Florida, Santiago',
       favorito: true,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 52,
@@ -419,14 +470,16 @@ export default {
       address: 'Av. Grecia 1234, Peñalolén, Santiago',
       favorito: true,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 53,
       name: 'Ahumada Santiago Centro',
-      coordinates: [-33.443630, -70.652778],
+      coordinates: [-33.433630, -70.662778],
       address: 'Calle Huérfanos 789, Santiago Centro, Santiago',
       favorito: true,
       disponible: false,
+      distancia: 0,
     },
     {
       id: 54,
@@ -435,6 +488,7 @@ export default {
       address: 'Av. Las Condes 5678, Las Condes, Santiago',
       favorito: true,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 55,
@@ -443,6 +497,7 @@ export default {
       address: 'Av. Pajaritos 4321, Maipú, Santiago',
       favorito: true,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 56,
@@ -451,6 +506,7 @@ export default {
       address: 'Av. Irarrázaval 2345, Ñuñoa, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 57,
@@ -459,6 +515,7 @@ export default {
       address: 'Av. Américo Vespucio 4321, La Cisterna, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 58,
@@ -467,6 +524,7 @@ export default {
       address: 'Av. Las Condes 6789, Las Condes, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 59,
@@ -475,6 +533,7 @@ export default {
       address: 'Av. Irarrázaval 1234, Ñuñoa, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 60,
@@ -483,6 +542,7 @@ export default {
       address: 'Av. Las Condes 8765, Las Condes, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 61,
@@ -491,6 +551,7 @@ export default {
       address: 'Av. Las Condes 8765, Las Condes, Santiago',
       favorito: true,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 62,
@@ -499,6 +560,7 @@ export default {
       address: 'Av. Irarrázaval 7890, Ñuñoa, Santiago',
       favorito: true,
       disponible: false,
+      distancia: 0,
     },
     {
       id: 63,
@@ -507,6 +569,7 @@ export default {
       address: 'Av. Américo Vespucio 6789, La Cisterna, Santiago',
       favorito: true,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 64,
@@ -515,6 +578,7 @@ export default {
       address: 'Av. Las Condes 3456, Las Condes, Santiago',
       favorito: true,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 65,
@@ -523,6 +587,7 @@ export default {
       address: 'Av. Providencia 3456, Providencia, Santiago',
       favorito: true,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 66,
@@ -531,6 +596,7 @@ export default {
       address: 'Av. Pajaritos 7890, Maipú, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 67,
@@ -539,6 +605,7 @@ export default {
       address: 'Av. Irarrázaval 8765, Ñuñoa, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 68,
@@ -547,6 +614,7 @@ export default {
       address: 'Calle Moneda 876, Santiago Centro, Santiago',
       favorito: false,
       disponible: false,
+      distancia: 0,
     },
     {
       id: 69,
@@ -555,6 +623,7 @@ export default {
       address: 'Av. Las Condes 3456, Las Condes, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
     {
       id: 70,
@@ -563,6 +632,7 @@ export default {
       address: 'Av. Providencia 3456, Providencia, Santiago',
       favorito: false,
       disponible: true,
+      distancia: 0,
     },
       ], // array con locaciones de farmacias
       locationsCentros:[
@@ -583,6 +653,7 @@ export default {
       favorito: true,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 32,
@@ -601,6 +672,7 @@ export default {
       favorito: true,
       disponible: false,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 33,
@@ -619,6 +691,7 @@ export default {
       favorito: false,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 34,
@@ -637,6 +710,7 @@ export default {
       favorito: true,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 35,
@@ -655,6 +729,7 @@ export default {
       favorito: false,
       disponible: false,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 36,
@@ -673,6 +748,7 @@ export default {
       favorito: true,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 37,
@@ -691,6 +767,7 @@ export default {
       favorito: true,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 38,
@@ -709,6 +786,7 @@ export default {
       favorito: true,
       disponible: false,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 39,
@@ -727,6 +805,7 @@ export default {
       favorito: false,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 40,
@@ -745,6 +824,7 @@ export default {
       favorito: true,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 41,
@@ -763,6 +843,7 @@ export default {
       favorito: false,
       disponible: false,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 42,
@@ -781,6 +862,7 @@ export default {
       favorito: false,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 43,
@@ -799,6 +881,7 @@ export default {
       favorito: true,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 44,
@@ -817,6 +900,7 @@ export default {
       favorito: true,
       disponible: false,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 45,
@@ -835,6 +919,7 @@ export default {
       favorito: false,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 46,
@@ -853,6 +938,7 @@ export default {
       favorito: true,
       disponible: false,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 47,
@@ -871,6 +957,7 @@ export default {
       favorito: false,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 48,
@@ -889,6 +976,7 @@ export default {
       favorito: false,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 49,
@@ -907,6 +995,7 @@ export default {
       favorito: true,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 50,
@@ -925,6 +1014,7 @@ export default {
       favorito: true,
       disponible: false,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 51,
@@ -943,6 +1033,7 @@ export default {
       favorito: false,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 52,
@@ -961,6 +1052,7 @@ export default {
       favorito: true,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 53,
@@ -979,6 +1071,7 @@ export default {
       favorito: true,
       disponible: false,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 54,
@@ -997,6 +1090,7 @@ export default {
       favorito: false,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 55,
@@ -1015,6 +1109,7 @@ export default {
       favorito: true,
       disponible: false,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 56,
@@ -1033,6 +1128,7 @@ export default {
       favorito: false,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 57,
@@ -1051,6 +1147,7 @@ export default {
       favorito: false,
       disponible: false,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 58,
@@ -1069,6 +1166,7 @@ export default {
       favorito: true,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 59,
@@ -1087,6 +1185,7 @@ export default {
       favorito: false,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 60,
@@ -1105,6 +1204,7 @@ export default {
       favorito: true,
       disponible: false,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 61,
@@ -1123,6 +1223,7 @@ export default {
       favorito: false,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 62,
@@ -1141,6 +1242,7 @@ export default {
       favorito: true,
       disponible: false,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 63,
@@ -1159,6 +1261,7 @@ export default {
       favorito: true,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 64,
@@ -1177,6 +1280,7 @@ export default {
       favorito: false,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 65,
@@ -1195,6 +1299,7 @@ export default {
       favorito: true,
       disponible: false,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 66,
@@ -1213,6 +1318,7 @@ export default {
       favorito: false,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 67,
@@ -1231,6 +1337,7 @@ export default {
       favorito: true,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 68,
@@ -1249,6 +1356,7 @@ export default {
       favorito: false,
       disponible: false,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 69,
@@ -1267,6 +1375,7 @@ export default {
       favorito: true,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 70,
@@ -1285,6 +1394,7 @@ export default {
       favorito: true,
       disponible: false,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 71,
@@ -1303,6 +1413,7 @@ export default {
       favorito: false,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 72,
@@ -1321,6 +1432,7 @@ export default {
       favorito: false,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 73,
@@ -1339,6 +1451,7 @@ export default {
       favorito: true,
       disponible: false,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 74,
@@ -1357,6 +1470,7 @@ export default {
       favorito: false,
       disponible: false,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 75,
@@ -1375,6 +1489,7 @@ export default {
       favorito: true,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 76,
@@ -1393,6 +1508,7 @@ export default {
       favorito: false,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 77,
@@ -1411,6 +1527,7 @@ export default {
       favorito: true,
       disponible: false,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 78,
@@ -1429,6 +1546,7 @@ export default {
       favorito: false,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 79,
@@ -1447,6 +1565,7 @@ export default {
       favorito: true,
       disponible: false,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 80,
@@ -1465,6 +1584,7 @@ export default {
       favorito: false,
       disponible: false,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 81,
@@ -1483,6 +1603,7 @@ export default {
       favorito: true,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 82,
@@ -1501,6 +1622,7 @@ export default {
       favorito: false,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 83,
@@ -1519,6 +1641,7 @@ export default {
       favorito: true,
       disponible: false,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 84,
@@ -1537,6 +1660,7 @@ export default {
       favorito: false,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 85,
@@ -1555,6 +1679,7 @@ export default {
       favorito: true,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 86,
@@ -1573,6 +1698,7 @@ export default {
       favorito: false,
       disponible: false,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 87,
@@ -1591,6 +1717,7 @@ export default {
       favorito: true,
       disponible: false,
       tiempoTotal: 0,
+      distancia: 0,
     },
     {
       id: 88,
@@ -1609,6 +1736,7 @@ export default {
       favorito: true,
       disponible: true,
       tiempoTotal: 0,
+      distancia: 0,
     },
       ],
       itemsMedicamentos: [

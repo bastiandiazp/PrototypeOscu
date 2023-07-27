@@ -1,11 +1,11 @@
 <template>
-    <div class="container5">
+    <div class="containerCentros">
       <ul class="medicamentos-list">
-        <li v-for="(centro, index) in locations" :key="centro.name" v-if="centro.favorito === true">
-            <div class="centro-item" @click="itemClicked">
+        <li v-for="(centro, index) in locations" :key="centro.id" v-if="centro.favorito === true">
+            <div class="centro-item" @click="itemClicked(centro)">
                 <div class="centro-info">
                 <div class="centro-nombre">{{ centro.name }}</div>
-                <div class="centro-distancia">{{ centro.aforoC3 }} Km de distancia</div>
+                <div class="centro-distancia">{{ centro.distancia }} Km de distancia</div>
             </div>
             <div class="aforo-container">
                 <div class="aforo-oval">{{ centro.aforo }}</div>
@@ -21,10 +21,8 @@
   export default {
     props: ['locations'],
     methods: {
-      itemClicked() {
-        // Aquí colocas la lógica para manejar el clic en el item
-        console.log('Item clicado:');
-        // Puedes redirigir al usuario a otra página, mostrar detalles del medicamento, etc.
+      itemClicked(location) {
+        this.$emit('mostrar-aforo-centro', location.id);
       }
     }
   };
@@ -32,7 +30,7 @@
   
   <style>
   /* Estilos del componente Container5 */
-  .container5 {
+  .containerCentros {
     display: flex;
     justify-content: center;
     width: 100%;

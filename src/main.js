@@ -4,11 +4,14 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
 
-
 // Importar las bibliotecas de Leaflet
 import { Icon } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
+// Importar y registrar el componente VueSlider
+import 'vue-slider-component/theme/default.css';
+import VueSlider from 'vue-slider-component';
+Vue.component('vue-slider', VueSlider);
 
 Vue.config.productionTip = false
 

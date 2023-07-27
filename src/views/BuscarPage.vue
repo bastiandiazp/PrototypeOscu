@@ -5,7 +5,7 @@
         class="search-input"
       >
     </div>
-    <div class="container5" :style="contenedorListaStyle">
+    <div class="containerMedicamentos" :style="contenedorListaStyle">
       <ul class="medicamentos-list">
         <li v-for="item in filteredItems" :key="item.title">
           <div class="medicamento-item" @click="itemClicked">
@@ -99,7 +99,7 @@ export default {
   }
 
 
-  .container5 {
+  .containerMedicamentos {
   display: flex;
   justify-content: center;
   width: 100%;
@@ -144,11 +144,13 @@ export default {
 
 .medicamento-desde {
   font-size: 14px;
-  color: #888;
+  font-weight: 500;
+  color: #7B7B7B;
 }
 .medicamento-laboratorio {
   font-size: 14px;
-  color: #888;
+  font-weight: 500;
+  color: #7B7B7B;
   margin-left: auto
 }
 div {

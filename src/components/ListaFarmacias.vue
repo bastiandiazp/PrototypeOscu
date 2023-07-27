@@ -1,12 +1,12 @@
 <template>
     <div class="container5">
       <ul class="medicamentos-list">
-        <li v-for="(centro, index) in locationsFarmacias" :key="centro.name" v-if="centro.favorito === true">
-            <div class="centro-item" @click="itemClicked">
+        <li v-for="(centro, index) in locationsFarmacias" :key="centro.id" v-if="centro.favorito === true">
+            <div class="centro-item" @click="itemClicked(centro)">
                 <img class="icon" src="@/assets/svg/pharmacy.svg" alt="location1" />
                 <div class="centro-info">
                     <div class="centro-nombre">{{ centro.name }}</div>
-                    <div class="centro-distancia">{{ centro.aforoC3 }} Km de distancia</div>
+                    <div class="centro-distancia">{{ centro.distancia }} Km de distancia</div>
                 </div>
             <div class="aforo-container">
                 <img class="icon" src="@/assets/svg/outToPage.svg" alt="location1" />
@@ -22,10 +22,8 @@
   export default {
     props: ['locationsFarmacias'],
     methods: {
-      itemClicked() {
-        // Aquí colocas la lógica para manejar el clic en el item
-        console.log('Item clicado:');
-        // Puedes redirigir al usuario a otra página, mostrar detalles del medicamento, etc.
+      itemClicked(location) {
+        this.$emit('mostrar-detalle-farmacia', location.id);
       }
     }
   };

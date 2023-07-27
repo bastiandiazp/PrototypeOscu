@@ -13,6 +13,7 @@
     "leaflet-defaulticon-compatibility": "^0.1.2",
     "vue": "^2.6.14",
     "vue-router": "^3.5.1",
+    "vue-slider-component": "^3.2.24",
     "vue2-leaflet": "^2.7.1",
     "vuetify": "^2.6.0",
     "vuex": "^3.6.2"

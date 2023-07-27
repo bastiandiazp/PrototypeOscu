@@ -9,7 +9,6 @@
         <div class="dato-fila">Correo: rafaelalcaraz@mail.com</div>
         <div class="dato-fila">Fecha nacimiento: 01/01/1999</div>
         <div class="dato-fila">Contraseña: ***********</div>
-        <div class="dato-fila">fgfgv{{ this.locationsTipo}}</div>
 
         <div class="button-container">
           <button class="custom-button" @click="editarPerfil">

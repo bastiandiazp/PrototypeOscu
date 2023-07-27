@@ -5,8 +5,6 @@
         class="router-container" 
         :style="routerStyle" 
         :itemsMedicamentos="itemsMedicamentos" 
-        :datosProbando="datosProbando" 
-        @agregar-elemento="agregarElemento"
         :locations="locationsCentros"
         @mostrar-triage="mostrarTriage"
         :locationsUsuario="locationsUsuario"
@@ -87,10 +85,6 @@
 <script>
 import BottomMenu from "./components/BottomMenuMobile.vue";
 import BottomMenu2 from "./components/BottomMenuDesktop.vue";
-//import urgenciasIcon from '@/assets/svg/urgenciasOn.svg';
-//import urgenciasIcon2 from '@/assets/svg/urgenciasOff.svg';
-//import farmaciaOn from '@/assets/svg/farmaciaOn.svg';
-//import farmaciaOff from '@/assets/svg/farmaciaOff.svg';
 import Inicio from './views/InicioPage.vue';
 import Triage from './components/Triage.vue';
 import VentanaCentros from './components/VentanaCentros.vue';
@@ -123,7 +117,7 @@ export default {
     indiceFarmacia: 0,
     indiceMedicamento:0,
     datosProbando: [{title: 'Elemento 1'}, {title: 'Elemento 2'}, {title: 'Elemento 3'}],
-    usuarioActual: 1, //cambiar usuario usuario actual
+    usuarioActual: 0, //cambiar usuario usuario actual
     locationsTipo: 'Centros', //centros o farmacias
     posicion :null,
     posicionFarmacia:null,
@@ -149,21 +143,69 @@ export default {
       };
     },
   },
+  watch: {
+    usuarioActual: function() {
+      this.calcularDistancias(); //se ejecuta cada vez que cambia usuarioActual
+    },
+  },
   mounted() {
     // Llamar a updateLocationsData al inicio
     this.updateLocationsData();
-
     // Establecer el temporizador para llamar a updateLocationsData cada 10 segundos (10000 milisegundos)
     setInterval(() => {
       this.updateLocationsData();
-    }, 1000);
+    }, 60000);
     this.onResize()
     window.addEventListener('resize', this.onResize, { passive: true })
   },
+  created(){
+    this.calcularDistancias();
+  },
 
   methods: {
-    cambiarUsuario(title){
-      //hacer funcion que cambie el usuarioActual segun el parametro
+    getDistanceFromLatLonInKm(lat1, lon1, lat2, lon2) {
+      const R = 6371; // Radio de la Tierra en kilómetros
+      const dLat = this.deg2rad(lat2 - lat1);
+      const dLon = this.deg2rad(lon2 - lon1);
+      const a =
+        Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(this.deg2rad(lat1)) * Math.cos(this.deg2rad(lat2)) * Math.sin(dLon / 2) * Math.sin(dLon / 2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      const distance = R * c;
+      return distance;
+    },
+    deg2rad(deg) {
+      return deg * (Math.PI / 180);
+    },
+    calcularDistancias(){
+      let center = this.buscarPorTitulo(this.usuarioActual).cordenadas
+      this.locationsCentros.forEach((punto) => {
+      let distancia = this.getDistanceFromLatLonInKm(
+          center[0],
+          center[1],
+          punto.coordinates[0],
+          punto.coordinates[1]
+        );
+        punto.distancia = distancia.toFixed(2);
+        
+      });
+      this.locationsFarmacias.forEach((punto,index) => {
+      let distancia = this.getDistanceFromLatLonInKm(
+          center[0],
+          center[1],
+          punto.coordinates[0],
+          punto.coordinates[1]
+        );
+        punto.distancia = distancia.toFixed(2);
+        
+      });
+    },
+    buscarPorTitulo(title){
+    let elementoEncontrado = this.locationsUsuario.find(item => item.title === title);
+      return elementoEncontrado;
+    },
+    cambiarUsuario(id){
+      this.usuarioActual= id;
       console.log(this.usuarioActual)
     },
     

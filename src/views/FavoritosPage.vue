@@ -32,14 +32,13 @@
         <ListaMedicamentos :itemsMedicamentos="itemsMedicamentos"/>
       </div>
       <div v-show="selectedOption == 'locations'" :style="contenedorListaStyle">
-        <ListaCentros :locations="locations"/>
+        <ListaCentros :locations="locations" @mostrar-aforo-centro="mostrarAforoCentro"/>
       </div>
       <div v-show="selectedOption == 'itemsFarmacias'" :style="contenedorListaStyle">
-        <ListaFarmacias :locationsFarmacias="locationsFarmacias"/>
+        <ListaFarmacias :locationsFarmacias="locationsFarmacias" @mostrar-detalle-farmacia="mostrarDetalleFarmacia"/>
       </div>
     <div>
-    <input v-model="nuevoElemento"  />
-    <button @click="enviarElemento">Agregar Elemento</button>
+  
   </div>
     </div>
   </template>
@@ -50,7 +49,7 @@ import ListaCentros from '../components/ListaCentros.vue';
 import ListaFarmacias from '../components/ListaFarmacias.vue';
   export default {
     components:{ListaMedicamentos,ListaCentros,ListaFarmacias},
-    props: ['datosProbando','itemsMedicamentos','locations','locationsUsuario','usuarioActual','locationsFarmacias'], // Declaración de los props 'datos' y 'agregarElemento'
+    props: ['itemsMedicamentos','locations','locationsUsuario','usuarioActual','locationsFarmacias'], // Declaración de los props 'datos' y 'agregarElemento'
     data() {
       return {
         nuevoElemento: '',
@@ -62,6 +61,7 @@ import ListaFarmacias from '../components/ListaFarmacias.vue';
     contenedorListaStyle() {
       return {
         maxHeight : `calc(100% - ${this.barBottom}px)`, // Centra el mapa a la izquierda agregando el margen
+        overflowY: 'auto', // Agregar overflow-y: auto;
         //width: `calc(100vh - ${this.marginLeft}px)`,
       };
     },
@@ -89,13 +89,15 @@ import ListaFarmacias from '../components/ListaFarmacias.vue';
     },
   },
     methods: {
+      mostrarAforoCentro(id){
+        this.$emit('mostrar-aforo-centro', id);
+    },
+    mostrarDetalleFarmacia(id){
+      this.$emit('mostrar-detalle-farmacia', id);
+    },
       setSelectedOption(option) {
         this.selectedOption = option;
         console.log(this.locationsFarmacias)
-      },
-      enviarElemento() {
-        // Utilizando la función 'agregarElemento' que recibimos como prop del componente padre
-        this.$emit('agregar-elemento', {title: this.nuevoElemento});
       },
       itemClicked() {
       // Aquí colocas la lógica para manejar el clic en el item

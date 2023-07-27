@@ -8,6 +8,7 @@
       :locationsFarmacias="locationsFarmacias"
       :locationsTipo="locationsTipo"
       @cambiar-tipo="cambiarTipo"
+      @cambiar-usuario="cambiarUsuario"
       @mostrar-aforo-centro="mostrarAforoCentro"
       @mostrar-detalle-farmacia="mostrarDetalleFarmacia"    />
     <div id="map" :style="mapStyle"></div>
@@ -65,6 +66,11 @@ export default {
       this.onResize();
       window.addEventListener('resize', this.onResize, { passive: true });
     },
+    usuarioActual: function(){
+      this.center = this.buscarPorTitulo(this.usuarioActual).cordenadas //se obtiene cordendas de usuario actual
+      const newCenter = L.latLng(this.center[0], this.center[1]);
+      this.map.setView(newCenter, 14);
+    },
   },
 
   mounted() {
@@ -106,7 +112,15 @@ export default {
       });
       L.marker(this.center, { icon: inicioIcono }).addTo(this.map);
     },
-
+    cambiarUsuario(id){
+        this.$emit('cambiar-usuario', id);
+    },
+    mostrarAforoCentro(id){
+        this.$emit('mostrar-aforo-centro', id);
+    },
+    mostrarDetalleFarmacia(id){
+      this.$emit('mostrar-detalle-farmacia', id);
+    },
     addMarkers() {
       this.clearMarkers();
 

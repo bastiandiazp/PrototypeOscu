@@ -1,6 +1,6 @@
 <template>
     <div>
-      <div class="direccion-title" :style="direccionStyles">
+      <div class="direccion-title" :style="direccionStyles" @click="cambiarUsuarioActual(usuarioActual)">
         {{this.buscarPorTitulo(this.usuarioActual).direccion}}
       </div>
       <div class="switch-locations" :style="switchLocationStyles">
@@ -26,19 +26,59 @@
                 <rect rx="7" ry="7" width="38" height="13" fill="#B2DDEC" />
             </svg>
             <div v-show="locationsTipo == 'Centros'" class="titulo-cuadro-deslizante">Centros de urgencia mas cercanos</div>
-            <div v-show="locationsTipo == 'Farmacias'" class="titulo-cuadro-deslizante">Farmacias mas cercanas</div>
+            <div v-show="locationsTipo == 'Farmacias'" class="titulo-cuadro-deslizante">Farmacias mas cercanas</div>  
         </div>
+
+      <div class="container-slider">
+        <div class="slider-title">
+          Distancia máxima 
+          <div class="slider-value">{{ sliderValue }} km</div>
+        </div>
+        <vue-slider v-model="sliderValue" :min="0" :max="10" :height="3" :interval="1" :tooltip="'none'" v-bind="options"/>
+      </div>
+      <div  v-show="locationsTipo == 'Centros'"  >
+        <ListaCentros :locations="locationsCercanas" @mostrar-aforo-centro="mostrarAforoCentro" :style="listaStyles"/>
+      </div>
+      <div  v-show="locationsTipo == 'Farmacias'"  >
+        <ListaFarmacias :locationsFarmacias="locationsFarmaciasCercanas"   @mostrar-detalle-farmacia="mostrarDetalleFarmacia" :style="listaStyles"/>
+      </div>
+    
+
       </div>
     </div>
   </template>
   
   <script>
+  import ListaCentros from './ListaCentros.vue';
+  import ListaFarmacias from './ListaFarmacias.vue';
   export default {
+    components:{ListaCentros,ListaFarmacias},
     props: ['locationsUsuario','usuarioActual','locationsTipo','locations','locationsFarmacias'],
+    watch:{
+      sliderValue: function() {
+        this.locationsCercanas = [];
+        this.locationsFarmaciasCercanas = [];
+        this.locationsCercanas= this.locations.filter((punto) => punto.distancia < this.sliderValue);
+        this.locationsCercanas.sort((a, b) => a.distancia - b.distancia);
+        this.locationsFarmaciasCercanas= this.locationsFarmacias.filter((punto) => punto.distancia < this.sliderValue);
+        this.locationsFarmaciasCercanas.sort((a, b) => a.distancia - b.distancia);
+      },
+      usuarioActual: function() {
+        this.locationsCercanas = [];
+        this.locationsFarmaciasCercanas = [];
+        this.locationsCercanas= this.locations.filter((punto) => punto.distancia < this.sliderValue);
+        this.locationsCercanas.sort((a, b) => a.distancia - b.distancia);
+        this.locationsFarmaciasCercanas= this.locationsFarmacias.filter((punto) => punto.distancia < this.sliderValue);
+        this.locationsFarmaciasCercanas.sort((a, b) => a.distancia - b.distancia);
+      },
+    },
     data() {
       return {
         isMobile: false,
         isMoved: false,
+        locationsCercanas: [],
+        locationsFarmaciasCercanas: [],
+        sliderValue: 3,
         top:0,
         left:0,
         cuadroHeight: 0,
@@ -52,20 +92,34 @@
         initialLeft: 20,
         defaultLeft: 350,
         defaultTopDesktop: 200,
-        defaultTopMobile:150
+        defaultTopMobile:160,
+        options: {
+      	dotOptions: [
+        {
+        	style: {
+            "backgroundColor": "#2596BE",
+            "border": "0px solid #ffff",
+            "boxShadow": "0.5px 0.5px 2px 1px rgba(107,107,107,.36)"
+          },
+        }],
+      },
       };
     },
     mounted() {
-
+    
     this.onResize2()
+    this.locationsCercanas= this.locations.filter((punto) => punto.distancia < this.sliderValue);
+    this.locationsCercanas.sort((a, b) => a.distancia - b.distancia);
+    this.locationsFarmaciasCercanas= this.locationsFarmacias.filter((punto) => punto.distancia < this.sliderValue);
+    this.locationsFarmaciasCercanas.sort((a, b) => a.distancia - b.distancia);
     window.addEventListener('resize', this.onResize2, { passive: true })
   },
 
     computed: {
       recuadroStyles() {
         return {
-          width: this.cuadroWidth,
-          height: this.cuadroHeight,
+          width: this.cuadroWidth + 'px',
+          height: this.cuadroHeight + 'px',
           borderRadius: '20px',
           backgroundColor: '#ffffff',
           position: 'fixed',
@@ -107,6 +161,12 @@
           /* Agrega aquí otros estilos según tus necesidades */
         };
       },
+      listaStyles(){
+        return {
+          height: this.cuadroHeight-94 +'px',
+          /* Agrega aquí otros estilos según tus necesidades */
+        };
+      },
     },
     methods: {
       onResize2() {
@@ -120,8 +180,8 @@
         this.direccionleft= 100 +'px'; //se establece posicion en el eje x para la barra de direccion
         this.direccionWidth= 500 +'px'; //se establece ancho de la barra de direccion
         this.initialLeft = this.defaultLeft;
-        this.cuadroHeight = 500 +'px';
-        this.cuadroWidth = '360px'
+        this.cuadroHeight = 500;
+        this.cuadroWidth = 360
         if (!this.isMoved) {
             this.top = heightWindow+this.defaultTopDesktop + 'px' ;
             this.left = this.defaultLeft +'px';
@@ -138,8 +198,8 @@
         this.direccionWidth= widthWindow - 40 +'px'; //se establece ancho de la barra de direccion
         
         this.initialLeft = widthWindow/2;
-        this.cuadroHeight = 600 +'px';
-        this.cuadroWidth = widthWindow + 'px';
+        this.cuadroHeight = 600;
+        this.cuadroWidth = widthWindow;
         if (!this.isMoved) {
             this.top =  heightWindow+this.defaultTopMobile + 'px' ;
             this.left =  widthWindow/2 +'px';
@@ -175,14 +235,23 @@
           }
         }
       },
-      buscarPorTitulo(title){
-        let elementoEncontrado = this.locationsUsuario.find(item => item.title === title);
-        return elementoEncontrado;
-      },
-      setLocationOption(option) {
-        //this.locationsTipo = option;
-        this.$emit('cambiar-tipo',option)
-      },
+      mostrarAforoCentro(id){
+        this.$emit('mostrar-aforo-centro', id);
+    },
+    mostrarDetalleFarmacia(id){
+      this.$emit('mostrar-detalle-farmacia', id);
+    },
+    buscarPorTitulo(title){
+      let elementoEncontrado = this.locationsUsuario.find(item => item.title === title);
+      return elementoEncontrado;
+    },
+    cambiarUsuarioActual(id){
+      this.$emit('cambiar-usuario', id+1);
+    },
+    setLocationOption(option) {
+      //this.locationsTipo = option;
+      this.$emit('cambiar-tipo',option)
+    },
     },
   };
   </script>
@@ -285,4 +354,25 @@ li {
   border-radius: 30px 30px 30px 30px;
 }
 
+.slider-title{
+  display: flex;
+  font-size: 14px;
+  font-weight: 500;
+  color: #7B7B7B;
+}
+.slider-value{
+  margin-left: auto;
+  font-size: 14px;
+  font-weight: 500;
+  color: #7B7B7B;
+  
+}
+.containerLista{
+  height: 100%;
+}
+.container-slider{
+  margin-top: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
 </style>
