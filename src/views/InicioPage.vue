@@ -140,6 +140,7 @@ export default {
 
         // Agregar evento al hacer clic en el marcador para mostrar la ventana emergente
         marker.on('click', () => {
+          console.log(location)
           this.$emit('mostrar-aforo-centro', location.id);
         });
         

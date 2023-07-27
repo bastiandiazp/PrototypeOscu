@@ -109,7 +109,11 @@
     
     this.onResize2()
     this.locationsCercanas= this.locations.filter((punto) => punto.distancia < this.sliderValue);
+    console.log('todos los cercanos')
+    console.log(this.locationsCercanas)
     this.locationsCercanas.sort((a, b) => a.distancia - b.distancia);
+    console.log('todos los cercanos ordenados')
+    console.log(this.locationsCercanas)
     this.locationsFarmaciasCercanas= this.locationsFarmacias.filter((punto) => punto.distancia < this.sliderValue);
     this.locationsFarmaciasCercanas.sort((a, b) => a.distancia - b.distancia);
     window.addEventListener('resize', this.onResize2, { passive: true })

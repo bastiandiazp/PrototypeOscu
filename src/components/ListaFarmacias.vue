@@ -1,7 +1,7 @@
 <template>
     <div class="container5">
       <ul class="medicamentos-list">
-        <li v-for="(centro, index) in locationsFarmacias" :key="centro.id" v-if="centro.favorito === true">
+        <li v-for="(centro, index) in locationsFarmacias" :key="centro.id" >
             <div class="centro-item" @click="itemClicked(centro)">
                 <img class="icon" src="@/assets/svg/pharmacy.svg" alt="location1" />
                 <div class="centro-info">

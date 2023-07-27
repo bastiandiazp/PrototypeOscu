@@ -1,7 +1,7 @@
 <template>
     <div class="containerCentros">
       <ul class="medicamentos-list">
-        <li v-for="(centro, index) in locations" :key="centro.id" v-if="centro.favorito === true">
+        <li v-for="(centro, index) in locations" :key="centro.id">
             <div class="centro-item" @click="itemClicked(centro)">
                 <div class="centro-info">
                 <div class="centro-nombre">{{ centro.name }}</div>
@@ -22,6 +22,7 @@
     props: ['locations'],
     methods: {
       itemClicked(location) {
+        console.log(location)
         this.$emit('mostrar-aforo-centro', location.id);
       }
     }
