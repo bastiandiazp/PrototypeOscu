@@ -48,6 +48,8 @@ export default {
       iconNoDisponible: urgenciasIcon2,
       farmaciaOn: farmaciaOn,
       farmaciaOff: farmaciaOff,
+      inicioMarker: null,
+      inicioMarkerInitialized: false,
     };
   },
 
@@ -70,6 +72,9 @@ export default {
       this.center = this.buscarPorTitulo(this.usuarioActual).cordenadas //se obtiene cordendas de usuario actual
       const newCenter = L.latLng(this.center[0], this.center[1]);
       this.map.setView(newCenter, 14);
+
+      this.updateInicioMarkerPosition(newCenter);
+      
     },
   },
 
@@ -78,6 +83,13 @@ export default {
     this.addMarkers();
     this.onResize();
     window.addEventListener('resize', this.onResize, { passive: true });
+
+    this.center = this.buscarPorTitulo(this.usuarioActual).cordenadas //se obtiene cordendas de usuario actual
+      const newCenter = L.latLng(this.center[0], this.center[1]);
+      this.map.setView(newCenter, 14);
+
+      this.updateInicioMarkerPosition(newCenter);
+    
   },
   
 
@@ -88,6 +100,24 @@ export default {
   },
 
   methods: {
+    
+    updateInicioMarkerPosition(newCenter) {
+      // Remover el marcador actual para el icono inicioIcon (si existe)
+      if (this.inicioMarker) {
+        console.log('aaaaaaaaaaaaaaaa');
+        this.inicioMarker.remove();
+      }
+
+      // Crear el marcador con el nuevo icono inicioIcon y establecer su posición
+      const inicioIcono = L.icon({
+        iconUrl: inicioIcon,
+        iconSize: [20, 20],
+        iconAnchor: [10, 20],
+      });
+
+      // Agregar el nuevo marcador al mapa
+      this.inicioMarker = L.marker(newCenter, { icon: inicioIcono }).addTo(this.map);
+    },
     initializeMap() {
       this.center = this.buscarPorTitulo(this.usuarioActual).cordenadas //se obtiene cordendas de usuario actual
       this.map = L.map('map', {
@@ -104,13 +134,7 @@ export default {
       // Agregar evento para abrir la ventana emergente al hacer clic en el marcador
       this.map.on('click', this.closeVentana);
 
-      // Agregar el marcador de inicio utilizando el icono personalizado
-      const inicioIcono = L.icon({
-        iconUrl: inicioIcon,
-        iconSize: [20, 20], // Tamaño del icono (ajusta según sea necesario)
-        iconAnchor: [10, 20], // Anclaje ajustado para colocar el icono justo arriba de las coordenadas
-      });
-      L.marker(this.center, { icon: inicioIcono }).addTo(this.map);
+      
     },
     cambiarUsuario(id){
         this.$emit('cambiar-usuario', id);

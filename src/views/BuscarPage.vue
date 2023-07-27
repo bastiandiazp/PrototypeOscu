@@ -44,7 +44,6 @@ export default {
   methods: {
       itemClicked(indice) {
       // Aquí colocas la lógica para manejar el clic en el item
-      console.log('Item clicado: holaaaaaaASDFSDAGHFHDGSFHDGSFKHJDSK');
       this.$emit('mostrar-detalle-medicamento',indice)
       // Puedes redirigir al usuario a otra página, mostrar detalles del medicamento, etc.
     }
