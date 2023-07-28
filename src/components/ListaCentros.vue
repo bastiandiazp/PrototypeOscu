@@ -3,15 +3,15 @@
       <ul v-show="!soloFavoritos" class="medicamentos-list">
         <li v-for="(centro, index) in locations" :key="centro.id">
             <div class="centro-item" @click="itemClicked(centro)">
-                <div class="centro-info">
+              <div class="centro-info">
                 <div class="centro-nombre">{{ centro.name }}</div>
                 <div class="centro-distancia">{{ centro.distancia }} Km de distancia</div>
-            </div>
-            <div class="aforo-container">
+              </div>
+              <div class="aforo-container">
                 <div class="aforo-oval">{{ centro.aforo }}</div>
                 <div class="aforo-texto">Aforo</div>
+              </div>
             </div>
-        </div>
         </li>
       </ul>
       <ul v-show="soloFavoritos" class="medicamentos-list">

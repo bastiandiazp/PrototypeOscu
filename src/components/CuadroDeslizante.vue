@@ -1,7 +1,19 @@
 <template>
     <div>
-      <div class="direccion-title" :style="direccionStyles" @click="cambiarUsuarioActual(usuarioActual)">
+      <div v-show="!direccionExpanded" class="direccion-title" :style="direccionStyles" @click="direccionExpandedTogle">
         {{this.buscarPorTitulo(this.usuarioActual).direccion}}
+      </div>
+      <div v-show="direccionExpanded" class="direccion-expanded" :style="direccionExpandedStyles">
+        <div class="direccion-header" >
+          <img class="icon3" src="@/assets/svg/close.svg" alt="location1" @click="direccionExpandedTogle"/>
+        </div>
+        <div>
+          <ListaLocationsUsuarios
+        :locationsUsuario="locationsUsuario" 
+        :usuarioActual="usuarioActual"
+        @cambiar-usuario="cambiarUsuario"
+        :style="listaStyles" />
+        </div>
       </div>
       <div class="switch-locations" :style="switchLocationStyles">
         <div
@@ -29,28 +41,28 @@
             <div v-show="locationsTipo == 'Farmacias'" class="titulo-cuadro-deslizante">Farmacias mas cercanas</div>  
         </div>
 
-      <div class="container-slider">
-        <div class="slider-title">
-          Distancia máxima 
-          <div class="slider-value">{{ sliderValue }} km</div>
+        <div class="container-slider">
+          <div class="slider-title">
+            Distancia máxima 
+            <div class="slider-value">{{ sliderValue }} km</div>
+          </div>
+          <vue-slider v-model="sliderValue" :min="0" :max="10" :height="3" :interval="1" :tooltip="'none'" v-bind="options"/>
         </div>
-        <vue-slider v-model="sliderValue" :min="0" :max="10" :height="3" :interval="1" :tooltip="'none'" v-bind="options"/>
-      </div>
-      <div  v-show="locationsTipo == 'Centros'"  >
-        <ListaCentros 
-        :locations="locationsCercanas" 
-        @mostrar-aforo-centro="mostrarAforoCentro" 
-        :style="listaStyles" 
-        :soloFavoritos="false"/>
-      </div>
-      <div  v-show="locationsTipo == 'Farmacias'"  >
-        <ListaFarmacias 
-        :locationsFarmacias="locationsFarmaciasCercanas"   
-        @mostrar-detalle-farmacia="mostrarDetalleFarmacia" 
-        :style="listaStyles"
-        :soloFavoritos="false"/>
-      </div>
-    
+        <div  v-show="locationsTipo == 'Centros'"  >
+          <ListaCentros 
+          :locations="locationsCercanas" 
+          @mostrar-aforo-centro="mostrarAforoCentro" 
+          :style="listaStyles" 
+          :soloFavoritos="false"/>
+        </div>
+        <div  v-show="locationsTipo == 'Farmacias'"  >
+          <ListaFarmacias 
+          :locationsFarmacias="locationsFarmaciasCercanas"   
+          @mostrar-detalle-farmacia="mostrarDetalleFarmacia" 
+          :style="listaStyles"
+          :soloFavoritos="false"/>
+        </div>
+  
 
       </div>
     </div>
@@ -58,9 +70,10 @@
   
   <script>
   import ListaCentros from './ListaCentros.vue';
+  import ListaLocationsUsuarios from './ListaLocationsUsuarios.vue';
   import ListaFarmacias from './ListaFarmacias.vue';
   export default {
-    components:{ListaCentros,ListaFarmacias},
+    components:{ListaCentros,ListaFarmacias,ListaLocationsUsuarios},
     props: ['locationsUsuario','usuarioActual','locationsTipo','locations','locationsFarmacias'],
     watch:{
       sliderValue: function() {
@@ -101,6 +114,7 @@
         defaultLeft: 350,
         defaultTopDesktop: 200,
         defaultTopMobile:160,
+        direccionExpanded:false,
         options: {
       	dotOptions: [
         {
@@ -179,6 +193,16 @@
           /* Agrega aquí otros estilos según tus necesidades */
         };
       },
+      direccionExpandedStyles(){
+        return {
+          position: 'fixed',
+          top: 10 + 'px',
+          height: this.cuadroHeight-100 +'px',
+          width: this.direccionWidth,
+          left: this.direccionleft,
+          /* Agrega aquí otros estilos según tus necesidades */
+        };
+      },
     },
     methods: {
       onResize2() {
@@ -222,6 +246,9 @@
         
       }
     },
+    direccionExpandedTogle(){
+      this.direccionExpanded = !this.direccionExpanded;
+    },
       togglePosition() {
         let widthWindow = window.innerWidth //obtenga ancho de ventana
         let heightWindow = window.innerHeight //obtenga alto de ventana
@@ -257,8 +284,8 @@
       let elementoEncontrado = this.locationsUsuario.find(item => item.title === title);
       return elementoEncontrado;
     },
-    cambiarUsuarioActual(id){
-      this.$emit('cambiar-usuario', id+1);
+    cambiarUsuario(id){
+      this.$emit('cambiar-usuario', id);
     },
     setLocationOption(option) {
       //this.locationsTipo = option;
@@ -323,14 +350,13 @@ li {
     box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
     /* Agrega aquí otros estilos según tus necesidades */
     text-align: center; /* Centra el texto horizontalmente */
-
+    cursor: pointer;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
   .switch-locations {
-    top:70px;
     position: fixed;
     z-index: 1;
     display: flex;
@@ -340,6 +366,27 @@ li {
     width: 90%;
     margin: auto; /* Centra horizontalmente el switch-container */
     box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
+  }
+  .direccion-expanded {
+    position: fixed;
+    z-index: 300;
+    border-radius: 30px;
+    padding-top: 30px;
+    padding: 13px;
+    margin: auto; /* Centra el input horizontalmente en el contenedor */
+    font-weight: bold;
+    font-size: 16px;
+    background-image: url(~@/assets/svg/LogoOscu.svg); /* Ruta a la imagen SVG */
+    background-repeat: no-repeat;
+    background-position: 10px 5px;
+    background-size: 48px 48px;
+    background-color: #ffff;
+    color: #7B7B7B;
+    display:flex;
+    box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
+    flex-direction: column;
+    /* Agrega aquí otros estilos según tus necesidades */
+    overflow: hidden;
   }
 
 .switch-option {
@@ -386,5 +433,19 @@ li {
   margin-top: 10px;
   margin-left: 20px;
   margin-right: 20px;
+}
+
+.icon3 {
+  width: 30px; /* Ancho del icono en píxeles */
+  height: 30px; /* Altura del icono en píxeles */
+  margin-right: 1px; /* Espacio entre el icono y el texto */
+  cursor: pointer;
+}
+
+.direccion-header {
+  /* ...otros estilos... */
+  display: flex;
+  justify-content: flex-end; /* Alinea los elementos en el extremo derecho del contenedor */
+  /* ...otros estilos... */
 }
 </style>
