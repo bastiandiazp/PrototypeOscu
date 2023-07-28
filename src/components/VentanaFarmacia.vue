@@ -195,6 +195,7 @@ export default {
   margin-top: 2px;
   text-transform: none;
   padding: 2px;
+  width: 90%;
 }
 
 .textHorario {
@@ -225,6 +226,7 @@ export default {
   margin-top: 2px;
   text-transform: none;
   text-decoration: underline;
+  
 }
 
 .text3 {

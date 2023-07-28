@@ -268,6 +268,7 @@ export default {
   margin-top: 2px;
   text-transform: none;
   padding: 2px;
+  width: 90%;
 }
 
 .text2 {
@@ -278,6 +279,7 @@ export default {
   margin-top: 2px;
   text-transform: none;
   text-decoration: underline;
+  
 }
 
 .text3 {
