@@ -1,5 +1,7 @@
 <template>
     <div>
+      <div class="ubicacion-gps" :style="ubicacionGpsStyles" @click="centrarMapa">
+      </div>
       <div v-show="!direccionExpanded" class="direccion-title" :style="direccionStyles" @click="direccionExpandedTogle">
         {{this.buscarPorTitulo(this.usuarioActual).direccion}}
       </div>
@@ -7,13 +9,19 @@
         <div class="direccion-header" >
           <img class="icon3" src="@/assets/svg/close.svg" alt="location1" @click="direccionExpandedTogle"/>
         </div>
-        <div>
+        <div class="direccion-header">
           <ListaLocationsUsuarios
         :locationsUsuario="locationsUsuario" 
         :usuarioActual="usuarioActual"
         @cambiar-usuario="cambiarUsuario"
         :style="listaStyles" />
         </div>
+        <div class="button-container">
+          <button class="custom-button" >
+            <span class="text-boton">Agregar nueva dirección</span>
+        </button>
+        </div>
+
       </div>
       <div class="switch-locations" :style="switchLocationStyles">
         <div
@@ -109,6 +117,8 @@
         switchTop:0,
         switchLeft:300,
         switchWidth:300,
+        gpsTop:0,
+        gpsLeft:0,
         initialTop: 93,
         initialLeft: 20,
         defaultLeft: 350,
@@ -189,7 +199,7 @@
       },
       listaStyles(){
         return {
-          height: this.cuadroHeight-94 +'px',
+          height: this.cuadroHeight-200 +'px',
           /* Agrega aquí otros estilos según tus necesidades */
         };
       },
@@ -203,6 +213,16 @@
           /* Agrega aquí otros estilos según tus necesidades */
         };
       },
+      ubicacionGpsStyles(){
+        return {
+          position: 'fixed',
+          top: this.gpsTop + 'px',
+          left: this.gpsLeft + 'px',
+          height: 48 +'px',
+          width: 48 +'px',
+          /* Agrega aquí otros estilos según tus necesidades */
+        };
+      },
     },
     methods: {
       onResize2() {
@@ -210,6 +230,8 @@
       let widthWindow = window.innerWidth //obtenga ancho de ventana
       let heightWindow = window.innerHeight //obtenga alto de ventana
       if (! this.isMobile) {
+        this.gpsTop = 11;
+        this.gpsLeft = 610;
         this.switchTop  =72 ; //defino altura switch para desktop
         this.switchWidth = 300;  //defino ancho switch para mobile
         this.switchLeft  =200 ; //defino posicion horizontal switch para desktop
@@ -227,6 +249,8 @@
         }
       }
       if (this.isMobile) {
+        this.gpsTop = heightWindow-200;
+        this.gpsLeft = widthWindow-68;
         this.switchTop  = 72 ; //defino altura switch para mobile
         this.switchWidth = widthWindow-40;  //defino ancho switch para mobile
         this.switchLeft = 20; //defino posicion horizontal switch para mobile
@@ -285,13 +309,18 @@
       return elementoEncontrado;
     },
     cambiarUsuario(id){
+      console.log(id)
       this.$emit('cambiar-usuario', id);
     },
     setLocationOption(option) {
       //this.locationsTipo = option;
       this.$emit('cambiar-tipo',option)
     },
+    centrarMapa(){
+      this.$emit('centrar-mapa')
     },
+    
+  },
   };
   </script>
 
@@ -355,6 +384,18 @@ li {
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+  .ubicacion-gps {
+    position: fixed;
+  z-index: 300;
+  margin: auto;
+  border-radius: 40px;
+  background-image: url(~@/assets/svg/gps.svg); /* Ruta a la imagen SVG */
+  background-repeat: no-repeat;
+  background-position: -2.5px 0px; /* Centra la imagen */
+  background-size: 53px 53px; /* Ajusta el tamaño de la imagen para cubrir todo el espacio */
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
 
   .switch-locations {
     position: fixed;
@@ -370,7 +411,7 @@ li {
   .direccion-expanded {
     position: fixed;
     z-index: 300;
-    border-radius: 30px;
+    border-radius: 25px;
     padding-top: 30px;
     padding: 13px;
     margin: auto; /* Centra el input horizontalmente en el contenedor */
@@ -447,5 +488,39 @@ li {
   display: flex;
   justify-content: flex-end; /* Alinea los elementos en el extremo derecho del contenedor */
   /* ...otros estilos... */
+}
+
+.button-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: auto; /* Empuja el botón al fondo del contenedor */
+  gap: 10px; /* Espacio entre los elementos (botones) */
+  justify-content: center;
+}
+.custom-button {
+  display: flex;
+  align-items: center;
+  border: none;
+  height: 40px;
+  background-color: #D0F0FC;
+  padding: 4px 10px;
+  border-radius: 30px; /* Bordes ovalados */
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  outline: none;
+  box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
+  
+}
+
+.text-boton{
+  white-space: nowrap;
+  color: #2596BE;
+
+}
+.icon {
+  width: 20px; /* Ancho del icono en píxeles */
+  height: 20px; /* Altura del icono en píxeles */
+  margin-right: 1px; /* Espacio entre el icono y el texto */
 }
 </style>

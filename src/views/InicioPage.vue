@@ -10,7 +10,8 @@
       @cambiar-tipo="cambiarTipo"
       @cambiar-usuario="cambiarUsuario"
       @mostrar-aforo-centro="mostrarAforoCentro"
-      @mostrar-detalle-farmacia="mostrarDetalleFarmacia"    />
+      @mostrar-detalle-farmacia="mostrarDetalleFarmacia"
+      @centrar-mapa="moverMapa"    />
     <div id="map" :style="mapStyle"></div>
     
     
@@ -100,7 +101,11 @@ export default {
   },
 
   methods: {
-    
+    moverMapa(){
+      this.center = this.buscarPorTitulo(this.usuarioActual).cordenadas //se obtiene cordendas de usuario actual
+      const newCenter = L.latLng(this.center[0], this.center[1]);
+      this.map.setView(newCenter, 14);
+    },
     updateInicioMarkerPosition(newCenter) {
       // Remover el marcador actual para el icono inicioIcon (si existe)
       if (this.inicioMarker) {
