@@ -13,7 +13,7 @@
       </div>
 
       <div class="cuerpo bloque">
-        <div class="roboto tamano20px colorGris">{{ itemsMedicamentos[posicionMedicamento].laboratorio }}</div>
+        <div class="roboto tamano20px colorGris margenn">{{ itemsMedicamentos[posicionMedicamento].laboratorio }}</div>
 
         <div class="popup-row1">
             <div><img src="@/assets/svg/receta.svg" alt="location1" /></div>
@@ -25,18 +25,19 @@
         
 
         <div class="container-slider">
-        <div class="slider-title">
-          Distancia máxima 
-          <div class="slider-value">{{ sliderValue2 }} km</div>
+          <div class="slider-title">
+            Distancia máxima 
+            <div class="slider-value">{{ sliderValue2 }} km</div>
+          </div>
+          <vue-slider v-model="sliderValue2" :min="0" :max="10" :height="3" :interval="1" :tooltip="'none'" v-bind="options"/>
         </div>
-        <vue-slider v-model="sliderValue2" :min="0" :max="10" :height="3" :interval="1" :tooltip="'none'" v-bind="options"/>
       </div>
-      <div class="filtered-list-container">
-        <ListaFarmacias 
-        :locationsFarmacias="locationsFarmaciasCercanas"  
-        :precio="itemsMedicamentos[posicionMedicamento].precio"
-        :style="listaStyles"/>
-      </div>
+        <div class="filtered-list-container">
+          <ListaFarmacias 
+          :locationsFarmacias="locationsFarmaciasCercanas"  
+          :precio="itemsMedicamentos[posicionMedicamento].precio"
+          :style="listaStyles"/>
+        </div>
 
       
         
@@ -167,7 +168,7 @@ cursor:pointer;
 }
 
 .ancho90{
-  width: 90%;
+  width: 100%;
 }
 
 .tamano22px{
@@ -200,7 +201,7 @@ height: auto;
 max-width: 400px;
 max-height: 700px;
 min-height: 200px;
-min-width: 300px;
+min-width: 350px;
 background-color: white;
 border-radius: 16px;
 box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
@@ -231,6 +232,12 @@ justify-content: space-between;
 align-items: center;
 margin-left: 4.3%;
 }
+
+.cuerpo2 {
+justify-content: space-between;
+align-items: center;
+}
+
 
 .cerrar {
 position: absolute;
@@ -286,18 +293,22 @@ box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
   .filtered-list-container {
     max-height: 400px;
     overflow-y: auto; /* Aplica desbordamiento vertical y muestra el deslizador cuando necesario */
+    width:100%;
+    height: 50%;
   }
 
   .container-slider{
   margin-top: 10px;
-  margin-left: 20px;
-  margin-right: 20px;
 }
 .slider-title{
   display: flex;
   font-size: 14px;
   font-weight: 500;
   color: #7B7B7B;
+}
+
+.margenn{
+  margin-left:10px,
 }
 .slider-value{
   margin-left: auto;

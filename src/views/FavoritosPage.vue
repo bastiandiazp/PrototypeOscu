@@ -49,11 +49,10 @@ import ListaCentros from '../components/ListaCentros.vue';
 import ListaFarmacias from '../components/ListaFarmacias.vue';
   export default {
     components:{ListaMedicamentos,ListaCentros,ListaFarmacias},
-    props: ['itemsMedicamentos','locations','locationsUsuario','usuarioActual','locationsFarmacias'], // Declaración de los props 'datos' y 'agregarElemento'
+    props: ['itemsMedicamentos','locations','locationsUsuario','usuarioActual','locationsFarmacias','selectedOption'], // Declaración de los props 'datos' y 'agregarElemento'
     data() {
       return {
         nuevoElemento: '',
-        selectedOption: 'itemsMedicamentos',
         barBottom :98,
       };
     },
@@ -98,10 +97,9 @@ import ListaFarmacias from '../components/ListaFarmacias.vue';
     mostrarDetalleMedicamento(id){
       this.$emit('mostrar-detalle-medicamento', id);
     },
-      setSelectedOption(option) {
-        this.selectedOption = option;
-        console.log(this.locationsFarmacias)
-      },
+    setSelectedOption(option) {
+      this.$emit('set-selected-option', option);
+    },
       itemClicked() {
       // Aquí colocas la lógica para manejar el clic en el item
       console.log('Item clicado:');

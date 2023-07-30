@@ -41,7 +41,12 @@
       </div>
       <div :style="recuadroStyles" :class="{ 'moved': isMoved }">
         <!-- Contenido del recuadro -->
-        <div :style="botonStyles" @click="togglePosition">
+        <div :style="botonStyles" 
+        @click="togglePosition" 
+        @touchstart="onTouchStart" 
+        @touchmove="onTouchMove" 
+        @touchend="onTouchEnd"
+        @mousedown="onMouseDown">
             <svg width="38" height="13">
                 <rect rx="7" ry="7" width="38" height="13" fill="#B2DDEC" />
             </svg>
@@ -125,6 +130,9 @@
         defaultTopDesktop: 200,
         defaultTopMobile:160,
         direccionExpanded:false,
+        isSwipingUp: false,
+        isSwipingDown: false,
+        startY: 0,
         options: {
       	dotOptions: [
         {
@@ -149,6 +157,8 @@
     this.locationsFarmaciasCercanas= this.locationsFarmacias.filter((punto) => punto.distancia < this.sliderValue);
     this.locationsFarmaciasCercanas.sort((a, b) => a.distancia - b.distancia);
     window.addEventListener('resize', this.onResize2, { passive: true })
+    document.addEventListener("mousemove",this.onMouseMove)
+    document.addEventListener("mouseup", this.onMouseUp)
   },
 
     computed: {
@@ -273,7 +283,7 @@
     direccionExpandedTogle(){
       this.direccionExpanded = !this.direccionExpanded;
     },
-      togglePosition() {
+    togglePosition() {
         let widthWindow = window.innerWidth //obtenga ancho de ventana
         let heightWindow = window.innerHeight //obtenga alto de ventana
         this.isMoved = !this.isMoved;
@@ -298,6 +308,46 @@
           }
         }
       },
+    onTouchStart(event) {
+      this.startY = event.touches[0].clientY;
+      this.isSwipingUp = false;
+    },
+    onTouchMove(event) {
+      const currentY = event.touches[0].clientY;
+      const diffY = this.startY - currentY;
+      this.isSwipingUp = diffY > 0;
+      this.isSwipingDown = diffY < 0;
+    },
+    onTouchEnd() {
+      if (this.isSwipingUp && !this.isMoved) {
+        this.togglePosition();
+      }else if(this.isSwipingDown && this.isMoved){
+        this.togglePosition();
+      }
+    },
+    onMouseDown(event) {
+      console.log("onmousedown")
+      this.startY = event.clientY;
+      this.isSwipingUp = true;
+    },
+    onMouseMove(event) {
+      console.log("onmousemove")
+      if (this.isSwipingUp) {
+        const currentY = event.clientY;
+        const diffY = this.startY - currentY;
+        if (diffY > 30 && !this.isMoved) {
+          this.togglePosition();
+          this.isSwipingUp = false;
+        }else if (diffY < -30 && this.isMoved){
+          this.togglePosition();
+          this.isSwipingUp = false;
+        }
+      }
+    },
+    onMouseUp() {
+      console.log("onmousedown")
+      this.isSwipingUp = false;
+    },
       mostrarAforoCentro(id){
         this.$emit('mostrar-aforo-centro', id);
     },
@@ -386,7 +436,7 @@ li {
   }
   .ubicacion-gps {
     position: fixed;
-  z-index: 300;
+  z-index: 200;
   margin: auto;
   border-radius: 40px;
   background-image: url(~@/assets/svg/gps.svg); /* Ruta a la imagen SVG */

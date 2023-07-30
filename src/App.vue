@@ -14,8 +14,10 @@
         @mostrar-detalle-farmacia="mostrarDetalleFarmacia"
         @mostrar-detalle-medicamento="mostrarDetalleMedicamento"
         @mostrar-aforo-centro="mostrarAforoCentro"
+        @set-selected-option="setSelectedOption"
         :indice-centros="indiceCentro"
         :indice-medicamento="indiceMedicamento"
+        :selectedOption="selectedOption"
       />
     </div>
     <Inicio 
@@ -103,6 +105,7 @@ export default {
   name: 'App',
 
   data: () => ({
+    selectedOption: 'itemsMedicamentos',
     isMobile: false,
     marginLeft: 64,
     marginRight: 800,
@@ -269,6 +272,9 @@ export default {
     },
     cambiarTipo(option){
       this.locationsTipo = option;
+    },
+    setSelectedOption(option) {
+      this.selectedOption = option;
     },
     // Función para actualizar los valores de las locaciones
     updateLocationsData() {

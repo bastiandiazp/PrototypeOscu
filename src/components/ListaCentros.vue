@@ -7,9 +7,13 @@
                 <div class="centro-nombre">{{ centro.name }}</div>
                 <div class="centro-distancia">{{ centro.distancia }} Km de distancia</div>
               </div>
-              <div class="aforo-container">
-                <div class="aforo-oval">{{ centro.aforo }}</div>
-                <div class="aforo-texto">Aforo</div>
+              <div v-show="centro.disponible" class="aforo-container">
+                  <div class="aforo-oval">{{ centro.aforo }}</div>
+                  <div class="aforo-texto">Aforo</div>
+              </div>
+              <div v-show="!centro.disponible" class="aforo-container">
+                  <div class="aforo-oval2">Cerrado</div>
+                  <div class="aforo-texto2">Aforo</div>
               </div>
             </div>
         </li>
@@ -21,9 +25,13 @@
                 <div class="centro-nombre">{{ centro.name }}</div>
                 <div class="centro-distancia">{{ centro.distancia }} Km de distancia</div>
             </div>
-            <div class="aforo-container">
+            <div v-show="centro.disponible" class="aforo-container">
                 <div class="aforo-oval">{{ centro.aforo }}</div>
                 <div class="aforo-texto">Aforo</div>
+            </div>
+            <div v-show="!centro.disponible" class="aforo-container">
+                <div class="aforo-oval2">Cerrado</div>
+                <div class="aforo-texto2">Aforo</div>
             </div>
         </div>
         </li>
@@ -99,9 +107,28 @@
   margin-right: 5px;
 }
 
+.aforo-oval2{
+  width: 70px;
+  height: 35px;
+  background-color: #EF4143;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  font-size: 15px;
+  font-weight:700;
+  margin-right: 5px;
+}
+
 .aforo-texto {
   font-size: 14px;
   color: #888;
+}
+
+.aforo-texto2 {
+  font-size: 14px;
+  color: #ffffff;
 }
 
   </style>

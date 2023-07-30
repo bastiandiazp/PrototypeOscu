@@ -104,11 +104,29 @@
   margin-right: 5px;
 }
 
+.aforo-oval2{
+  width: 70px;
+  height: 35px;
+  background-color: #EF4143;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+  font-size: 15px;
+  font-weight:700;
+  margin-right: 5px;
+}
+
 .aforo-texto {
   font-size: 14px;
   color: #888;
 }
 
+.aforo-texto2 {
+  font-size: 14px;
+  color: #ffffff;
+}
 .icon {
   width: 20px; /* Ancho del icono en píxeles */
   height: 20px; /* Altura del icono en píxeles */
