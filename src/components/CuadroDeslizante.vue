@@ -199,7 +199,7 @@
       },
       listaStyles(){
         return {
-          height: this.cuadroHeight-200 +'px',
+          height: this.cuadroHeight-100 +'px',
           /* Agrega aquí otros estilos según tus necesidades */
         };
       },

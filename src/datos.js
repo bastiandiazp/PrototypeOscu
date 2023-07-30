@@ -116,7 +116,7 @@ export default {
     {
       id: 13,
       name: 'Ahumada Santiago Centro',
-      coordinates: [-33.443630, -70.652778],
+      coordinates: [-33.440709, -70.664211],
       address: 'Calle Huérfanos 789, Santiago Centro, Santiago',
       favorito: true,
       disponible: true,
@@ -143,7 +143,7 @@ export default {
     {
       id: 16,
       name: 'Salcobrand Ñuñoa',
-      coordinates: [-33.460612, -70.608778],
+      coordinates: [-33.451663, -70.593092],
       address: 'Av. Irarrázaval 2345, Ñuñoa, Santiago',
       favorito: false,
       disponible: true,
@@ -269,7 +269,7 @@ export default {
     {
       id: 30,
       name: 'Salcobrand Providencia',
-      coordinates: [-33.432503, -70.609647],
+      coordinates: [-33.4248404, -70.6252382],
       address: 'Av. Providencia 3456, Providencia, Santiago',
       favorito: false,
       disponible: true,
@@ -395,7 +395,7 @@ export default {
     {
       id: 44,
       name: 'Dr. Simi Santiago Centro',
-      coordinates: [-33.439280, -70.651250],
+      coordinates: [-33.454456, -70.661288],
       address: 'Calle Moneda 120, Santiago Centro, Santiago',
       favorito: true,
       disponible: false,
@@ -557,7 +557,7 @@ export default {
     {
       id: 62,
       name: 'Belén Ñuñoa',
-      coordinates: [-33.460785, -70.626865],
+      coordinates: [-33.461117, -70.600156],
       address: 'Av. Irarrázaval 7890, Ñuñoa, Santiago',
       favorito: true,
       disponible: false,
@@ -584,7 +584,7 @@ export default {
     {
       id: 65,
       name: 'Salcobrand Providencia',
-      coordinates: [-33.432503, -70.609647],
+      coordinates: [-33.4360512, -70.6239643],
       address: 'Av. Providencia 3456, Providencia, Santiago',
       favorito: true,
       disponible: true,
@@ -611,7 +611,7 @@ export default {
     {
       id: 68,
       name: 'Dr. Simi Santiago Centro',
-      coordinates: [-33.445179, -70.652442],
+      coordinates: [-33.4405643, -70.6577449],
       address: 'Calle Moneda 876, Santiago Centro, Santiago',
       favorito: false,
       disponible: false,
@@ -629,7 +629,7 @@ export default {
     {
       id: 70,
       name: 'Salcobrand Providencia',
-      coordinates: [-33.432503, -70.609647],
+      coordinates: [-33.427247, -70.5959526],
       address: 'Av. Providencia 3456, Providencia, Santiago',
       favorito: false,
       disponible: true,
@@ -963,7 +963,7 @@ export default {
     {
       id: 48,
       name: 'Hospital Los Alpes',
-      coordinates: [-33.4209935, -70.6107391],
+      coordinates: [-33.4168103, -70.6107391],
       address: 'Av. Los Alpes 333',
       aforo: 10,
       aforoC1: 3,
