@@ -60,13 +60,30 @@
             <div class="slider-value">{{ sliderValue }} km</div>
           </div>
           <vue-slider v-model="sliderValue" :min="0" :max="10" :height="3" :interval="1" :tooltip="'none'" v-bind="options"/>
+          <div class="switch-aforo-tiempo" >
+            <div
+              class="switch-option2"
+              :class="{ active: aforoTiempoTipo === 'aforo' }"
+              @click="setAforoTiempoOption('aforo')"
+            >
+              Aforo
+            </div>
+            <div
+              class="switch-option2"
+              :class="{ active: aforoTiempoTipo === 'tiempo' }"
+              @click="setAforoTiempoOption('tiempo')"
+            >
+              Tiempo
+            </div>
+          </div>
         </div>
-        <div  v-show="locationsTipo == 'Centros'"  >
+        <div  v-show="locationsTipo == 'Centros'"  style="margin-top: 40px;">
           <ListaCentros 
           :locations="locationsCercanas" 
           @mostrar-aforo-centro="mostrarAforoCentro" 
           :style="listaStyles" 
-          :soloFavoritos="false"/>
+          :soloFavoritos="false"
+          :aforoTiempoTipo="aforoTiempoTipo"/>
         </div>
         <div  v-show="locationsTipo == 'Farmacias'"  >
           <ListaFarmacias 
@@ -87,7 +104,7 @@
   import ListaFarmacias from './ListaFarmacias.vue';
   export default {
     components:{ListaCentros,ListaFarmacias,ListaLocationsUsuarios},
-    props: ['locationsUsuario','usuarioActual','locationsTipo','locations','locationsFarmacias'],
+    props: ['locationsUsuario','usuarioActual','locationsTipo','locations','locationsFarmacias','aforoTiempoTipo'],
     watch:{
       sliderValue: function() {
         this.locationsCercanas = [];
@@ -149,11 +166,7 @@
     
     this.onResize2()
     this.locationsCercanas= this.locations.filter((punto) => punto.distancia < this.sliderValue);
-    console.log('todos los cercanos')
-    console.log(this.locationsCercanas)
     this.locationsCercanas.sort((a, b) => a.distancia - b.distancia);
-    console.log('todos los cercanos ordenados')
-    console.log(this.locationsCercanas)
     this.locationsFarmaciasCercanas= this.locationsFarmacias.filter((punto) => punto.distancia < this.sliderValue);
     this.locationsFarmaciasCercanas.sort((a, b) => a.distancia - b.distancia);
     window.addEventListener('resize', this.onResize2, { passive: true })
@@ -209,7 +222,7 @@
       },
       listaStyles(){
         return {
-          height: this.cuadroHeight-100 +'px',
+          height: this.cuadroHeight-134 +'px',
           /* Agrega aquí otros estilos según tus necesidades */
         };
       },
@@ -366,6 +379,10 @@
       //this.locationsTipo = option;
       this.$emit('cambiar-tipo',option)
     },
+    setAforoTiempoOption(option) {
+      //this.locationsTipo = option;
+      this.$emit('cambiar-aforo-tiempo',option)
+    },
     centrarMapa(){
       this.$emit('centrar-mapa')
     },
@@ -458,6 +475,22 @@ li {
     margin: auto; /* Centra horizontalmente el switch-container */
     box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
   }
+
+  .switch-aforo-tiempo{
+    position: fixed;
+    z-index: 1;
+    display: flex;
+    border-radius: 30px;
+    overflow: hidden;
+    background-color: #d0f0fc;
+    margin: auto; /* Centra horizontalmente el switch-container */
+    box-shadow: 0 0px 4px rgba(0, 0, 0, 0.5);
+    height:25px; 
+    margin-top: 10px; 
+    width:40%;
+    transform: translateX(-50%); /* Ajusta la posición vertical */
+    left:50%;
+  }
   .direccion-expanded {
     position: fixed;
     z-index: 300;
@@ -487,6 +520,13 @@ li {
   cursor: pointer;
   transition: background-color 0.3s;
 }
+.switch-option2 {
+  flex: 1;
+  text-align: center;
+  padding: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
 
 .switch-option.active {
   background-color: #2596be;
@@ -501,6 +541,21 @@ li {
 }
 
 .switch-option:last-child {
+  border-radius: 30px 30px 30px 30px;
+}
+.switch-option2.active {
+  background-color: #2596be;
+  color: #ffffff;
+  font-weight: bold;
+  border-radius: 30px 30px 30px 30px;
+}
+
+/* Estilo ovalado */
+.switch-option2:first-child {
+  border-radius: 30px 30px 30px 30px;
+}
+
+.switch-option2:last-child {
   border-radius: 30px 30px 30px 30px;
 }
 

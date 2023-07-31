@@ -28,10 +28,12 @@
         @cambiar-usuario="cambiarUsuario"
         :locationsFarmacias="locationsFarmacias"
         :locationsTipo="locationsTipo"
+        :aforoTiempoTipo="aforoTiempoTipo"
         @cambiar-tipo="cambiarTipo"
         @mostrar-detalle-farmacia="mostrarDetalleFarmacia"
         @mostrar-detalle-medicamento="mostrarDetalleMedicamento"
         @mostrar-aforo-centro="mostrarAforoCentro"
+        @cambiar-aforo-tiempo="setAforoTiempoOption"
         :indiceCentros="indiceCentro"
         :indiceFarmacia="indiceFarmacia"
         :indiceMedicamento="indiceMedicamento"
@@ -106,6 +108,7 @@ export default {
 
   data: () => ({
     selectedOption: 'itemsMedicamentos',
+    aforoTiempoTipo:'aforo',
     isMobile: false,
     marginLeft: 64,
     marginRight: 800,
@@ -272,6 +275,9 @@ export default {
     },
     cambiarTipo(option){
       this.locationsTipo = option;
+    },
+    setAforoTiempoOption(option){
+      this.aforoTiempoTipo = option;
     },
     setSelectedOption(option) {
       this.selectedOption = option;

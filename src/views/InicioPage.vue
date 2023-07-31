@@ -7,11 +7,13 @@
       :locations="locations"
       :locationsFarmacias="locationsFarmacias"
       :locationsTipo="locationsTipo"
+      :aforoTiempoTipo="aforoTiempoTipo"
       @cambiar-tipo="cambiarTipo"
       @cambiar-usuario="cambiarUsuario"
       @mostrar-aforo-centro="mostrarAforoCentro"
       @mostrar-detalle-farmacia="mostrarDetalleFarmacia"
-      @centrar-mapa="moverMapa"    />
+      @centrar-mapa="moverMapa"
+      @cambiar-aforo-tiempo="setAforoTiempoOption"    />
     <div id="map" :style="mapStyle"></div>
     
     
@@ -34,7 +36,7 @@ import inicioIcon from '@/assets/svg/inicioIcon.svg';
 
 export default {
   name: 'InicioPage',
-  props: ['locations','locationsUsuario','usuarioActual','locationsFarmacias','locationsTipo','indiceCentro','indiceFarmacia'],
+  props: ['locations','locationsUsuario','usuarioActual','locationsFarmacias','locationsTipo','indiceCentro','indiceFarmacia','aforoTiempoTipo'],
   data() {
     return {
       markers: [],
@@ -216,7 +218,10 @@ export default {
       //this.locationsTipo = option;
       this.$emit('cambiar-tipo',option);
     },
-   
+    setAforoTiempoOption(option) {
+      //this.locationsTipo = option;
+      this.$emit('cambiar-aforo-tiempo',option)
+    },
     onResize() {
       this.isMobile = window.innerWidth < 600;
       if (!this.isMobile) {

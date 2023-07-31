@@ -8,12 +8,15 @@
                 <div class="centro-distancia">{{ centro.distancia }} Km de distancia</div>
               </div>
               <div v-show="centro.disponible" class="aforo-container">
-                  <div class="aforo-oval">{{ centro.aforo }}</div>
-                  <div class="aforo-texto">Aforo</div>
+                  <div v-show="aforoTiempoTipo ==='aforo'" class="aforo-oval">{{ centro.aforo }}</div>
+                  <div v-show="aforoTiempoTipo ==='aforo'" class="aforo-texto">Aforo</div>
+                  <div v-show="aforoTiempoTipo ==='tiempo'" class="aforo-oval">{{ centro.tiempoTotal }}</div>
+                  <div v-show="aforoTiempoTipo ==='tiempo'" class="aforo-texto">Min</div>
               </div>
               <div v-show="!centro.disponible" class="aforo-container">
                   <div class="aforo-oval2">Cerrado</div>
-                  <div class="aforo-texto2">Aforo</div>
+                  <div v-show="aforoTiempoTipo ==='aforo'" class="aforo-texto2">Aforo</div>
+                  <div v-show="aforoTiempoTipo ==='tiempo'" class="aforo-texto">Min</div>
               </div>
             </div>
         </li>
@@ -41,7 +44,7 @@
   
   <script>
   export default {
-    props: ['locations','soloFavoritos'],
+    props: ['locations','soloFavoritos','aforoTiempoTipo'],
     methods: {
       itemClicked(location) {
         console.log(location)
