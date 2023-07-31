@@ -60,7 +60,7 @@
             <div class="slider-value">{{ sliderValue }} km</div>
           </div>
           <vue-slider v-model="sliderValue" :min="0" :max="10" :height="3" :interval="1" :tooltip="'none'" v-bind="options"/>
-          <div class="switch-aforo-tiempo" >
+          <div v-show="locationsTipo == 'Centros'" class="switch-aforo-tiempo" >
             <div
               class="switch-option2"
               :class="{ active: aforoTiempoTipo === 'aforo' }"
@@ -221,10 +221,18 @@
         };
       },
       listaStyles(){
-        return {
+        if(this.locationsTipo =='Centros'){
+          return {
           height: this.cuadroHeight-134 +'px',
           /* Agrega aquí otros estilos según tus necesidades */
         };
+        }else{
+          return {
+          height: this.cuadroHeight-100 +'px',
+          /* Agrega aquí otros estilos según tus necesidades */
+        };
+        }
+
       },
       direccionExpandedStyles(){
         return {
